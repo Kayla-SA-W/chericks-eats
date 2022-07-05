@@ -1,54 +1,49 @@
-import * as React from "react"
-import { Link } from "gatsby"
+import React from 'react';
+import { Header } from '../components/header';
+import styled, { createGlobalStyle } from 'styled-components';
+import FourOhFourImage from '../images/error-404.png';
+import { OrderNowButton } from '../components/pill-button';
 
-// styles
-const pageStyles = {
-  color: "#232129",
-  padding: "96px",
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
+const GlobalStyle = createGlobalStyle`
+body {
+  margin: 0;
+  font-family: "Dancing Script";
 }
-const headingStyles = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-}
+`
 
-const paragraphStyles = {
-  marginBottom: 48,
-}
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-}
+const FourOhFourErrorImage = styled.img`
+width: 400px;
+@media screen and (max-width: 540px){
+    width: 300px
+ }
+`
 
-// markup
-const NotFoundPage = () => {
-  return (
-    <main style={pageStyles}>
-      <title>Not found</title>
-      <h1 style={headingStyles}>Page not found</h1>
-      <p style={paragraphStyles}>
-        Sorry{" "}
-        <span role="img" aria-label="Pensive emoji">
-          😔
-        </span>{" "}
-        we couldn’t find what you were looking for.
-        <br />
-        {process.env.NODE_ENV === "development" ? (
-          <>
-            <br />
-            Try creating a page in <code style={codeStyles}>src/pages/</code>.
-            <br />
-          </>
-        ) : null}
-        <br />
-        <Link to="/">Go home</Link>.
-      </p>
-    </main>
-  )
+const MessageWrapper = styled.div`
+display: grid;
+grid-template-columns: 1fr;
+grid-templatte-rows: 1fr 1fr 1fr;
+row-gap: 20px;
+font-size: 48px;
+place-items: center;
+text-align: center;
+margin: 50px 0 160px;
+`
+
+const FourOhFour = () => {
+    return(
+        <>
+            <GlobalStyle />
+            <Header />
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <FourOhFourErrorImage src={FourOhFourImage} />
+            </div>
+            <MessageWrapper>
+                <div>Whoa!</div>
+                <div>The page you're looking for doesnt exist</div>
+                <OrderNowButton style={{backgroundColor: '#E77878'}} location='' text='Return Home'/>
+            </MessageWrapper>
+        </>
+    )
 }
 
-export default NotFoundPage
+export default FourOhFour;
