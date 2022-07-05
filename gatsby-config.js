@@ -1,6 +1,4 @@
-import type { GatsbyConfig } from "gatsby";
-
-const config: GatsbyConfig = {
+module.exports = {
   siteMetadata: {
     title: `ChericksEats`,
     siteUrl: `https://www.yourdomain.tld`
@@ -27,5 +25,3 @@ const config: GatsbyConfig = {
       `gatsby-plugin-styled-components`
 ]
 };
-
-export default config;
