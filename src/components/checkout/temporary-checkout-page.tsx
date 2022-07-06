@@ -86,7 +86,7 @@ const MockCheckout = () => {
     const total = (calculateShipping(selectedShipping) + withTax).toFixed(2);
 
     const cartWithQuantities = checkoutCart.map((item) => {
-        return `${item} x${cart[item].quantity}`
+        return <>`${item} x${cart[item].quantity}`</>
     });
 
     setCartWithQuantities({cartWithQuantities, total, selectedShipping, customerInformation});
@@ -128,7 +128,7 @@ const MockCheckout = () => {
                     </select>
                     <div style={{ marginTop: '20px' }}>
                         <input type="checkbox" id="terms-and-conditions" name="terms-and-conditions" />
-                        <label htmlFor="terms-and-conditions">I hereby agree to the <a href='terms-and-conditions.pdf' target="_blank">terms and conditions.</a></label>
+                        <label htmlFor="terms-and-conditions">I hereby agree to the <a href='/terms-and-conditions' target="_blank">terms and conditions.</a></label>
                     </div>
                 </CheckoutForm>
                 <OrderSummary style={{ marginTop: '50px' }}>
