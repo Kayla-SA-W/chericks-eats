@@ -12,7 +12,7 @@ export const sendConfirmationEmail = ({
     cartWithQuantities,
 }: {
     customerInformation: customerInformation;
-    cartWithQuantities: string[];
+    cartWithQuantities: JSX.Element[];
 }) => {
     const name = `${customerInformation.firstName} ${customerInformation.surname}`;
     const email = customerInformation.emailAddress;
@@ -31,7 +31,7 @@ export const sendNewOrderEmail = ({
     selectedShipping,
 }: {
     customerInformation: customerInformation;
-    cartWithQuantities: string[];
+    cartWithQuantities: JSX.Element[];
     total: string;
     selectedShipping: string;
 }) => {

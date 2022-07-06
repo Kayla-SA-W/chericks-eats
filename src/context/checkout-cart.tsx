@@ -3,7 +3,7 @@ import { useSessionStorage } from '../hooks/use-session-storage';
 
 export type CheckoutCart = string[];
 export type Quantities = {
-    cartWithQuantities: string[];
+    cartWithQuantities: JSX.Element[];
     total: string;
     selectedShipping: string;
     customerInformation: {
@@ -15,7 +15,7 @@ export type Quantities = {
 };
 
 export const initalQuantites = {
-    cartWithQuantities: [''],
+    cartWithQuantities: [<></>],
     total: '',
     selectedShipping: '',
     customerInformation: {

@@ -18,6 +18,8 @@ declare global {
     }
 }
 
+const FixedHelmet: any = Helmet;
+
 const contentLoaded = async () => {
     if (!window.Square) {
         throw new Error('Square.js failed to load properly');
@@ -83,9 +85,9 @@ const Checkout = () => {
 
     return (
         <>
-            <Helmet>
+            <FixedHelmet>
                 <script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
-            </Helmet>
+            </FixedHelmet>
             <CheckoutContainer>
                 <CheckoutForm>
                     <label htmlFor="first_name">First Name:</label>
