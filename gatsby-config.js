@@ -3,7 +3,6 @@ module.exports = {
     title: `ChericksEats`,
     siteUrl: `https://www.yourdomain.tld`
   },
-  pathPrefix: "/chericks-eats",
   plugins: [
     {
         resolve: `gatsby-source-filesystem`,
