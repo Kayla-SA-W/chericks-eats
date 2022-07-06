@@ -29,6 +29,9 @@ const GlobalStyle = createGlobalStyle`
 }
 `
 
+const GlobalStyleProxy: any = GlobalStyle;
+const ImageSlider: any = Slider;
+
 const carouselSettings = {
     accessibility: true,
     arrows: true,
@@ -57,11 +60,11 @@ export const IntroSlider = () => {
     ));
     return (
         <>
-        <GlobalStyle />
+        <GlobalStyleProxy />
         <SliderContainer>
-            <Slider {...carouselSettings}>
+            <ImageSlider {...carouselSettings}>
                {renderSlides()}
-            </Slider>
+            </ImageSlider>
         </SliderContainer>
         </>
     )
