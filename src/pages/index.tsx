@@ -24,10 +24,12 @@ justify-content: center;
 padding: 40px 0;
 `
 
+const GlobalStyleProxy: any = GlobalStyle;
+
 const IndexPage = () => {
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyleProxy />
       <Header />
       <SliderSection>
         <IntroSlider />

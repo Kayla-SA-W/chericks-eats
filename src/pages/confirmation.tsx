@@ -36,6 +36,8 @@ const CopyDiv = styled.div`
 font-size: 22px
 `
 
+const GlobalStyleProxy: any = GlobalStyle;
+
 const ConfirmationPage = () => {
     const { setCart } = useContext(CartContext);
     const { quantities, setCheckoutCart, setCartWithQuantities } = useContext(CheckoutContext);
@@ -53,7 +55,7 @@ const ConfirmationPage = () => {
     
     return(
         <>
-            <GlobalStyle />
+            <GlobalStyleProxy />
             <Header />
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <ThankYou src={ThankYouImage} />

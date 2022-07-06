@@ -12,10 +12,12 @@ body {
 }
 `
 
+const GlobalStyleProxy: any = GlobalStyle;
+
 const Cart = () => {
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyleProxy />
       <Header />
       <CheckoutContent />
       <Footer />

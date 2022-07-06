@@ -11,10 +11,12 @@ body {
 }
 `
 
+const GlobalStyleProxy: any = GlobalStyle;
+
 const Checkout = () => {
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyleProxy />
       <Header />
       <MockCheckout />
     </>

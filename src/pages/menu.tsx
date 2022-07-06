@@ -12,10 +12,12 @@ body {
 }
 `
 
+const GlobalStyleProxy: any = GlobalStyle;
+
 const Menu = () => {
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyleProxy />
       <Header />
       <MenuContent/>
       <Footer />

@@ -12,10 +12,12 @@ body {
 }
 `
 
+const GlobalStyleProxy: any = GlobalStyle;
+
 const AboutMe = () => {
     return(
         <>
-            <GlobalStyle />
+            <GlobalStyleProxy />
             <Header />
             <AboutMeContent />
             <Footer />

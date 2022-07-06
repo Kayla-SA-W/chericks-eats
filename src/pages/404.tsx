@@ -29,10 +29,12 @@ text-align: center;
 margin: 50px 0 160px;
 `
 
+const GlobalStyleProxy: any = GlobalStyle;
+
 const FourOhFour = () => {
     return(
         <>
-            <GlobalStyle />
+            <GlobalStyleProxy />
             <Header />
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <FourOhFourErrorImage src={FourOhFourImage} />
