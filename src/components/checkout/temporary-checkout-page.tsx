@@ -128,10 +128,11 @@ const MockCheckout = () => {
                     </select>
                     <div style={{ marginTop: '20px' }}>
                         <input type="checkbox" id="terms-and-conditions" name="terms-and-conditions" />
-                        <label htmlFor="terms-and-conditions">I hereby agree to the <a href='/terms-and-conditions' target="_blank">terms and conditions.</a></label>
+                        <label htmlFor="terms-and-conditions">I hereby agree to the <a href='/terms-and-conditions.pdf' target="_blank">terms and conditions.</a></label>
                     </div>
                 </CheckoutForm>
                 <OrderSummary style={{ marginTop: '50px' }}>
+                    <p style={{color: 'red'}}>Final Payment is due one week before order completion</p>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid black', width: 'inherit' }}>
                         <div style={{ marginBottom: '20px' }}>Order Summary</div>
                         <div style={{ marginBottom: '20px' }}>{cartWithQuantitiesUI}</div>
