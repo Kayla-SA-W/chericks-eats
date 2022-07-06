@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkresturaunt=self.webpackChunkresturaunt||[]).push([[235],{2386:function(e,t,n){n.r(t);var r=n(7294);t.default=function(){return r.createElement(r.Fragment,null,r.createElement("embed",{src:"terms-and-conditions.pdf",width:"100%",style:{height:"100vh"}}))}}}]);
+//# sourceMappingURL=component---src-pages-terms-and-conditions-tsx-fead017cecc0c873a812.js.map
