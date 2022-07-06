@@ -150,9 +150,8 @@ export const CheckoutContent = () => {
 
     const allowShipping = cartItemNames.includes('Cake Batter Chocolate Chip Cookies - 15ct') || cartItemNames.includes('Brownies - 15ct');
 
-    const checkoutError = totalQuantities < 3 && !allowShipping ? true : false;
-
     const errorMessage = cartItemNames.length === 0 || (totalQuantities < 3 && !allowShipping) ? true : false;
+    console.log('found error ' + errorMessage)
 
     return (
         <CheckoutWrapper>
@@ -185,7 +184,7 @@ export const CheckoutContent = () => {
                     </OrderSummary>
                     {errorMessage ? <CheckoutError>Please add 3 or more items to your cart</CheckoutError> : null}
                         <StyledPillButton
-                            disabled={errorMessage ? true : false} 
+                            disabled={errorMessage} 
                             onClick={() => {
                                 setCheckoutCart(cartItemNames);
                                 if(!errorMessage){
