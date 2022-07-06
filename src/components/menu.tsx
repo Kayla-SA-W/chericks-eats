@@ -109,8 +109,9 @@ export const MenuContent = () => {
             <Menu>
                 <Title>Menu</Title>
                 <Warning>Meal preperation services are only available to the Orlando Florida area and require a 3 day prep minimum to be placed.</Warning>
-                <Warning style={{color: 'red'}}>All meal options are A La Carte but will be multiplied by 3 to meet the required 3 days of meal prep</Warning>
+                <Warning style={{color: 'red'}}>All meal options are A La Carte and will be automatically set at 3 to meet the required 3 day meal prep minimum</Warning>
                 <Warning style={{textTransform: 'uppercase'}}><strong>Pastry items are not included in the three day prep minimum.</strong></Warning>
+                <Warning>Only cookies and brownies are available for shipment anywhere in the USA.</Warning>
                 <Warning>Please contact us at cherickseats@gmail.com to let us know of any allergies or food sensitivities before placing your oder.</Warning>
                 <ContentWrapper>
                     <MenuItemSection sectionName={'Veggie'} options={meatLessItems} cart={cart} setOptionsCounter={setCart} />
