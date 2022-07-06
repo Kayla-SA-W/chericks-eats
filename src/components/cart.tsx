@@ -184,14 +184,17 @@ export const CheckoutContent = () => {
                         </div>
                     </OrderSummary>
                     {errorMessage ? <CheckoutError>Please add 3 or more items to your cart</CheckoutError> : null}
-                    <a href='/checkout'>
                         <StyledPillButton
                             disabled={checkoutError ? true : false} 
-                            onClick={() => setCheckoutCart(cartItemNames)} 
+                            onClick={() => {
+                                setCheckoutCart(cartItemNames);
+                                if(!checkoutError){
+                                    window.location.replace("/checkout");
+                                }
+                            }} 
                             style={{ width: '130px', backgroundColor: checkoutError ? '' : 'white', cursor: checkoutError ? 'default' : 'pointer' }}>
                         Checkout
                         </StyledPillButton>
-                    </a>
                 </OrderSummaryWrapper>
             </CheckoutProperties>
         </CheckoutWrapper>
