@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'gatsby'
 import "@fontsource/dancing-script";
 import CherickLogo from '../images/logo.jpeg';
 import Menu from '../images/menu-hamburger.png';
@@ -38,7 +37,7 @@ const MenuWrapper = styled.div`
      }
 `
 
-export const StyleMenuLink = styled(props => <Link {...props} />)`
+export const StyleMenuLink = styled.a`
     text-decoration: none;
     font-family: 'Dancing Script';
     color: black;
@@ -67,10 +66,10 @@ const OpenMenu = () => (
     <>
         <MenuImage src={Exit} />
         <MenuWrapper>
-            <StyleMenuLink to='/menu'>
+            <StyleMenuLink href='/menu'>
                 Menu
             </StyleMenuLink>
-            <StyleMenuLink to="/about-me">
+            <StyleMenuLink href="/about-me">
                 About Me
             </StyleMenuLink>
         </MenuWrapper>
@@ -88,12 +87,12 @@ export const Header = () => {
             >
                 {menuOpen ? <OpenMenu /> : <MenuImage src={Menu} />}
             </div>
-            <Link to='/' style={{justifySelf: 'center'}}>
+            <a href='/' style={{justifySelf: 'center'}}>
                 <Logo src={CherickLogo} />
-            </Link>
-            <Link to='/cart' style={{justifySelf: 'flex-end'}}>
+            </a>
+            <a href='/cart' style={{justifySelf: 'flex-end'}}>
                 <CartImage src={Cart} />
-            </Link>
+            </a>
         </HeaderWrapper>
     )
 }
