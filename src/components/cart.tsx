@@ -4,7 +4,6 @@ import { CheckoutContext } from '../context/checkout-cart';
 import { pastryItems } from '../data/menu-items';
 import styled from 'styled-components';
 import { CounterButton, StyledPillButton } from './pill-button';
-import { Link } from 'gatsby';
 
 export const OrderSummary = styled.div`
 background-color: white;
@@ -185,14 +184,14 @@ export const CheckoutContent = () => {
                         </div>
                     </OrderSummary>
                     {errorMessage ? <CheckoutError>Please add 3 or more items to your cart</CheckoutError> : null}
-                    <Link to='/checkout'>
+                    <a href='/checkout'>
                         <StyledPillButton
                             disabled={checkoutError ? true : false} 
                             onClick={() => setCheckoutCart(cartItemNames)} 
                             style={{ width: '130px', backgroundColor: checkoutError ? '' : 'white', cursor: checkoutError ? 'default' : 'pointer' }}>
                         Checkout
                         </StyledPillButton>
-                    </Link>
+                    </a>
                 </OrderSummaryWrapper>
             </CheckoutProperties>
         </CheckoutWrapper>

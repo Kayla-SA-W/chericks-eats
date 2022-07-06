@@ -1,10 +1,9 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import styled, { CSSObject } from 'styled-components';
 import "@fontsource/dancing-script";
-import { Link } from 'gatsby';
 import { Cart } from '../context';
 
-const StyledPill = styled(props => <Link {...props} />)`
+const StyledPill = styled.a`
     background-color: rgba(55, 69, 119, 0.23);
     border-radius: 25px;
     padding: 10px 25px;
@@ -20,7 +19,7 @@ const StyledPill = styled(props => <Link {...props} />)`
 `
 
 export const OrderNowButton = ({ location, text, style }: { location?: string; text: string; style?: CSSObject }) => (
-    <StyledPill to={`/${location}`} style={style}>{text}</StyledPill>
+    <StyledPill href={`/${location}`} style={style}>{text}</StyledPill>
 );
 
 export const StyledPillButton = styled.button`

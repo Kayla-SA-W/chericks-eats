@@ -40,10 +40,10 @@ export const Footer = () => {
                 </a>
             </MiniNav>
             <MiniNav>
-                <StyleMenuLink to='/about-me'>
+                <StyleMenuLink href='/about-me'>
                     About Me
                 </StyleMenuLink>
-                <StyleMenuLink to='/menu'>
+                <StyleMenuLink href='/menu'>
                     Menu
                 </StyleMenuLink>
             </MiniNav>
