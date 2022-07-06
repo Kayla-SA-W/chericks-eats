@@ -29,6 +29,15 @@ display: flex;
 align-items: center;
 flex-direction: column;
 height: 700px;
+.checkout-button-enabled {
+    background-color: white;
+    cursor: pointer
+}
+.checkout-button-disabled {
+    background-color: '';
+    cursor: default;
+}
+
 @media screen and (max-width: 540px){
     height: fit-content;
     padding-bottom: 50px;
@@ -155,9 +164,13 @@ export const CheckoutContent = () => {
     useEffect(() => {
         const checkoutButton = document.getElementById('checkout-button');
         if(errorMessage){
-            checkoutButton?.setAttribute('disabled', '');
+            checkoutButton?.setAttribute('disabled', '')
+            checkoutButton?.classList.add('checkout-button-disabled');
+            checkoutButton?.classList.remove('checkout-button-enabled');
         }else{
             checkoutButton?.removeAttribute('disabled');
+            checkoutButton?.classList.remove('checkout-button-disabled');
+            checkoutButton?.classList.add('checkout-button-enabled');
         }
     },[errorMessage])
 
@@ -199,7 +212,7 @@ export const CheckoutContent = () => {
                                     window.location.replace("/checkout");
                                 }
                             }} 
-                            style={{ width: '130px', backgroundColor: errorMessage ? '' : 'white', cursor: errorMessage ? 'default' : 'pointer' }}>
+                            style={{ width: '130px'}}>
                         Checkout
                         </StyledPillButton>
                 </OrderSummaryWrapper>
