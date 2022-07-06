@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CartContext } from '../context';
 import { CheckoutContext } from '../context/checkout-cart';
 import { pastryItems } from '../data/menu-items';
@@ -151,7 +151,15 @@ export const CheckoutContent = () => {
     const allowShipping = cartItemNames.includes('Cake Batter Chocolate Chip Cookies - 15ct') || cartItemNames.includes('Brownies - 15ct');
 
     const errorMessage = cartItemNames.length === 0 || (totalQuantities < 3 && !allowShipping) ? true : false;
-    console.log('found error ' + errorMessage)
+
+    useEffect(() => {
+        const checkoutButton = document.getElementById('checkout-button');
+        if(errorMessage){
+            checkoutButton?.setAttribute('disabled', '');
+        }else{
+            checkoutButton?.removeAttribute('disabled');
+        }
+    },[errorMessage])
 
     return (
         <CheckoutWrapper>
@@ -184,7 +192,7 @@ export const CheckoutContent = () => {
                     </OrderSummary>
                     {errorMessage ? <CheckoutError>Please add 3 or more items to your cart</CheckoutError> : null}
                         <StyledPillButton
-                            disabled={errorMessage} 
+                            id='checkout-button'
                             onClick={() => {
                                 setCheckoutCart(cartItemNames);
                                 if(!errorMessage){
