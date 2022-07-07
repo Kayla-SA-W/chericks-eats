@@ -1,27 +1,50 @@
-import * as React from "react"
-import { Header } from '../components/header'
+import * as React from "react";
 import { createGlobalStyle } from 'styled-components';
 import "@fontsource/dancing-script"
-import { Footer } from "../components/footer";
-import { IntroSlider } from "../components/intro-slider";
 import styled from 'styled-components';
-import { Quote } from "../components/main-quote";
-import { Reviews } from "../components/reviews";
+import { Nav } from "../components/nav";
+import Card from '../images/food/card.jpg';
+import { FloatingTiles } from "../components/floating-tiles";
+import { HomepageBody } from "../components/rolling-reviews";
 
 const GlobalStyle = createGlobalStyle`
 body {
+    background-color: #c4e2e8;
   margin: 0;
   font-family: "Dancing Script";
 }
 `
 
-const SliderSection = styled.div`
-background-color: #E77878;
-height: 360px;
-display: flex;
+const IntroSection = styled.div`
+display: grid;
+grid-template-columns: 50% 50%;
+background-color: white;
 align-items: center;
 justify-content: center;
-padding: 40px 0;
+> img {
+    width: fill-available;
+}
+@media screen and (max-width: 540px){
+  grid-template-columns: 80%;
+}
+`
+
+const ItemWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 45%;
+    margin: auto;
+`;
+
+const IntroText = styled.div`
+    margin: 0 20%;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    @media screen and (max-width: 540px){
+      padding: 50px;
+    }
 `
 
 const GlobalStyleProxy: any = GlobalStyle;
@@ -30,13 +53,22 @@ const IndexPage = () => {
   return (
     <>
       <GlobalStyleProxy />
-      <Header />
-      <SliderSection>
-        <IntroSlider />
-      </SliderSection>
-      <Reviews />
-      <Quote />
-      <Footer/>
+      <Nav header />
+      <ItemWrapper>
+      <IntroSection>
+        <img src={Card} />
+        <IntroText>
+            Cherick's Eats offers Quality Kosher Foods and Great Service!
+        </IntroText>
+      </IntroSection>
+      </ItemWrapper>
+      <ItemWrapper>
+      <FloatingTiles />
+      </ItemWrapper>
+      <ItemWrapper>
+      <HomepageBody />
+      </ItemWrapper>
+      <Nav header={false} />
     </>
   )
 }
