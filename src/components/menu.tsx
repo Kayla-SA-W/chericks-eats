@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useContext, useMemo } from 'react';
 import { Cart, CartContext } from '../context';
 import styled from 'styled-components';
-import { meatLessItems, pastaItems, pastryItems, proteinItems, sideItems, soupItems } from '../data/menu-items';
+import { meatLessItems, pastaItems, proteinItems, sideItems } from '../data/menu-items';
 import { CounterButton, OrderNowButton, StyledPillButton } from './pill-button';
 import { initialCartState } from '../context/initial-cart';
 
@@ -117,11 +117,9 @@ export const MenuContent = () => {
                     <MenuItemSection sectionName={'Veggie'} options={meatLessItems} cart={cart} setOptionsCounter={setCart} />
                     <MenuItemSection sectionName={'Protein'} options={proteinItems} cart={cart} setOptionsCounter={setCart} />
                     <MenuItemSection sectionName={'Pasta'} options={pastaItems} cart={cart} setOptionsCounter={setCart} />
-                    <MenuItemSection sectionName={'Soup'} options={soupItems} cart={cart} setOptionsCounter={setCart} />
                 </ContentWrapper>
                 <ContentWrapper>
                     <MenuItemSection sectionName={'Sides'} options={sideItems} cart={cart} setOptionsCounter={setCart} />
-                    <MenuItemSection sectionName={'Pastry'} options={pastryItems} cart={cart} setOptionsCounter={setCart} />
                 </ContentWrapper>
                 <ButtonWrapper>
                     <StyledPillButton

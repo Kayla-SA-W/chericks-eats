@@ -35,22 +35,7 @@ export const pastaItems = [
         name: 'Chicken Piccata'
     },
     {
-        name: 'Cheeseburger Pasta'
-    },
-    {
-        name: 'Rasta Pasta'
-    }
-]
-
-export const soupItems = [
-    {
-        name: 'Beef Spinach'
-    },
-    {
-        name: 'Chicken'
-    },
-    {
-        name: 'Veggie'
+        name: 'Chicken Rasta Pasta'
     }
 ]
 
@@ -87,17 +72,71 @@ export const sideItems = [
     },
 ]
 
-export const pastryItems = [
+export const desserts = [
     {
         name: 'Cheesecake Cupcakes - 12ct.'
     },
     {
-        name: 'Fruit Tarts - 12ct.'
+        name: 'Fruit Tarts 4in - 12ct.'
+    },
+    {
+        name: 'Fruit Tarts 10in'
     },
     {
         name: 'Brownies - 15ct'
     },
     {
         name: 'Cake Batter Chocolate Chip Cookies - 15ct'
-    }
+    },
+    {
+        name: 'Truffles 6ct'
+    },
+    {
+        name: 'Truffles 12ct'
+    },
+    {
+        name: 'Bon Bons 6ct'
+    },
+    {
+        name: 'Bon Bons 12ct'
+    },
+    {
+        name: 'Truffle/Bon Bons 24ct'
+    },
+    {
+        name: 'Chocolate Covered Pretzles 6ct'
+    },
+    {
+        name: 'Chocolate Covered Pretzles 12ct'
+    },
+    {
+        name: 'Cake Pop Shooters 6ct'
+    },
+    {
+        name: 'Cake Pop Shooters 12ct'
+    },
+    {
+        name: '6oz Jar Cakes 6 ct'
+    },
+    {
+        name: '6oz Jar Cakes 12 ct'
+    },
+    {
+        name: 'Chocolate Covered Strawberries 6ct'
+    },
+    {
+        name: 'Chocolate Covered Strawberries Infused 6ct'
+    },
+    {
+        name: 'Chocolate Covered Strawberries 12ct'
+    },
+    {
+        name: 'Chocolate Covered Strawberries Infused 12ct'
+    },
+    {
+        name: 'Drunken Chocolate Covered Strawberries 6ct'
+    },
+    {
+        name: 'Drunken Chocolate Covered Strawberries 12ct'
+    },
 ]
