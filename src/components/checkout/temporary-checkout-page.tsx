@@ -15,7 +15,6 @@ declare global {
 
 export const OrderSummary = styled.div`
 background-color: white;
-height: 153px;
 width: 267px;
 padding: 10px 25px;
 display: flex;
@@ -131,8 +130,7 @@ const MockCheckout = () => {
                         <label htmlFor="terms-and-conditions">I hereby agree to the <a href='/terms-and-conditions.pdf' target="_blank">terms and conditions.</a></label>
                     </div>
                 </CheckoutForm>
-                <OrderSummary style={{ marginTop: '50px' }}>
-                    <p style={{color: 'red'}}>Final Payment is due one week before order completion</p>
+                <OrderSummary>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid black', width: 'inherit' }}>
                         <div style={{ marginBottom: '20px' }}>Order Summary</div>
                         <div style={{ marginBottom: '20px' }}>{cartWithQuantitiesUI}</div>
@@ -153,6 +151,7 @@ const MockCheckout = () => {
                         </div>
                     </div>
                     <div>
+                    <p style={{color: 'red'}}>Final Payment is due one week before order completion</p>
                         <div><div style={{
                             overflow: 'auto',
                             display: 'flex',
@@ -160,7 +159,6 @@ const MockCheckout = () => {
                             justifyContent: 'flex-end',
                             alignItems: 'center',
                             width: '259px',
-                            marginTop: '30px',
                             background: '#FFFFFF',
                             fontFamily: 'Playfair Display, SQ Market, Helvetica, Arial, sans-serif'
                         }}>
@@ -172,7 +170,7 @@ const MockCheckout = () => {
                                     height: '48px',
                                     color: '#ffffff',
                                     minWidth: '212px',
-                                    backgroundColor: '#E77878',
+                                    backgroundColor: '#c4e2e8',
                                     textAlign: 'center',
                                     boxShadow: '0 0 0 1px rgba(0,0,0,.1) inset',
                                     borderRadius: '50px'

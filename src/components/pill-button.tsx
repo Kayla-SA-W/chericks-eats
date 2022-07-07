@@ -59,7 +59,7 @@ const CounterButtonWrapper = styled(props => <div {...props} />)`
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
 place-items: center;
-border: 1px solid #E77878;
+border: 1px solid #c4e2e8;
 margin-left: 20px;
 width: fit-content;
 height: 31px;
@@ -82,7 +82,7 @@ export const CounterButton = ({ currentProduct, updateCart, singleItem, style }:
         const firstSub = currentValue === 3 && !singleItem ? 3 : 1;
         const setValue = addition ? currentValue + firstAdd : subtraction ? currentValue - firstSub : currentValue;
         const updateValue = setValue < 0 ? 0 : setValue;
-        updateCart((prevState: Cart) => ({ ...prevState, [currentProduct.name]: { quantity: updateValue, price: currentProduct.price } }));
+        updateCart((prevState: Cart) => ({ ...prevState, [currentProduct.name]: {...prevState[currentProduct.name], quantity: updateValue, price: currentProduct.price }}));
     }
 
     return (

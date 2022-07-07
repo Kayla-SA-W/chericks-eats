@@ -4,7 +4,7 @@ import "@fontsource/dancing-script";
 import Cherick from '../images/cherick-about-me.jpeg';
 
 const BodyWrapper = styled.div`
-background-color: #E77878;
+background-color: #c4e2e8;
 height: fit-content;
 display: flex;
 justify-content: center;
@@ -22,7 +22,7 @@ height: 500px;
 width: 50%;
 align-items: center;
 justify-items: center;
-margin-top: 35px;
+margin: 35px 0 80px;
 @media screen and (max-width: 540px){
     grid-template-columns: 1fr;
     width: 100%;
@@ -44,7 +44,8 @@ const AboutMeSummary = styled.div`
 const Title = styled.div`
     color: white;
     font-size: 42px;
-    font-family: 'Dancing Script'
+    font-family: 'Dancing Script';
+    margin-top: 30px;
 `
 
 const AboutMeImage = styled.img`

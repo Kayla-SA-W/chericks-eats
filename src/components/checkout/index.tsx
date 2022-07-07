@@ -15,6 +15,7 @@ display: flex;
 flex-direction: row;
 place-content: center;
 margin-bottom: 100px;
+min-height: 400px;
 @media screen and (max-width: 540px){
     flex-direction: column;
     place-items: center;
