@@ -1,9 +1,8 @@
 import * as React from "react"
-import { Header } from '../components/header'
 import { createGlobalStyle } from 'styled-components';
-import "@fontsource/dancing-script"
-import { Footer } from "../components/footer";
-import { MenuContent } from "../components/menu";
+import "@fontsource/dancing-script";
+import { Nav } from "../components/nav";
+import { MenuContent } from "../components/menu-v2";
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -18,9 +17,9 @@ const Menu = () => {
   return (
     <>
       <GlobalStyleProxy />
-      <Header />
+      <Nav header />
       <MenuContent/>
-      <Footer />
+      <Nav header={false} />
     </>
   )
 }

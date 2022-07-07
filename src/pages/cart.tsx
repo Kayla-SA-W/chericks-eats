@@ -1,9 +1,8 @@
 import * as React from "react"
-import { Header } from '../components/header'
 import { createGlobalStyle } from 'styled-components';
-import "@fontsource/dancing-script"
-import { Footer } from "../components/footer";
+import "@fontsource/dancing-script";
 import { CheckoutContent } from "../components/cart";
+import { Nav } from "../components/nav";
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -18,9 +17,9 @@ const Cart = () => {
   return (
     <>
       <GlobalStyleProxy />
-      <Header />
+      <Nav header />
       <CheckoutContent />
-      <Footer />
+      <Nav header={false} />
     </>
   )
 }

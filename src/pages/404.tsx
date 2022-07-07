@@ -1,8 +1,8 @@
 import React from 'react';
-import { Header } from '../components/header';
 import styled, { createGlobalStyle } from 'styled-components';
 import FourOhFourImage from '../images/error-404.png';
 import { OrderNowButton } from '../components/pill-button';
+import { Nav } from '../components/nav';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -18,7 +18,7 @@ width: 400px;
  }
 `
 
-const MessageWrapper = styled.div`
+export const MessageWrapper = styled.div`
 display: grid;
 grid-template-columns: 1fr;
 grid-templatte-rows: 1fr 1fr 1fr;
@@ -35,14 +35,14 @@ const FourOhFour = () => {
     return(
         <>
             <GlobalStyleProxy />
-            <Header />
+            <Nav header />
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <FourOhFourErrorImage src={FourOhFourImage} />
             </div>
             <MessageWrapper>
                 <div>Whoa!</div>
                 <div>The page you're looking for doesnt exist</div>
-                <OrderNowButton style={{backgroundColor: '#E77878'}} location='' text='Return Home'/>
+                <OrderNowButton style={{backgroundColor: '#c4e2e8'}} location='' text='Return Home'/>
             </MessageWrapper>
         </>
     )

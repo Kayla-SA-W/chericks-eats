@@ -1,13 +1,13 @@
 import * as React from "react"
-import { Header } from '../components/header'
 import { createGlobalStyle } from 'styled-components';
-import "@fontsource/dancing-script"
+import "@fontsource/libre-caslon-display";
 import MockCheckout from "../components/checkout/temporary-checkout-page";
+import { Nav } from "../components/nav";
 
 const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;
-  font-family: "Dancing Script";
+  font-family: "Libre Caslon Display";
 }
 `
 
@@ -17,7 +17,7 @@ const Checkout = () => {
   return (
     <>
       <GlobalStyleProxy />
-      <Header />
+      <Nav header />
       <MockCheckout />
     </>
   )

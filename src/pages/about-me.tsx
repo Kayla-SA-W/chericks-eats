@@ -1,9 +1,8 @@
 import React from 'react';
 import { AboutMeContent } from '../components/about-me';
-import { Header } from '../components/header';
 import { createGlobalStyle } from 'styled-components';
 import "@fontsource/libre-caslon-display";
-import { Footer } from '../components/footer';
+import { Nav } from '../components/nav';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -18,9 +17,9 @@ const AboutMe = () => {
     return(
         <>
             <GlobalStyleProxy />
-            <Header />
+            <Nav header />
             <AboutMeContent />
-            <Footer />
+            <Nav header={false} />
         </>
     )
 };
