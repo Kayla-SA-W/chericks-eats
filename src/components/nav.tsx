@@ -11,7 +11,11 @@ const GridWrapper = styled.div`
     grid-template-columns: 2fr 1fr 1fr;
     margin: auto;
     @media screen and (max-width: 540px){
-        grid-template-columns: 1fr 2fr 62px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin: 15px auto 50px;
     }
 `
 

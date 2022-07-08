@@ -23,7 +23,7 @@ padding: 0 5%;
 
 const MenuOptions = styled.div`
 display: grid;
-grid-template-columns: 70% 30%;
+grid-template-columns: 63% 27%;
 margin-bottom: 15px;
 @media screen and (max-width: 540px){
     padding: 0;

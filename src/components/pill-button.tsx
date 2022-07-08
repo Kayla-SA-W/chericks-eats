@@ -57,7 +57,7 @@ font-family: 'Dancing Script';
 
 const CounterButtonWrapper = styled(props => <div {...props} />)`
 display: grid;
-grid-template-columns: 1fr 1fr 1fr;
+grid-template-columns: 33% 33% 33%;
 place-items: center;
 border: 1px solid #c4e2e8;
 margin-left: 20px;
