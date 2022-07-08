@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Cart, CartContext } from '../context';
+import React, { useContext, useEffect } from 'react';
+import { CartContext } from '../context';
 import { CheckoutContext } from '../context/checkout-cart';
 import { desserts } from '../data/menu-items';
 import styled from 'styled-components';
 import { CounterButton, StyledPillButton } from './pill-button';
-import Select from 'react-select';
 
 export const OrderSummary = styled.div`
 background-color: white;
@@ -69,6 +68,8 @@ border: 1px black solid;
 const CheckoutProperties = styled.div`
 display: grid;
 grid-template-columns: 1fr 1fr;
+justify-items: center;
+margin: 0 15%;
 column-gap: 60px;
 @media screen and (max-width: 540px){
     grid-template-columns: 1fr;
@@ -115,78 +116,10 @@ font-size: 20px;
 color: red;
 `
 
-const StyedSelect = styled(Select)`
-margin-bottom: 30px;
-`
-
 const FilledCart = ({ cartItemNames }: { cartItemNames: string[]; }) => {
     const { cart, setCart } = useContext(CartContext);
     const pastries = desserts.map((pastry) => pastry.name);
-    const [showAddOn, setShowAddOn] = useState(false);
-    const [selectedAddOn, setSelectedAddOn] = useState(null);
-    const [selectedLiquor, setSelectedLiquor] = useState(null);
-    const [selectedLiqueur, setSelectedLiqueur] = useState(null);
 
-
-    const FindAddOns = (type: string, name: string) => {
-        if (type === 'addOn') {
-            return (
-                <StyedSelect
-                    options={cart[name].addOn?.map(({ name, price }, i) => {
-                        return { value: name, label: (`${name} ${price ? ` +$${price}` : ''}`) }
-                    })}
-                    value={selectedAddOn}
-                    onChange={(e: any) => {
-                        setSelectedAddOn(e);
-                    }
-                    }
-                />
-            )
-        } else if (type === 'liquor') {
-            return (
-                <StyedSelect
-                    options={
-                        [
-                            { value: 'Captain Morgan', label: 'Captain Morgan' },
-                            { value: 'Bacardi', label: 'Bacardi' },
-                            { value: 'Vodka', label: 'Vodka' },
-                            { value: 'Remy', label: 'Remy' },
-                            { value: 'Hennessy', label: 'Hennessy' },
-                            { value: 'Tequila', label: 'Tequila' },
-                            { value: 'Crown Royal', label: 'Crown Royal' },
-                            { value: 'Brandy VSOP', label: 'Brandy VSOP' }
-                        ]
-                    }
-                    value={selectedLiquor}
-                    onChange={(e:any) => {
-                        setSelectedLiquor(e);
-                    }
-                    }
-                />
-            )
-        } else {
-            return (
-                <StyedSelect
-                    options={
-                        [
-                            { value: 'Amaretto', label: "Amaretto" },
-                            { value: 'Grand Marnier', label: "Grand Marnier" },
-                            { value: 'Banana Liqueur', label: "Banana Liqueur" },
-                            { value: 'Maraschino Liqueur', label: "Maraschino Liqueur" },
-                            { value: "Meyer's", label: "Meyer's" },
-                            { value: "Bailey's", label: "Bailey's" },
-                            { value: 'Kahlua', label: "Kahlua" }
-                        ]
-                    }
-                    value={selectedLiqueur}
-                    onChange={(e:any) => {
-                        setSelectedLiqueur(e);
-                    }
-                    }
-                />
-            )
-        }
-    }
     return (
         <>
             <CartContentLabels>
@@ -195,8 +128,6 @@ const FilledCart = ({ cartItemNames }: { cartItemNames: string[]; }) => {
                 <div>Quantity</div>
             </CartContentLabels>
             {cartItemNames.map((name, i) => {
-                const defineAddOns = cart[name].addOn || cart[name].liqueur || cart[name].liquor;
-                setShowAddOn(defineAddOns ? true : false);
                 return (
                     <>
                         <CartContent key={`cart ${i + name}`}>
