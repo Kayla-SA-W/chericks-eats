@@ -6,7 +6,7 @@ export type Quantities = {
     cartWithQuantities: JSX.Element[];
     total: string;
     selectedShipping: string;
-    details: string;
+    details?: string | undefined;
     customerInformation: {
         firstName: string;
         surname: string;
@@ -19,7 +19,6 @@ export const initalQuantites = {
     cartWithQuantities: [<></>],
     total: '',
     selectedShipping: '',
-    details: '',
     customerInformation: {
         firstName: '',
         surname: '',
