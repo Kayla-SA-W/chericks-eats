@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { CartContext } from '../context';
+import React, { useContext, useEffect, useState } from 'react';
+import { Cart, CartContext } from '../context';
 import { CheckoutContext } from '../context/checkout-cart';
 import { desserts } from '../data/menu-items';
 import styled from 'styled-components';
@@ -16,7 +16,7 @@ flex-direction: column;
 `
 
 const OrderSummaryWrapper = styled.div`
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
 place-items: center;
 display: flex;
 flex-direction: column;
@@ -38,7 +38,7 @@ height: 700px;
     cursor: default;
 }
 
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     height: fit-content;
     padding-bottom: 50px;
 }
@@ -71,14 +71,14 @@ grid-template-columns: 1fr 1fr;
 justify-items: center;
 margin: 0 15%;
 column-gap: 60px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     grid-template-columns: 1fr;
  }
 `
 
 const CartItems = styled.div`
 width: 500px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     width: 350px;
  }
 `
@@ -89,7 +89,7 @@ grid-template-columns: 350px 50px 123px;
 font-size: 20px;
 margin-bottom: 15px;
 padding-bottom: 3px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     grid-template-columns: 1fr 1fr 1fr;
     place-items: center;
  }
@@ -101,7 +101,7 @@ grid-template-columns: 350px 60px 115px;
 font-size: 26px;
 border-bottom: 1px solid black;
 margin-bottom: 15px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     grid-template-columns: 1fr 1fr 1fr;
  }
 `
@@ -116,9 +116,19 @@ font-size: 20px;
 color: red;
 `
 
-const FilledCart = ({ cartItemNames }: { cartItemNames: string[]; }) => {
+const WeekendEats = styled.div`
+ font-size: 20px;
+ > input { 
+    width: 20px;
+ }
+`
+
+const FilledCart = ({ cartItemNames, setAddEight }: { cartItemNames: string[]; setAddEight: React.Dispatch<React.SetStateAction<boolean>>; }) => {
     const { cart, setCart } = useContext(CartContext);
     const pastries = desserts.map((pastry) => pastry.name);
+
+    const weekendEats = cartItemNames.includes('Chericks Weekend Eats');
+    const weekendAndSides = cartItemNames.includes('Chericks Weekend Eats & Extra Side')
 
     return (
         <>
@@ -133,22 +143,35 @@ const FilledCart = ({ cartItemNames }: { cartItemNames: string[]; }) => {
                         <CartContent key={`cart ${i + name}`}>
                             <div style={{ marginRight: '15px' }}>{name}</div>
                             <div>{`$${cart[name].price}`}</div>
-                            <CounterButton
-                                style={{ backgroundColor: 'white' }}
-                                updateCart={setCart}
-                                currentProduct={{ ...cart[name], name: name, quantity: cart[name].quantity }}
-                                singleItem={pastries.includes(name) ? true : false}
-                            />
+                            {
+                                weekendEats || weekendAndSides  ? <div style={{display: 'flex', justifyContent: 'center'}}>1</div> : (
+                                    <CounterButton
+                                        style={{ backgroundColor: 'white' }}
+                                        updateCart={setCart}
+                                        currentProduct={{ ...cart[name], name: name, quantity: cart[name].quantity }}
+                                        singleItem={pastries.includes(name) ? true : false}
+                                    />
+                                )
+                            }
                         </CartContent>
                     </>
                 )
             })}
+            { weekendEats ? (
+                <WeekendEats>
+                <input type='checkbox' id='extra-sides' onClick={() => {
+                    setCart((prevState: Cart) => ({ ...prevState, ['Chericks Weekend Eats']: {...prevState['Chericks Weekend Eats'], quantity: 0, price: 20}, ['Chericks Weekend Eats & Extra Side']: {...prevState['Chericks Weekend Eats & Extra Side'], quantity: 1, price: 28 }}));
+                }}/>
+                <label htmlFor='extra-sides'>Extra Side?</label>
+                </WeekendEats>
+            ) : null}
         </>
     )
 }
 
 export const CheckoutContent = () => {
     const { cart } = useContext(CartContext);
+    const [addEight, setAddEight] = useState(false);
     const cartItemNames = Object.keys(cart).filter((i) => {
         if (cart[i].quantity > 0) {
             return cart
@@ -156,18 +179,20 @@ export const CheckoutContent = () => {
     });
 
     const { setCheckoutCart } = useContext(CheckoutContext);
-
-    const subtotal = cartItemNames.map((name) => cart[name].price * cart[name].quantity).reduce((prev, current) => prev + current, 0);
+    
+    let subtotal = cartItemNames.map((name) => cart[name].price * cart[name].quantity).reduce((prev, current) => prev + current, 0) + (addEight ? 8 : 0 );
     const totalQuantities = cartItemNames.map((name) => cart[name].quantity).reduce((prev, current) => prev + current, 0);
     const tax = subtotal * .065;
     const total = (subtotal + tax).toFixed(2);
 
-    const allowShipping = cartItemNames.includes('Cake Batter Chocolate Chip Cookies - 15ct') || cartItemNames.includes('Brownies - 15ct');
+    const weekendEats = cartItemNames.includes('Chericks Weekend Eats') || cartItemNames.includes('Chericks Weekend Eats & Extra Side');
+    const allowShipping = cartItemNames.includes('Cake Batter Chocolate Chip Cookies - 15ct') || cartItemNames.includes('Brownies - 15ct') || weekendEats;
 
     const errorMessage = cartItemNames.length === 0 || (totalQuantities < 3 && !allowShipping) ? true : false;
 
     useEffect(() => {
         const checkoutButton = document.getElementById('checkout-button');
+        
         if (errorMessage) {
             checkoutButton?.setAttribute('disabled', '')
             checkoutButton?.classList.add('checkout-button-disabled');
@@ -177,7 +202,7 @@ export const CheckoutContent = () => {
             checkoutButton?.classList.remove('checkout-button-disabled');
             checkoutButton?.classList.add('checkout-button-enabled');
         }
-    }, [errorMessage])
+    }, [errorMessage]);
 
     return (
         <CheckoutWrapper>
@@ -188,7 +213,7 @@ export const CheckoutContent = () => {
             <CheckoutProperties>
                 <div>
                     <CartItems>
-                        <FilledCart cartItemNames={cartItemNames} />
+                        <FilledCart cartItemNames={cartItemNames} setAddEight={setAddEight}/>
                     </CartItems>
                 </div>
                 <OrderSummaryWrapper>

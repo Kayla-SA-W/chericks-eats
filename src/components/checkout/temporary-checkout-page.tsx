@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CheckoutContext } from '../../context/checkout-cart';
 import { CartContext } from '../../context';
 import { SmallSeperator } from '../../components/cart';
@@ -21,7 +21,7 @@ display: flex;
 justify-content: center;
 flex-direction: column;
 place-items: center;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     margin-bottom: 80px;
 }
 `
@@ -88,9 +88,11 @@ const MockCheckout = () => {
         return <>`${item} x${cart[item].quantity}`</>
     });
 
-    setCartWithQuantities({cartWithQuantities, total, selectedShipping, customerInformation});
+    useEffect(() => {
+        setCartWithQuantities({ cartWithQuantities, total, selectedShipping, customerInformation });
+    }, [])
 
-    const OnClickPayNow = (e: { preventDefault: () => void; })  => {
+    const OnClickPayNow = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         if (checkAllInputs()) {
             setError(false);
@@ -99,6 +101,20 @@ const MockCheckout = () => {
             setError(true);
         }
     }
+
+    const setUrl = () => {
+        if (weekendEats) {
+            if (checkoutCart.includes('Chericks Weekend Eats & Extra Side')) {
+                return 'https://square.link/u/5XtsaR9e?src=embed';
+            } else {
+                return 'https://square.link/u/PQKDIEV8?src=embed';
+            }
+        } else {
+            return "https://square.link/u/Nj8Hk5Zi?src=embed";
+        }
+    }
+
+    const weekendEats = checkoutCart.includes('Chericks Weekend Eats & Extra Side') || checkoutCart.includes('Chericks Weekend Eats')
 
     return (
         <>
@@ -127,7 +143,7 @@ const MockCheckout = () => {
                     </select>
                     <div style={{ marginTop: '20px' }}>
                         <input type="checkbox" id="terms-and-conditions" name="terms-and-conditions" />
-                        <label htmlFor="terms-and-conditions">I hereby agree to the <a href='/terms-and-conditions.pdf' target="_blank">terms and conditions.</a></label>
+                        <label htmlFor="terms-and-conditions">I hereby agree to the <a href={weekendEats ? '/terms-and-conditions-weekend-eats.pdf' : '/terms-and-conditions.pdf'} target="_blank">terms and conditions.</a></label>
                     </div>
                 </CheckoutForm>
                 <OrderSummary>
@@ -151,7 +167,7 @@ const MockCheckout = () => {
                         </div>
                     </div>
                     <div>
-                    <p style={{color: 'red'}}>Final Payment is due one week before order completion</p>
+                        {weekendEats ? null : <p style={{ color: 'red' }}>Final Payment is due one week before order completion</p>}
                         <div><div style={{
                             overflow: 'auto',
                             display: 'flex',
@@ -163,7 +179,7 @@ const MockCheckout = () => {
                             fontFamily: 'Playfair Display, SQ Market, Helvetica, Arial, sans-serif'
                         }}>
                             <div style={{ padding: '20px' }}>
-                                <a id='modal-checkout-button' data-url="https://square.link/u/Nj8Hk5Zi?src=embd" href="https://square.link/u/Nj8Hk5Zi?src=embed" onClick={(e) => OnClickPayNow(e)} style={{
+                                <a id='modal-checkout-button' data-url={setUrl()} href={setUrl()} onClick={(e) => OnClickPayNow(e)} style={{
                                     display: 'inline-block',
                                     fontSize: '18px',
                                     lineHeight: '48px',
