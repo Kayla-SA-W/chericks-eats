@@ -62,7 +62,7 @@ export const FloatingTiles = () => {
         const todayString = date.getMonth() + 1 + '' + date.getDate() + '' + date.getFullYear();
         const releaseDate = 9152023;
         const today = Number(todayString);
-        if (today >= releaseDate || password === 'chefCherick') {
+        if (today >= releaseDate || password === 'chefcherick') {
             setUseNewFeature(true);
         }
     });
