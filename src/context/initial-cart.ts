@@ -21,6 +21,14 @@ export const initialCartState: Cart = {
             }
         ]
     },
+    'Chericks Weekend Eats': {
+        price: 20,
+        quantity: 0
+    },
+    'Chericks Weekend Eats & Extra Side': {
+        price: 28,
+        quantity: 0
+    },
     'Black Bean and Rice Bowl': {
         price: 17,
         quantity: 0
