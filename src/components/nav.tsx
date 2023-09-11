@@ -4,18 +4,19 @@ import Instagram from '../images/instagram-logo-black.png'
 import Facebook from '../images/facebook-logo-black.png'
 import "@fontsource/dancing-script"
 
-const GridWrapper = styled.div`
+const GridWrapper = styled.div<{header: boolean}>`
     height: 60px;
     background-color: white;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     margin: auto;
-    @media screen and (max-width: 540px){
+    @media screen and (max-width: 1024px){
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 10px;
-        margin: 15px auto 50px;
+        margin: ${(props) => ( props.header ? '0 auto 50px' : '0 auto')};
+        height: 100px;
     }
 `
 
@@ -25,7 +26,7 @@ color: black;
 align-self: center;
 font-family: "Dancing Script";
 font-size: 30px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     font-size: 20px;
   }
 `
@@ -60,7 +61,7 @@ const Socials = styled.div`
 
 export const Nav = ({ header }: { header: boolean }) => {
     return (
-        <GridWrapper>
+        <GridWrapper header={header}>
             <SiteName href='/' style={{ justifySelf: 'center'}}>{header ? "Cherick's Eats" : "© 2021 Cherick's Eats"}</SiteName>
             <NavLinks>
                 <StyledMenuLink href='/'>

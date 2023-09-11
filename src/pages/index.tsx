@@ -24,8 +24,11 @@ justify-content: center;
 > img {
     width: fill-available;
 }
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
   grid-template-columns: 80%;
+  > img {
+    max-width: 100vw;
+}
 }
 `
 
@@ -36,14 +39,26 @@ const ItemWrapper = styled.div`
     margin: auto;
 `;
 
+const ReviewsWrapper = styled.div`
+display: flex;
+justify-content: center;
+width: 25%;
+margin: auto;
+@media screen and (max-width: 1024px){
+  width: inherit;
+}
+`
+
 const IntroText = styled.div`
     margin: 0 20%;
     font-size: 30px;
     display: flex;
     justify-content: center;
     text-align: center;
-    @media screen and (max-width: 540px){
+    @media screen and (max-width: 1024px){
       padding: 50px;
+      margin: 0;
+      font-size: 20px;
     }
 `
 
@@ -65,9 +80,9 @@ const IndexPage = () => {
       <ItemWrapper>
       <FloatingTiles />
       </ItemWrapper>
-      <ItemWrapper>
+      <ReviewsWrapper>
       <HomepageBody />
-      </ItemWrapper>
+      </ReviewsWrapper>
       <Nav header={false} />
     </>
   )

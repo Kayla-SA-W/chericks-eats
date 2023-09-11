@@ -12,13 +12,21 @@ const BodyWrapper = styled.div`
     column-gap: 9%;
     margin: 0px 0px 15%;
     justify-content: center;
-    @media screen and (max-width: 540px){
+    @media screen and (max-width: 1024px){
         grid-template-columns: 80%;
+        width: inherit;
       }
 `
 
 const RollingReviews = styled.div`
     background-color: white;
+    min-width: fit-content;
+    padding: 10px;
+    @media screen and (max-width: 1024px){
+        justify-self: center;
+        width: 100%;
+        padding: 0;
+      }
 `
 const AboutMe = styled.a`
     display: flex;
@@ -27,23 +35,30 @@ const AboutMe = styled.a`
     height: fit-content;
     color: black;
     text-decoration: none;
+    @media screen and (max-width: 1024px){
+        flex-direction: column-reverse;
+        > img {
+            width: 80vw;
+        }
+      }
 `
 const AboutMeText = styled.div`
     background-color: white;
     padding: 25px;
-    font-size: 20px;
+    font-size: 30px;
     font-family: "Libre Caslon Display";
     line-height: 30px;
-    @media screen and (max-width: 540px){
+    @media screen and (max-width: 1024px){
         align-self: center;
-        margin: 0 25px;
-        width: 30%;
+        margin: 20px 25px 0;
+        width: 85%;
+        font-size: 20px;
+        line-height: 35px;
       }
 `
 
 const SingleReview = styled.div`
     padding: 60px 0;
-    width: inherit;
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -57,7 +72,7 @@ const SingleReview = styled.div`
     }
     > img {
         height: fill-available;
-        width: 50vh;
+        width: 50vw;
         margin: auto;
     }
     > a {
@@ -65,17 +80,17 @@ const SingleReview = styled.div`
         text-decoration: none;
         color: black;
         margin: auto;
-        @media screen and (max-width: 540px){
+        @media screen and (max-width: 1024px){
             align-self: center;
             margin: 0 25px;
-            width: 30%;
+            width: unset;
             text-decoration: none;
+            font-size: 20px;
           }
     }
     > a:hover {
         text-decoration: underline overline #c4e2e8;
     }
-    
 `
 
 export const HomepageBody = () => {
