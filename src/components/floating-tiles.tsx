@@ -43,6 +43,7 @@ const FloatingName = styled.a`
     @media screen and (max-width: 1024px){
         width: 60%;
         margin: 0 auto;
+        text-align: center;
       }
 `
 const Image = styled.img`

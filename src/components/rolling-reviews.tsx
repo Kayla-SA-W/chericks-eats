@@ -15,6 +15,7 @@ const BodyWrapper = styled.div`
     @media screen and (max-width: 1024px){
         grid-template-columns: 80%;
         width: inherit;
+        column-gap: unset;
       }
 `
 
@@ -71,8 +72,8 @@ const SingleReview = styled.div`
         border-bottom: none;
     }
     > img {
-        height: fill-available;
-        width: 50vw;
+        
+        max-width: 30vw;
         margin: auto;
     }
     > a {
