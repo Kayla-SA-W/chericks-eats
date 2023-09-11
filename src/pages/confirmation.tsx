@@ -17,7 +17,7 @@ body {
 
 const ThankYou = styled.img`
 width: 500px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     width: 300px
  }
 `

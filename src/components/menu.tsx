@@ -25,7 +25,7 @@ margin: 25px 0px 25px;
 const ContentWrapper = styled.div`
 display: grid;
 grid-template-columns: 1fr 1fr;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     grid-template-columns: 1fr;
  }
 `
@@ -36,7 +36,7 @@ grid-template-columns: 1fr 1fr;
 column-gap: 10px;
 margin-bottom: 15px;
 padding: 0 10%;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     padding: 0;
     width: 100%;
     margin-bottom: 20px;
@@ -48,7 +48,7 @@ display: flex;
 font-size: 48px;
 justify-content: center;
 margin: 40px 0px 15px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     margin-bottom: 25px;
  }
 `
@@ -59,7 +59,7 @@ display: flex;
 font-size: 20px;
 justify-content: center;
 margin: 15px 0px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     text-align: center;
     padding: 0 10px;
     margin-bottom: 25px;

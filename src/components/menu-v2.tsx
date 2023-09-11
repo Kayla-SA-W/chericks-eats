@@ -25,7 +25,7 @@ const MenuOptions = styled.div`
 display: grid;
 grid-template-columns: 49% 21%;
 margin-bottom: 15px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     padding: 0;
     width: 100%;
     margin-bottom: 20px;
@@ -37,7 +37,7 @@ display: flex;
 font-size: 48px;
 justify-content: center;
 margin: 0px 0px 15px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     margin-bottom: 25px;
  }
 `
@@ -48,7 +48,7 @@ display: flex;
 font-size: 20px;
 justify-content: center;
 margin: 15px 0px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     text-align: center;
     padding: 0 10px;
     margin-bottom: 25px;
@@ -78,7 +78,7 @@ flex-direction: row;
 justify-content: center;
 gap: 50px;
 font-family: "Libre Caslon Display";
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     flex-direction: column;
 }
 `

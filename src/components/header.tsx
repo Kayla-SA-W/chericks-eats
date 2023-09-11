@@ -11,13 +11,13 @@ const HeaderWrapper = styled.div`
  display: grid;
  grid-template-columns: 1fr 1fr 1fr;
  padding: 10px 15px 20px;
- @media screen and (max-width: 540px){
+ @media screen and (max-width: 1024px){
     grid-template-columns: 5.5% 89% 5.5%;
  }
 `
 
 const Logo = styled.img`
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     width: 250px;
  }
 `
@@ -28,7 +28,7 @@ const MenuWrapper = styled.div`
     grid-template-rows: 1fr 1fr;
     row-gap: 5px;
     font-size: 24px;
-    @media screen and (max-width: 540px){
+    @media screen and (max-width: 1024px){
         font-size: 19px;
         margin: 0;
         row-gap: 0;
@@ -51,13 +51,13 @@ export const StyleMenuLink = styled.a`
 const CartImage = styled.img`
 justify-self: flex-end; 
 height: 44px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     height: 30px;
  }
 `
 
 const MenuImage = styled.img`
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     height: 30px;
  }
 `

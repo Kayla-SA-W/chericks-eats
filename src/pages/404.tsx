@@ -13,7 +13,7 @@ body {
 
 const FourOhFourErrorImage = styled.img`
 width: 400px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     width: 300px
  }
 `

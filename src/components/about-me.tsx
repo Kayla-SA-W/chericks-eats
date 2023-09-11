@@ -10,7 +10,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 flex-direction: column;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     padding: 0;
  }
 `
@@ -23,7 +23,7 @@ width: 50%;
 align-items: center;
 justify-items: center;
 margin: 35px 0 80px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     grid-template-columns: 1fr;
     width: 100%;
     row-gap: 30px;
@@ -35,7 +35,7 @@ const AboutMeSummary = styled.div`
     padding-left: 50px;
     font-size: 18px;
     line-height: 25px;
-    @media screen and (max-width: 540px){
+    @media screen and (max-width: 1024px){
         margin-top: 20px;
         padding: 15px;
      }
@@ -49,7 +49,7 @@ const Title = styled.div`
 `
 
 const AboutMeImage = styled.img`
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     margin-bottom: 40px;
  }
 `

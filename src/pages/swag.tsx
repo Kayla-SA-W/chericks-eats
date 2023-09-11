@@ -17,7 +17,7 @@ const GlobalStyleProxy: any = GlobalStyle;
 const SwagImage = styled.img`
 margin-top: 50px;
 width: 400px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     width: 300px
  }
 `

@@ -8,7 +8,7 @@ grid-template-columns: 200px 200px 200px;
 column-gap: 40px;
 margin: 80px 30%;
 justify-content: center;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     grid-template-columns: 200px;
     row-gap: 40px;
  }

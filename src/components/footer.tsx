@@ -14,7 +14,7 @@ justify-items: center;
 font-family: 'Dancing Script';
 font-size: 25px;
 padding: 30px 35%;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     padding: 30px 0;
 }
 `
@@ -23,7 +23,7 @@ const MiniNav = styled.div`
 display: grid;
 grid-template-columns: 1fr 1fr;
 column-gap: 15px;
-@media screen and (max-width: 540px){
+@media screen and (max-width: 1024px){
     column-gap: 40px;
 }
 `
