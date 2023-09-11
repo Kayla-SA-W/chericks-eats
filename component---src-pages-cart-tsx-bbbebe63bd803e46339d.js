@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkresturaunt=self.webpackChunkresturaunt||[]).push([[705],{7247:function(e,t,n){n.r(t);var r=n(7294),a=n(1074),l=n(2750),u=n(2002),c=(0,a.createGlobalStyle)(['body{margin:0;font-family:"Dancing Script";}']);t.default=function(){return r.createElement(r.Fragment,null,r.createElement(c,null),r.createElement(u.J,{header:!0}),r.createElement(l.EB,null),r.createElement(u.J,{header:!1}))}}}]);
+//# sourceMappingURL=component---src-pages-cart-tsx-bbbebe63bd803e46339d.js.map
