@@ -151,7 +151,7 @@ export const flightFuelItems = [
     {
         section: 'Breakfast',
         name: 'Red-Eye Overnight Oats - No Heat Required',
-        description: 'Protein oats (rotating flavors: Vamilla Berry Cheesecake, Peaches & Cream, Strawberries & Cream, Mango Coconut, Maple Brown Sugar)',
+        description: 'Protein oats (rotating flavors: Vanilla Berry Cheesecake, Peaches & Cream, Strawberries & Cream, Mango Coconut, Maple Brown Sugar)',
         holdLength: '4-5 days',
     },
     {
