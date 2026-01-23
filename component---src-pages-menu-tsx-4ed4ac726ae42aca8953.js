@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkresturaunt=self.webpackChunkresturaunt||[]).push([[158],{8882:function(e,t,n){n.r(t);var r=n(6540),a=n(882),l=n(6251),u=n(4355);const c=(0,a.DU)(['body{margin:0;font-family:"Dancing Script";}']);t.default=()=>r.createElement(r.Fragment,null,r.createElement(c,null),r.createElement(l.s,{header:!0}),r.createElement(u.rm,null),r.createElement(l.s,{header:!1}))}}]);
+//# sourceMappingURL=component---src-pages-menu-tsx-4ed4ac726ae42aca8953.js.map
