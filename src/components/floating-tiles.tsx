@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Swag1 from '../images/food/swag1.jpg';
-import Brownies from '../images/food/brownies.jpg';
+import FlightFuel from '../images/flight-fuel.png';
 import Menu from '../images/menu-stock.png';
-import { Cart, CartContext } from '../context';
 
 const TileWrapper = styled.div`
     margin: 60px 0px 35%;
@@ -17,12 +16,24 @@ const TileWrapper = styled.div`
 `
 
 const Tile = styled.div`
-    height: 400px;
+    height: 450px;
     width: max-content;
-    > img{ 
-        height: fill-available;
+    > img {
+        height: 100%;
         @media screen and (max-width: 1024px){
-           width: 100vw; 
+           width: 80vw;
+        }
+    }
+    > div {
+        font-family: "Libre Caslon Display";
+        max-width: 30vw;
+        background-color: rgba(17, 7, 7, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: inherit;
+        @media screen and (max-width: 1024px){
+           max-width: 80vw;
         }
     }
 `
@@ -47,33 +58,10 @@ const FloatingName = styled.a`
       }
 `
 const Image = styled.img`
-    width: fill-available;
+    width: 100%;
 `
 
 export const FloatingTiles = () => {
-    const [password, setPassword] = useState('');
-    const [useNewFeature, setUseNewFeature] = useState(false);
-
-    useEffect(() => {
-        const urlQuery = (window.location.search).split('?');
-        setPassword(String(urlQuery[1]));
-
-        const date = new Date();
-        const todayString = date.getMonth() + 1 + '' + date.getDate() + '' + date.getFullYear();
-        const releaseDate = 9152023;
-        const today = Number(todayString);
-        if (today >= releaseDate || password === 'chefcherick') {
-            setUseNewFeature(true);
-        }
-    });
-
-    const { setCart } = useContext(CartContext);
-
-    const onClick = () => {
-        if(useNewFeature) {
-            setCart((prevState: Cart) => ({ ...prevState, ['Chericks Weekend Eats']: {...prevState['Chericks Weekend Eats'], quantity: 1, price: 20 }}));
-        }
-    }
 
     return (
         <TileWrapper>
@@ -86,8 +74,16 @@ export const FloatingTiles = () => {
                 <Image src={Menu} />
             </Tile>
             <Tile>
-                <FloatingName href={useNewFeature ? '/cart' : '/menu'} onClick={onClick}>{useNewFeature ? 'Chericks Weekend Eats' : 'Order'}</FloatingName>
-                <Image src={Brownies} />
+                <FloatingName href='/flight-fuel'>Flight Fuel</FloatingName>
+                <div>
+                    <Image src={FlightFuel} /> 
+                    <p style={{margin: '5px 0', fontSize: '16px', fontWeight: 'bold'}}>Meals Made for Life in the Sky </p>
+                    <p style={{margin: '3px 0'}}>✈️ Flight-friendly (no strong odors, low spill risk)</p>
+                    <p style={{margin: '3px 0'}}>🥗 Hearty & satisfying (keeps crew full for long duty days)</p>
+                    <p style={{margin: '3px 0'}}>🧊 Multi-day prep friendly (3-4 days refrigerated)</p>
+                    <p style={{margin: '3px 0'}}>💼 Professional enough for pilots & crew </p>
+                    <p style={{margin: '3px 0'}}>🕰️ Easy to eat on short breaks or during layovers</p>
+                </div>
             </Tile>
         </TileWrapper>
     )
