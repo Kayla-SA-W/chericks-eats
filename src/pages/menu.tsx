@@ -18,7 +18,7 @@ const Menu = () => {
     <>
       <GlobalStyleProxy />
       <Nav header />
-      <MenuContent/>
+      <MenuContent />
       <Nav header={false} />
     </>
   )

@@ -7,6 +7,7 @@ import PackagedBrownies from '../images/food/packaged-brownies.jpg';
 import Salmon from '../images/food/salmon.jpg';
 
 const BodyWrapper = styled.div`
+    width: 90vw;
     display: grid;
     grid-template-columns: 60% 28%;
     column-gap: 9%;
@@ -63,6 +64,7 @@ const SingleReview = styled.div`
     display: flex;
     justify-content: center;
     gap: 20px;
+    margin-bottom: 10px;
     flex-direction: column;
     border: 4px dotted #c4e2e8;
     :nth-child(1) {

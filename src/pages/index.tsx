@@ -22,7 +22,7 @@ background-color: white;
 align-items: center;
 justify-content: center;
 > img {
-    width: fill-available;
+    width: 100%;
 }
 @media screen and (max-width: 1024px){
   grid-template-columns: 80%;
@@ -35,7 +35,7 @@ justify-content: center;
 const ItemWrapper = styled.div`
     display: flex;
     justify-content: center;
-    width: 45%;
+    width: 50%;
     margin: auto;
 `;
 
