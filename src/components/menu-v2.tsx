@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useContext, useMemo } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
 import { Cart, CartContext } from '../context';
 import styled from 'styled-components';
 import { meatLessItems, pastaItems, desserts, proteinItems, sideItems } from '../data/menu-items';
@@ -7,184 +7,303 @@ import { initialCartState } from '../context/initial-cart';
 import "@fontsource/libre-caslon-display";
 
 const MenuWrapper = styled.div`
-width: 100%;
-padding: 30px 0;
-`
+  width: 100%;
+  padding: 30px 0;
+`;
 
 const Menu = styled.div`
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-margin: 25px 0px 25px;
-justify-content: center; 
-gap: 20px;
-padding: 0 5%;
-`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 25px 0px 25px;
+  justify-content: center;
+  padding: 0 5%;
+`;
 
 const MenuOptions = styled.div`
-display: grid;
-grid-template-columns: 49% 21%;
-margin-bottom: 15px;
-@media screen and (max-width: 1024px){
+  display: grid;
+  grid-template-columns: 49% 21%;
+  margin-bottom: 15px;
+
+  @media screen and (max-width: 1024px) {
     padding: 0;
     width: 100%;
     margin-bottom: 20px;
- }
-`
+  }
+`;
 
-const Title = styled.div`
-display: flex;
-font-size: 48px;
-justify-content: center;
-margin: 0px 0px 15px;
-@media screen and (max-width: 1024px){
+export const Title = styled.div`
+  display: flex;
+  font-size: 48px;
+  justify-content: center;
+  margin: 0px 0px 15px;
+
+  @media screen and (max-width: 1024px) {
     margin-bottom: 25px;
- }
-`
+  }
+`;
 
-const Warning = styled.div`
-font-family: "Libre Caslon Display";
-display: flex;
-font-size: 20px;
-justify-content: center;
-margin: 15px 0px;
-@media screen and (max-width: 1024px){
+export const Warning = styled.div`
+  font-family: "Libre Caslon Display";
+  display: flex;
+  font-size: 20px;
+  justify-content: center;
+  margin: 15px 0px;
+
+  @media screen and (max-width: 1024px) {
     text-align: center;
     padding: 0 10px;
     margin-bottom: 25px;
- }
-`
-
-const ButtonWrapper = styled.div`
-display: grid;
-grid-template-columns: 1fr 1fr;
-width: 350px;
-place-items: center;
-margin: 20px auto 50px;
+  }
 `;
 
-const MenuSelection = styled.div`
- display: flex;
- justify-content: flex-start;
- flex-grow: 1;
- flex-direction: column;
- padding: 20px;
- border: 4px dotted #c4e2e8;
- font-family: "Libre Caslon Display";
-`
+const ButtonWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 350px;
+  place-items: center;
+  margin: 20px auto 50px;
+`;
+
+export const MenuSelection = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex-grow: 1;
+  flex-direction: column;
+  padding: 20px;
+  border: 4px dotted #c4e2e8;
+  font-family: "Libre Caslon Display";
+`;
+
 const Flavors = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: center;
-gap: 50px;
-font-family: "Libre Caslon Display";
-@media screen and (max-width: 1024px){
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 50px;
+  font-family: "Libre Caslon Display";
+
+  @media screen and (max-width: 1024px) {
     flex-direction: column;
-}
-`
+  }
+`;
+
+const MenuTab = styled.div<{ active: boolean }>`
+  cursor: pointer;
+  text-decoration: ${props => (props.active ? 'underline' : 'none')};
+  background-color: ${props => (props.active ? '#c4e2e8' : 'transparent')};
+  border: 4px dotted #c4e2e8;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 15px;
+  height: fit-content;
+  width: auto;
+  font-size: 18px;
+  border-radius: 5px;
+  border-right: none;
+  border-bottom: none;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #c4e2e8;
+  }
+`;
+
+const SectionHeader = styled.div`
+  font-size: 24px;
+  display: flex;
+  align-self: center;
+  margin-bottom: 15px;
+`;
+
+const ItemName = styled.div`
+  display: flex;
+`;
+
+const MarkingStar = styled.span`
+  color: blue;
+`;
+
+const WarningContainer = styled.div`
+  margin: 0 25px;
+  text-align: center;
+`;
+
+const FlavorColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const FlavorTitle = styled(Warning)`
+  text-decoration: underline blue;
+`;
 
 export interface MenuItemSection {
-    sectionName: string;
-    options: {
-        name: string;
-    }[];
-    singleItem?: boolean;
-    cart: Cart;
-    setOptionsCounter: Dispatch<SetStateAction<Cart>>;
+  sectionName: string;
+  options: {
+    name: string;
+  }[];
+  singleItem?: boolean;
+  cart: Cart;
+  setOptionsCounter: Dispatch<SetStateAction<Cart>>;
 }
 
 const MenuItemSection = ({ sectionName, options, singleItem, cart, setOptionsCounter }: MenuItemSection) => {
-    return (
-        <MenuSelection>
-            <div style={{ fontSize: '24px', display: 'flex', alignSelf: 'center', marginBottom: '15px' }}>{sectionName}</div>
-            {options.map((option, i) => {
+  return (
+    <MenuSelection>
+      <SectionHeader>{sectionName}</SectionHeader>
+      {options.map((option) => {
+        const alcohol = cart[option.name].liqueur || cart[option.name].liquor;
+        const hasSpecialMarking = cart[option.name].addOn || alcohol;
 
-                const alcohol = cart[option.name].liqueur || cart[option.name].liquor;
-            
-                const MarkingStar = () => <div style={{color:'blue'}}> **</div>
-                return (
-                    <MenuOptions key={i}>
-                        <div style={{ display: 'flex' }}>{option.name + ` -- $${cart[option.name].price} `}{cart[option.name].addOn || alcohol ? <MarkingStar /> : null}</div>
-                        <div>
-                            <CounterButton updateCart={setOptionsCounter} currentProduct={{ ...cart[option.name], name: option.name, quantity: cart[option.name].quantity }} singleItem={singleItem} />
-                        </div>
-                    </MenuOptions>
-                )
-            })}
-        </MenuSelection>
-    )
+        return (
+          <MenuOptions key={option.name} style={{ justifyContent: 'center' }}>
+            <ItemName>
+              {option.name} -- ${cart[option.name].price}
+              {hasSpecialMarking && <MarkingStar> **</MarkingStar>}
+            </ItemName>
+            <div>
+              <CounterButton
+                updateCart={setOptionsCounter}
+                currentProduct={{
+                  ...cart[option.name],
+                  name: option.name,
+                  quantity: cart[option.name].quantity
+                }}
+                singleItem={singleItem}
+              />
+            </div>
+          </MenuOptions>
+        );
+      })}
+    </MenuSelection>
+  );
+};
+
+
+const TabsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  row-gap: 15px;
+`;
+
+const LastMenuTab = styled(MenuTab)`
+  border-right: 4px dotted #c4e2e8;
+`;
+
+const RedWarning = styled(Warning)`
+  color: red;
+`;
+
+const BlueWarning = styled(Warning)`
+  color: blue;
+`;
+
+type TabName = 'Pasta' | 'Veggie' | 'Protein' | 'Sides' | 'Desserts';
+
+interface MenuTabConfig {
+  name: TabName;
+  sectionName: string;
+  options: { name: string }[];
+  singleItem?: boolean;
 }
+
+const menuTabs: MenuTabConfig[] = [
+  { name: 'Pasta', sectionName: 'Pasta', options: pastaItems },
+  { name: 'Veggie', sectionName: 'Veggie', options: meatLessItems },
+  { name: 'Protein', sectionName: 'Protein', options: proteinItems },
+  { name: 'Sides', sectionName: 'Sides', options: sideItems },
+  { name: 'Desserts', sectionName: 'Desserts', options: desserts, singleItem: true },
+];
+
+const flavorCategories = [
+  {
+    title: 'Liquor',
+    items: ['Captain Morgan', 'Bacardi', 'Vodka', 'Remy', 'Hennessy', 'Tequila', 'Crown Royal', 'Brandy VSOP'],
+  },
+  {
+    title: 'Liqueurs',
+    items: ['Amaretto', 'Grand Marnier', 'Banana Liqueur', 'Maraschino Liqueur', "Meyer's", "Bailey's", 'Kahlua'],
+  },
+  {
+    title: 'Mousse Flavors',
+    items: ['White Chocolate Mousse', 'Milk Chocolate Mousse', 'Dark Chocolate Mousse', 'Caramel Mousse'],
+  },
+  {
+    title: 'Cake Flavors',
+    items: ['Funfetti Cake', 'Vanilla Cake', 'Chocolate Cake'],
+  },
+];
 
 export const MenuContent = () => {
-    const { cart, setCart } = useContext(CartContext);
-    const memoizedMenu = useMemo(() =>
-    (
-        <MenuWrapper>
-            <Title>Menu</Title>
-            <div style={{margin: '0 25px', textAlign: 'center'}}>
-            <Warning style={{ color: 'red' }}>Meal preperation services are only available to the Orlando Florida. All meal options are A La Carte and will be automatically set at 3 to meet the required 3 day meal prep minimum</Warning>
-            <Warning>Only cookies and brownies are available for shipment anywhere in the USA.</Warning>
-            <Warning>Please contact us at cherickseats@gmail.com to let us know of any allergies or food sensitivities before placing your oder.</Warning>
-            </div>
-            <Menu>
-                <div style={{ display: 'flex', flexDirection: 'column', rowGap: '20px', flexGrow: 1 }}>
-                    <MenuItemSection sectionName={'Veggie'} options={meatLessItems} cart={cart} setOptionsCounter={setCart} />
-                    <MenuItemSection sectionName={'Protein'} options={proteinItems} cart={cart} setOptionsCounter={setCart} />
-                    <MenuItemSection sectionName={'Pasta'} options={pastaItems} cart={cart} setOptionsCounter={setCart} />
-                </div>
-                <MenuItemSection sectionName={'Sides'} options={sideItems} cart={cart} setOptionsCounter={setCart} />
-                <MenuItemSection sectionName={'Desserts'} options={desserts} cart={cart} setOptionsCounter={setCart} singleItem />
-            </Menu>
-            <div style={{margin: '0 25px', textAlign: 'center'}}>
-                <Warning style={{color: 'blue'}}>**Once your order is confirmed and the depoist is paid we will reach out to you for Additional options including cake and liquor flavors</Warning>
-                <Flavors>
-                <div style={{display: 'flex', flexDirection:'column'}}>
-                    <Warning style={{textDecoration: 'underline blue'}}>Liquor</Warning>
-                   <p>Captain Morgan</p>
-                   <p>Bacardi</p>
-                   <p>Vodka</p>
-                   <p>Remy</p>
-                   <p>Hennessy</p>
-                   <p>Tequila</p>
-                   <p>Crown Royal</p>
-                   <p>Brandy VSOP</p>
-                </div>
-                <div style={{display: 'flex', flexDirection:'column'}}>
-                    <Warning style={{textDecoration: 'underline blue'}}>Liqueurs</Warning>
-                   <p>Amaretto</p>
-                   <p>Grand Marnier</p>
-                   <p>Banana Liqueur</p>
-                   <p>Maraschino Liqueur</p>
-                   <p>Meyer's</p>
-                   <p>Bailey's</p>
-                   <p>Kahlua</p>
-                </div>
-                <div style={{display: 'flex', flexDirection:'column'}}>
-                    <Warning style={{textDecoration: 'underline blue'}}>Mousse Flavors</Warning>
-                   <p>White Chocolate Mousse</p>
-                   <p>Milk Chocolate Mousse</p>
-                   <p>Dark Chocolate Mousse</p>
-                   <p>Caramel Mousse</p>
-                </div>
-                <div style={{display: 'flex', flexDirection:'column'}}>
-                    <Warning style={{textDecoration: 'underline blue'}}>Cake Flavors</Warning>
-                   <p>Funfetti Cake</p>
-                   <p>Vanilla Cake</p>
-                   <p>Chocolate Cake</p>
-                </div>
-                </Flavors>
-            </div> 
-            <ButtonWrapper>
-                <StyledPillButton
-                    onClick={() => {
-                        setCart(initialCartState);
-                    }}>
-                    Empty Cart
-                </StyledPillButton>
-                <OrderNowButton location='cart' text='Go to Cart' style={{ width: '100px' }} />
-            </ButtonWrapper>
-        </MenuWrapper>
-    ), [cart, setCart]);
+  const { cart, setCart } = useContext(CartContext);
+  const [tab, setTab] = useState<TabName>('Pasta');
 
-    return memoizedMenu;
-}
+  const activeTabConfig = menuTabs.find(t => t.name === tab);
+
+  return (
+    <MenuWrapper>
+      <Title>Menu</Title>
+      <WarningContainer>
+        <RedWarning>
+          Meal preperation services are only available to the Orlando Florida. All meal options are A La Carte and will be automatically set at 3 to meet the required 3 day meal prep minimum
+        </RedWarning>
+        {tab === 'Desserts' && (
+          <Warning>Only cookies and brownies are available for shipment anywhere in the USA.</Warning>
+        )}
+        <Warning>
+          Please contact us at cherickseats@gmail.com to let us know of any allergies or food sensitivities before placing your oder.
+        </Warning>
+      </WarningContainer>
+
+      <Menu>
+        <TabsContainer>
+          {menuTabs.map((tabConfig, index) => {
+            const TabComponent = index === menuTabs.length - 1 ? LastMenuTab : MenuTab;
+            return (
+              <TabComponent
+                key={tabConfig.name}
+                active={tab === tabConfig.name}
+                onClick={() => setTab(tabConfig.name)}
+              >
+                {tabConfig.name}
+              </TabComponent>
+            );
+          })}
+        </TabsContainer>
+
+        {activeTabConfig && (
+          <MenuItemSection
+            sectionName={activeTabConfig.sectionName}
+            options={activeTabConfig.options}
+            cart={cart}
+            setOptionsCounter={setCart}
+            singleItem={activeTabConfig.singleItem}
+          />
+        )}
+      </Menu>
+        <BlueWarning>
+            **Once your order is confirmed and the depoist is paid we will reach out to you for Add On options (including cake and liquor flavors)
+          </BlueWarning>
+      {tab === 'Desserts' && (
+        <WarningContainer>
+          <Flavors>
+            {flavorCategories.map((category) => (
+              <FlavorColumn key={category.title}>
+                <FlavorTitle>{category.title}</FlavorTitle>
+                {category.items.map((item) => (
+                  <p key={item}>{item}</p>
+                ))}
+              </FlavorColumn>
+            ))}
+          </Flavors>
+        </WarningContainer>
+      )}
+
+      <ButtonWrapper>
+        <StyledPillButton onClick={() => setCart(initialCartState)}>
+          Empty Cart
+        </StyledPillButton>
+        <OrderNowButton location='cart' text='Go to Cart' style={{ width: '100px' }} />
+      </ButtonWrapper>
+    </MenuWrapper>
+  );
+};
