@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import Swag1 from '../images/food/swag1.jpg';
 import FlightFuel from '../images/flight-fuel.png';
 import Menu from '../images/menu-stock.png';
 
 const TileWrapper = styled.div`
     margin: 60px 0px 35%;
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 50% 50%;
+    gap: 50px;
     @media screen and (max-width: 1024px){
         grid-template-columns: 1fr;
         row-gap: 80px;
@@ -27,7 +27,7 @@ const Tile = styled.div`
     > div {
         font-family: "Libre Caslon Display";
         max-width: 30vw;
-        background-color: rgba(17, 7, 7, 0.1);
+        background-color: rgba(149, 190, 206, 0.5);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -65,10 +65,6 @@ export const FloatingTiles = () => {
 
     return (
         <TileWrapper>
-            <Tile>
-                <FloatingName href='/swag'>Swag</FloatingName>
-                <Image src={Swag1} />
-            </Tile>
             <Tile>
                 <FloatingName href='/menu'>Menu</FloatingName>
                 <Image src={Menu} />
