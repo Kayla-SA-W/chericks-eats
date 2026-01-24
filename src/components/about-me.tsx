@@ -61,15 +61,14 @@ export const AboutMeContent = () => {
             <Title>About Me</Title>
             <ContentWrapper>
                 <AboutMeSummary>
-                    Hello There, 
+                    Hello, 
                     <br/>
-                    My name is Cherick Logan, owner and Executive Chef of Cherick's Eats. I am 
-                    a licensed professional specializing in food prep and catering services. Educated
-                    by Valencia College and Florida International University. I have been working in the 
-                    food and beverage industry for 8 years and it is my absolute pride and joy. I am 
-                    incredibly passionate about the culinary and hospitality industry. It would be my
-                    pleasure to prepare a very tasty meal for you today and share some very palatable 
-                    recipes. 
+                    I'm Cherick Logan, Owner and Executive Chef of Cherick's Eats. I'm 
+                    a licensed culinary professional with over 8 years of experience in the food and beverage
+                    industry, proudly educated by Valencia College and Florida International University. Cooking
+                    isn't just my career, it's my passion. I truly love creating delicious, well-crafted meals 
+                    and delivering warm, genuine hospitality through food. Whether I'm preparing a catered 
+                    event or sharing a recipe, my goal is simple: to serve meals that are flavorful, comforting, and made with care.
                 </AboutMeSummary>
                 <AboutMeImage src={Cherick} alt='Image of CEO Cherick Logan' style={{height: '400px'}} />
             </ContentWrapper>
