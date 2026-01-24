@@ -41,7 +41,7 @@ const Tile = styled.div`
 const FloatingName = styled.a`
     text-decoration: none;
     color: black;
-    background-color: white;
+    background-color: #D7BE69;
     position: relative;
     width: 90%;
     height: 108px;
@@ -71,15 +71,7 @@ export const FloatingTiles = () => {
             </Tile>
             <Tile>
                 <FloatingName href='/flight-fuel'>Flight Fuel</FloatingName>
-                <div>
                     <Image src={FlightFuel} /> 
-                    <p style={{margin: '5px 0', fontSize: '16px', fontWeight: 'bold'}}>Meals Made for Life in the Sky </p>
-                    <p style={{margin: '3px 0'}}>✈️ Flight-friendly (no strong odors, low spill risk)</p>
-                    <p style={{margin: '3px 0'}}>🥗 Hearty & satisfying (keeps crew full for long duty days)</p>
-                    <p style={{margin: '3px 0'}}>🧊 Multi-day prep friendly (3-4 days refrigerated)</p>
-                    <p style={{margin: '3px 0'}}>💼 Professional enough for pilots & crew </p>
-                    <p style={{margin: '3px 0'}}>🕰️ Easy to eat on short breaks or during layovers</p>
-                </div>
             </Tile>
         </TileWrapper>
     )
