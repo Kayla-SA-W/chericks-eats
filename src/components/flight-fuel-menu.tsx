@@ -99,13 +99,13 @@ const subscriptionTiers = [
     { name: 'First Fuel Package', details: '28 meals/month (7/week)- from $364' },
 ];
 
-const menuSections = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
+const menuSections = ['Breakfast - Cleared for Takeoff', 'Lunch - Cruising Altitude', 'Dinner - Final Approach', 'Grab & Go / Snack Add Ons'];
 const menuPricingCopy = ['$9 to $16', '$15 to $20', '$15 to $22', '$6 to $10'];
 
 type TabName = 'Menu Items' | 'Crew Packs' | 'Subscriptions';
 
 const FlightFuelMenu = () => {
-    const [tab, setTab] = useState<TabName>('Menu Items');
+    const [tab, setTab] = useState<TabName>('Crew Packs');
 
     const tabs: TabName[] = ['Menu Items', 'Crew Packs', 'Subscriptions'];
 
