@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Header } from '../components/header';
+import { Nav } from '../components/nav';
 import styled, { createGlobalStyle } from 'styled-components';
 import ThankYouImage from '../images/thank-you.png';
 import { OrderNowButton } from '../components/pill-button';
@@ -83,7 +83,7 @@ const ConfirmationPage = () => {
     return(
         <>
             <GlobalStyleProxy />
-            <Header />
+            <Nav header />
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <ThankYou src={ThankYouImage} />
             </div>
@@ -105,7 +105,7 @@ const ConfirmationPage = () => {
                 )}
                 {purchasedCookbooks.length > 0 && (
                     <DownloadsSection>
-                        <CopyDiv>Download your cookbooks:</CopyDiv>
+                        <CopyDiv>Download your cookbook(s):</CopyDiv>
                         {purchasedCookbooks.map((cookbook) => (
                             <DownloadLink key={cookbook.id} href={cookbook.downloadPath} download>
                                 {cookbook.title}
