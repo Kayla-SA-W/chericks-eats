@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkresturaunt=self.webpackChunkresturaunt||[]).push([[673],{893:function(e,t,n){n.r(t);var a=n(6540),r=n(882),l=n(8739),u=n(6251);const c=(0,r.DU)(['body{margin:0;font-family:"Dancing Script";}']);t.default=()=>a.createElement(a.Fragment,null,a.createElement(c,null),a.createElement(u.s,{header:!0}),a.createElement(l.Y0,null),a.createElement(u.s,{header:!1}))}}]);
-//# sourceMappingURL=component---src-pages-cart-tsx-93f73b4c7b5139ab7f4e.js.map
