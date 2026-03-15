@@ -116,8 +116,8 @@ const OptionChip = styled.button`
   border: 2px solid #c4e2e8;
   border-radius: 25px;
   padding: 8px 20px;
-  font-family: "Dancing Script";
-  font-size: 18px;
+  font-family: "Libre Caslon Display";
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.1s ease;
   color: black;
@@ -132,7 +132,7 @@ const OptionChip = styled.button`
   }
 
   @media screen and (max-width: 1024px) {
-    font-size: 16px;
+    font-size: 12px;
     padding: 6px 14px;
   }
 `;
