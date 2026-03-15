@@ -30,10 +30,21 @@ export type ChatStepId =
   | 'standard_confirm'
   | 'bundle_select'
   | 'bundle_summary'
+  | 'crew_pack_select'
+  | 'crew_pack_details'
+  | 'crew_pack_breakfast'
+  | 'crew_pack_lunch'
+  | 'crew_pack_dinner'
+  | 'crew_pack_snack'
+  | 'crew_pack_oat_flavor'
+  | 'crew_pack_greens_protein'
+  | 'crew_pack_no_heat'
+  | 'crew_pack_summary'
+  | 'crew_pack_confirm'
   | 'catering_redirect';
 
 export interface MealPrepSelections {
-  path: 'standard' | 'bundle' | 'catering' | null;
+  path: 'standard' | 'bundle' | 'catering' | 'crew_pack' | null;
   // Standard
   days?: number;
   plateType?: 'protein' | 'pasta';
@@ -45,6 +56,15 @@ export interface MealPrepSelections {
   sauce?: string;
   // Bundle
   bundleType?: string;
+  // Crew Pack
+  crewPack?: string;
+  crewBreakfast?: string;
+  crewLunch?: string;
+  crewDinner?: string;
+  crewSnack?: string;
+  crewOatFlavor?: string;
+  crewGreensProtein?: string;
+  crewNoHeatMeal?: string;
 }
 
 export interface ChatStep {
@@ -102,6 +122,100 @@ export const pastaProteinAddOns: PastaAddOnProtein[] = [
   { name: 'Steak', price: 7 },
   { name: 'Salmon', price: 8 },
 ];
+
+export interface CrewPack {
+  name: string;
+  description: string;
+  price: number;
+}
+
+export const crewPacks: CrewPack[] = [
+  { name: '3-Day Turnaround Pack', description: 'Includes 3 breakfasts, 3 lunches, 3 dinners, and 2 snacks', price: 90 },
+  { name: '5-Day Reserve Crew Pack', description: 'Includes 5 breakfasts, 5 lunches, 5 dinners, and 5 snacks', price: 145 },
+  { name: 'Layover Essentials Pack', description: 'Includes 1 breakfast, 2 no-heat meals, and 2 snacks', price: 55 },
+];
+
+export function getCrewPackPrice(packName: string): number {
+  return crewPacks.find(p => p.name === packName)?.price ?? 0;
+}
+
+// === Crew Pack Menu Options ===
+
+export const crewPackBreakfasts = [
+  'First Class Egg Bites',
+  'Red-Eye Overnight Oats',
+  'Morning Departure Protein Box',
+  'Golden Hour Breakfast Bake',
+];
+
+export const crewPackLunches = [
+  'Cruise Control Citrus Chicken Bowl',
+  'Mediterranean Turnaround Box',
+  'Steady Flight Protein Bowl',
+  'Clean Cabin Salmon Plate',
+  'Flight Level Greens + Protein',
+];
+
+export const crewPackDinners = [
+  'Smooth Landing Herb Chicken',
+  'Night Flight Bolognese',
+  'Low-Sodium Teriyaki Touchdown',
+  'Plant-Based Altitude Bowl',
+];
+
+export const crewPackSnacks = [
+  'Altitude Energy Box',
+  'Clear Skies Yogurt Cup',
+  'Runway Bites',
+  'Flight Path Trail Mix',
+];
+
+export const overnightOatFlavors = [
+  'Vanilla Berry Cheesecake',
+  'Peaches & Cream',
+  'Strawberries & Cream',
+  'Mango Coconut',
+  'Maple Brown Sugar',
+];
+
+interface CrewPackRequirements {
+  breakfasts: number;
+  lunches: number;
+  dinners: number;
+  snacks: number;
+  noHeatMeals: number;
+}
+
+export function getCrewPackRequirements(packName: string): CrewPackRequirements {
+  switch (packName) {
+    case '3-Day Turnaround Pack':
+      return { breakfasts: 1, lunches: 1, dinners: 1, snacks: 1, noHeatMeals: 0 };
+    case '5-Day Reserve Crew Pack':
+      return { breakfasts: 1, lunches: 1, dinners: 1, snacks: 1, noHeatMeals: 0 };
+    case 'Layover Essentials Pack':
+      return { breakfasts: 1, lunches: 0, dinners: 0, snacks: 1, noHeatMeals: 1 };
+    default:
+      return { breakfasts: 0, lunches: 0, dinners: 0, snacks: 0, noHeatMeals: 0 };
+  }
+}
+
+type CrewCategory = 'crew_pack_breakfast' | 'crew_pack_lunch' | 'crew_pack_dinner' | 'crew_pack_no_heat' | 'crew_pack_snack';
+
+function getNextCrewCategory(packName: string, currentCategory: CrewCategory): ChatStepId {
+  const reqs = getCrewPackRequirements(packName);
+  const order: { step: CrewCategory; count: number }[] = [
+    { step: 'crew_pack_breakfast', count: reqs.breakfasts },
+    { step: 'crew_pack_lunch', count: reqs.lunches },
+    { step: 'crew_pack_dinner', count: reqs.dinners },
+    { step: 'crew_pack_no_heat', count: reqs.noHeatMeals },
+    { step: 'crew_pack_snack', count: reqs.snacks },
+  ];
+  const currentIndex = order.findIndex(c => c.step === currentCategory);
+  for (let i = currentIndex + 1; i < order.length; i++) {
+    if (order[i].count > 0) return order[i].step;
+  }
+  return 'crew_pack_summary';
+}
 
 // === Price Calculation ===
 
@@ -175,20 +289,39 @@ function buildBundleSummary(s: MealPrepSelections): string {
   return lines.join('\n');
 }
 
+function buildCrewPackSummary(s: MealPrepSelections): string {
+  const pack = crewPacks.find(p => p.name === s.crewPack);
+  if (!pack) return '';
+  const lines = [
+    `Here's your crew pack summary:`,
+    ``,
+    `Pack: ${pack.name}`,
+  ];
+  if (s.crewBreakfast) lines.push(`Breakfast: ${s.crewBreakfast}${s.crewBreakfast === 'Red-Eye Overnight Oats' && s.crewOatFlavor ? ` - ${s.crewOatFlavor}` : ''}`);
+  if (s.crewLunch) lines.push(`Lunch: ${s.crewLunch}${s.crewGreensProtein ? ` (${s.crewGreensProtein})` : ''}`);
+  if (s.crewDinner) lines.push(`Dinner: ${s.crewDinner}`);
+  if (s.crewNoHeatMeal) lines.push(`No-Heat Meal: ${s.crewNoHeatMeal}`);
+  if (s.crewSnack) lines.push(`Snack: ${s.crewSnack}`);
+  lines.push(``, `Total: $${pack.price}`);
+  return lines.join('\n');
+}
+
 // === Chat Steps State Machine ===
 
 export const chatSteps: Record<ChatStepId, ChatStep> = {
   welcome: {
     id: 'welcome',
-    botMessage: "Welcome to Cherick's Eats Modern Meal Prep! How can I help you today?",
+    botMessage: "Welcome to Cherick's Eats! How can I help you today?",
     options: [
       { label: 'Standard Meal Prep', value: 'standard' },
       { label: 'Meal Prep Bundles', value: 'bundle' },
+      { label: 'Crew Packs', value: 'crew_pack' },
       { label: 'Catering', value: 'catering' },
     ],
     getNextStep: (value) => {
       if (value === 'standard') return 'standard_days';
       if (value === 'bundle') return 'bundle_select';
+      if (value === 'crew_pack') return 'crew_pack_select';
       return 'catering_redirect';
     },
   },
@@ -303,6 +436,124 @@ export const chatSteps: Record<ChatStepId, ChatStep> = {
     id: 'bundle_summary',
     botMessage: (selections) => buildBundleSummary(selections),
     options: null,
+    getNextStep: () => 'welcome',
+  },
+
+  // --- Crew Packs ---
+
+  crew_pack_select: {
+    id: 'crew_pack_select',
+    botMessage: 'Which crew pack would you like?',
+    options: crewPacks.map(p => ({
+      label: p.name,
+      value: p.name,
+      extraInfo: `$${p.price}`,
+    })),
+    getNextStep: () => 'crew_pack_details',
+  },
+
+  crew_pack_details: {
+    id: 'crew_pack_details',
+    botMessage: (selections) => {
+      const pack = crewPacks.find(p => p.name === selections.crewPack);
+      if (!pack) return '';
+      return `Great choice! The ${pack.name} includes:\n\n${pack.description}\n\nLet's pick your meals!`;
+    },
+    options: [
+      { label: "Let's Go", value: 'start' },
+      { label: 'Choose Different Pack', value: 'back' },
+    ],
+    getNextStep: (value) => value === 'back' ? 'crew_pack_select' : 'crew_pack_breakfast',
+  },
+
+  crew_pack_breakfast: {
+    id: 'crew_pack_breakfast',
+    botMessage: 'Choose your breakfast:',
+    options: crewPackBreakfasts.map(b => ({ label: b, value: b })),
+    getNextStep: (value, selections) => {
+      if (value === 'Red-Eye Overnight Oats') return 'crew_pack_oat_flavor';
+      return getNextCrewCategory(selections.crewPack ?? '', 'crew_pack_breakfast');
+    },
+  },
+
+  crew_pack_lunch: {
+    id: 'crew_pack_lunch',
+    botMessage: 'Choose your lunch:',
+    options: crewPackLunches.map(l => ({ label: l, value: l })),
+    getNextStep: (value, selections) => {
+      if (value === 'Flight Level Greens + Protein') return 'crew_pack_greens_protein';
+      return getNextCrewCategory(selections.crewPack ?? '', 'crew_pack_lunch');
+    },
+  },
+
+  crew_pack_greens_protein: {
+    id: 'crew_pack_greens_protein',
+    botMessage: 'Which protein would you like with your Flight Level Greens?',
+    options: [
+      { label: 'Lemon Chicken', value: 'Lemon Chicken' },
+      { label: 'Falafel', value: 'Falafel' },
+    ],
+    getNextStep: (value, selections) => getNextCrewCategory(selections.crewPack ?? '', 'crew_pack_lunch'),
+  },
+
+  crew_pack_dinner: {
+    id: 'crew_pack_dinner',
+    botMessage: 'Choose your dinner:',
+    options: crewPackDinners.map(d => ({ label: d, value: d })),
+    getNextStep: (value, selections) => getNextCrewCategory(selections.crewPack ?? '', 'crew_pack_dinner'),
+  },
+
+  crew_pack_no_heat: {
+    id: 'crew_pack_no_heat',
+    botMessage: 'Choose your no-heat meal:',
+    options: [
+      { label: 'Red-Eye Overnight Oats', value: 'Red-Eye Overnight Oats' },
+      { label: 'Flight Level Greens + Falafel', value: 'Flight Level Greens + Falafel' },
+    ],
+    getNextStep: (value, selections) => {
+      if (value === 'Red-Eye Overnight Oats') return 'crew_pack_oat_flavor';
+      return getNextCrewCategory(selections.crewPack ?? '', 'crew_pack_no_heat');
+    },
+  },
+
+  crew_pack_oat_flavor: {
+    id: 'crew_pack_oat_flavor',
+    botMessage: 'What flavor would you like for your Red-Eye Overnight Oats?',
+    options: overnightOatFlavors.map(f => ({ label: f, value: f })),
+    getNextStep: (value, selections) => {
+      // If breakfast is already set, we came from the no-heat step (breakfast was a prior step)
+      if (selections.crewBreakfast) {
+        return getNextCrewCategory(selections.crewPack ?? '', 'crew_pack_no_heat');
+      }
+      // Otherwise came from breakfast (breakfast not yet saved in old selections)
+      return getNextCrewCategory(selections.crewPack ?? '', 'crew_pack_breakfast');
+    },
+  },
+
+  crew_pack_snack: {
+    id: 'crew_pack_snack',
+    botMessage: 'Choose your snack:',
+    options: crewPackSnacks.map(s => ({ label: s, value: s })),
+    getNextStep: (value, selections) => getNextCrewCategory(selections.crewPack ?? '', 'crew_pack_snack'),
+  },
+
+  crew_pack_summary: {
+    id: 'crew_pack_summary',
+    botMessage: (selections) => buildCrewPackSummary(selections),
+    options: [
+      { label: 'Add to Cart', value: 'yes' },
+      { label: 'Start Over', value: 'no' },
+    ],
+    getNextStep: (value) => value === 'yes' ? 'crew_pack_confirm' : 'welcome',
+  },
+
+  crew_pack_confirm: {
+    id: 'crew_pack_confirm',
+    botMessage: "Your crew pack has been added to your cart!",
+    options: [
+      { label: 'View Cart', value: 'view_cart' },
+      { label: 'Add Another', value: 'add_another' },
+    ],
     getNextStep: () => 'welcome',
   },
 

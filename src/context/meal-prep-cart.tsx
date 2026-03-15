@@ -1,6 +1,6 @@
 import React, { createContext, Dispatch, PropsWithChildren, SetStateAction } from 'react';
 import { useSessionStorage } from '../hooks/use-session-storage';
-import { MealPrepSelections, calculateStandardTotal } from '../data/meal-prep';
+import { MealPrepSelections, calculateStandardTotal, getCrewPackPrice } from '../data/meal-prep';
 
 export interface MealPrepOrder {
   id: string;
@@ -16,11 +16,22 @@ export interface CookbookItem {
   downloadPath: string;
 }
 
+export interface CrewPackOrder {
+  id: string;
+  packName: string;
+  description: string;
+  total: number;
+}
+
 type MealPrepCartContextType = {
   orders: MealPrepOrder[];
   setOrders: Dispatch<SetStateAction<MealPrepOrder[]>>;
   addOrder: (selections: MealPrepSelections) => void;
   removeOrder: (id: string) => void;
+  crewPacks: CrewPackOrder[];
+  setCrewPacks: Dispatch<SetStateAction<CrewPackOrder[]>>;
+  addCrewPack: (selections: MealPrepSelections) => void;
+  removeCrewPack: (id: string) => void;
   cookbooks: CookbookItem[];
   setCookbooks: Dispatch<SetStateAction<CookbookItem[]>>;
   addCookbook: (cookbook: CookbookItem) => void;
@@ -33,6 +44,10 @@ export const MealPrepCartContext = createContext<MealPrepCartContextType>({
   setOrders: () => undefined,
   addOrder: () => undefined,
   removeOrder: () => undefined,
+  crewPacks: [],
+  setCrewPacks: () => undefined,
+  addCrewPack: () => undefined,
+  removeCrewPack: () => undefined,
   cookbooks: [],
   setCookbooks: () => undefined,
   addCookbook: () => undefined,
@@ -56,6 +71,7 @@ function buildDescription(s: MealPrepSelections): string {
 
 export const MealPrepCartProvider = ({ children }: PropsWithChildren<{}>) => {
   const [orders, setOrders] = useSessionStorage<MealPrepOrder[]>('mealPrepCart', []);
+  const [crewPacks, setCrewPacks] = useSessionStorage<CrewPackOrder[]>('crewPackCart', []);
   const [cookbooks, setCookbooks] = useSessionStorage<CookbookItem[]>('cookbookCart', []);
 
   const addOrder = (selections: MealPrepSelections) => {
@@ -72,6 +88,22 @@ export const MealPrepCartProvider = ({ children }: PropsWithChildren<{}>) => {
     setOrders((prev) => prev.filter((o) => o.id !== id));
   };
 
+  const addCrewPack = (selections: MealPrepSelections) => {
+    const packName = selections.crewPack ?? '';
+    const price = getCrewPackPrice(packName);
+    const pack: CrewPackOrder = {
+      id: `cp-${Date.now()}`,
+      packName,
+      description: packName,
+      total: price,
+    };
+    setCrewPacks((prev) => [...prev, pack]);
+  };
+
+  const removeCrewPack = (id: string) => {
+    setCrewPacks((prev) => prev.filter((p) => p.id !== id));
+  };
+
   const addCookbook = (cookbook: CookbookItem) => {
     setCookbooks((prev) => {
       if (prev.some((c) => c.id === cookbook.id)) return prev;
@@ -85,12 +117,14 @@ export const MealPrepCartProvider = ({ children }: PropsWithChildren<{}>) => {
 
   const clearCart = () => {
     setOrders([]);
+    setCrewPacks([]);
     setCookbooks([]);
   };
 
   return (
     <MealPrepCartContext.Provider value={{
       orders, setOrders, addOrder, removeOrder,
+      crewPacks, setCrewPacks, addCrewPack, removeCrewPack,
       cookbooks, setCookbooks, addCookbook, removeCookbook,
       clearCart,
     }}>

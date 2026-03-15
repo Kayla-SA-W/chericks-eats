@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import "@fontsource/libre-caslon-display";
 import "@fontsource/dancing-script";
-import { MealPrepCartContext, MealPrepOrder, CookbookItem } from '../context/meal-prep-cart';
+import { MealPrepCartContext, MealPrepOrder, CookbookItem, CrewPackOrder } from '../context/meal-prep-cart';
 
 const CartWrapper = styled.div`
   max-width: 700px;
@@ -148,6 +148,19 @@ const MealPrepOrderItem = ({ order, onRemove }: { order: MealPrepOrder; onRemove
   );
 };
 
+const CrewPackCartItem = ({ pack, onRemove }: { pack: CrewPackOrder; onRemove: () => void }) => {
+  return (
+    <OrderCard>
+      <OrderHeader>
+        <OrderTitle>{pack.packName}</OrderTitle>
+        <RemoveButton onClick={onRemove}>Remove</RemoveButton>
+      </OrderHeader>
+      <OrderDetail>Crew Pack</OrderDetail>
+      <OrderTotal>${pack.total}</OrderTotal>
+    </OrderCard>
+  );
+};
+
 const CookbookCartItem = ({ cookbook, onRemove }: { cookbook: CookbookItem; onRemove: () => void }) => {
   return (
     <OrderCard>
@@ -162,13 +175,14 @@ const CookbookCartItem = ({ cookbook, onRemove }: { cookbook: CookbookItem; onRe
 };
 
 export const MealPrepCartContent = () => {
-  const { orders, removeOrder, cookbooks, removeCookbook, clearCart } = useContext(MealPrepCartContext);
+  const { orders, removeOrder, crewPacks, removeCrewPack, cookbooks, removeCookbook, clearCart } = useContext(MealPrepCartContext);
 
   const mealPrepTotal = orders.reduce((sum, o) => sum + o.total, 0);
+  const crewPackTotal = crewPacks.reduce((sum, p) => sum + p.total, 0);
   const cookbookTotal = cookbooks.reduce((sum, c) => sum + c.price, 0);
-  const grandTotal = mealPrepTotal + cookbookTotal;
+  const grandTotal = mealPrepTotal + crewPackTotal + cookbookTotal;
 
-  const isEmpty = orders.length === 0 && cookbooks.length === 0;
+  const isEmpty = orders.length === 0 && crewPacks.length === 0 && cookbooks.length === 0;
 
   if (isEmpty) {
     return (
@@ -196,6 +210,15 @@ export const MealPrepCartContent = () => {
           <SectionLabel>Meal Prep</SectionLabel>
           {orders.map((order) => (
             <MealPrepOrderItem key={order.id} order={order} onRemove={() => removeOrder(order.id)} />
+          ))}
+        </>
+      )}
+
+      {crewPacks.length > 0 && (
+        <>
+          <SectionLabel>Crew Packs</SectionLabel>
+          {crewPacks.map((pack) => (
+            <CrewPackCartItem key={pack.id} pack={pack} onRemove={() => removeCrewPack(pack.id)} />
           ))}
         </>
       )}

@@ -60,7 +60,7 @@ const checkIfEmpty = (event: { target: { value: string; style: { border: string;
 const SQUARE_CHECKOUT_URL = "https://square.link/u/Nj8Hk5Zi?src=embed";
 
 const MockCheckout = () => {
-    const { orders, cookbooks } = useContext(MealPrepCartContext);
+    const { orders, crewPacks, cookbooks } = useContext(MealPrepCartContext);
 
     // Dev bypass: press "kayladev" on the checkout page to skip payment
     useEffect(() => {
@@ -72,7 +72,7 @@ const MockCheckout = () => {
                 if (cookbooks.length > 0) {
                     sessionStorage.setItem('purchasedCookbooks', JSON.stringify(cookbooks));
                 }
-                sessionStorage.setItem('hadMealPrepOrders', JSON.stringify(orders.length > 0));
+                sessionStorage.setItem('hadMealPrepOrders', JSON.stringify(orders.length > 0 || crewPacks.length > 0));
                 window.location.href = '/confirmation';
             }
         };
@@ -88,11 +88,12 @@ const MockCheckout = () => {
     })
 
     const mealPrepSubtotal = orders.reduce((sum, o) => sum + o.total, 0);
+    const crewPackSubtotal = crewPacks.reduce((sum, p) => sum + p.total, 0);
     const cookbookSubtotal = cookbooks.reduce((sum, c) => sum + c.price, 0);
-    const subtotal = mealPrepSubtotal + cookbookSubtotal;
+    const subtotal = mealPrepSubtotal + crewPackSubtotal + cookbookSubtotal;
 
-    const hasMealPrep = orders.length > 0;
-    const cookbooksOnly = !hasMealPrep && cookbooks.length > 0;
+    const hasPhysicalOrders = orders.length > 0 || crewPacks.length > 0;
+    const cookbooksOnly = !hasPhysicalOrders && cookbooks.length > 0;
     const shippingOptions = cookbooksOnly
         ? ['Digital Download - No Shipping']
         : ['Pick Up - Orlando Only', 'Delivery - Orlando Only'];
@@ -114,14 +115,14 @@ const MockCheckout = () => {
             if (cookbooks.length > 0) {
                 sessionStorage.setItem('purchasedCookbooks', JSON.stringify(cookbooks));
             }
-            sessionStorage.setItem('hadMealPrepOrders', JSON.stringify(orders.length > 0));
+            sessionStorage.setItem('hadMealPrepOrders', JSON.stringify(hasPhysicalOrders));
             showCheckoutWindow(e);
         } else {
             setError(true);
         }
     }
 
-    if (orders.length === 0 && cookbooks.length === 0) {
+    if (orders.length === 0 && crewPacks.length === 0 && cookbooks.length === 0) {
         return (
             <div style={{ textAlign: 'center', marginTop: '50px', fontFamily: 'Libre Caslon Display' }}>
                 <p>Your cart is empty.</p>
@@ -176,6 +177,12 @@ const MockCheckout = () => {
                                 </div>
                             );
                         })}
+                        {crewPacks.map((pack) => (
+                            <div key={pack.id} style={{ margin: '0 5px 10px', textAlign: 'center', fontSize: '14px' }}>
+                                <div>{pack.packName}</div>
+                                <div>${pack.total}</div>
+                            </div>
+                        ))}
                         {cookbooks.map((cookbook) => (
                             <div key={cookbook.id} style={{ margin: '0 5px 10px', textAlign: 'center', fontSize: '14px' }}>
                                 <div>{cookbook.title}</div>

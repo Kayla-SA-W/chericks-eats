@@ -284,6 +284,30 @@ function updateSelections(
       return { ...prev, sauce: value };
     case 'bundle_select':
       return { ...prev, bundleType: value };
+    case 'crew_pack_select':
+      return { ...prev, crewPack: value };
+    case 'crew_pack_breakfast':
+      return { ...prev, crewBreakfast: value };
+    case 'crew_pack_lunch':
+      return { ...prev, crewLunch: value };
+    case 'crew_pack_dinner':
+      return { ...prev, crewDinner: value };
+    case 'crew_pack_no_heat':
+      if (value !== 'Red-Eye Overnight Oats') {
+        return { ...prev, crewNoHeatMeal: value };
+      }
+      return prev;
+    case 'crew_pack_oat_flavor':
+      // If no-heat meal isn't set yet, this came from the no-heat step (Layover)
+      if (!prev.crewNoHeatMeal) {
+        return { ...prev, crewOatFlavor: value, crewNoHeatMeal: `Red-Eye Overnight Oats - ${value}` };
+      }
+      // Otherwise came from breakfast (other packs)
+      return { ...prev, crewOatFlavor: value };
+    case 'crew_pack_greens_protein':
+      return { ...prev, crewGreensProtein: value };
+    case 'crew_pack_snack':
+      return { ...prev, crewSnack: value };
     default:
       return prev;
   }
@@ -291,10 +315,22 @@ function updateSelections(
 
 const initialSelections: MealPrepSelections = { path: null };
 const SESSION_KEY = 'mealPrepChatState';
+const SESSION_VERSION = 4;
+
+// Clear stale session data from previous versions
+try {
+  const raw = sessionStorage.getItem(SESSION_KEY);
+  if (raw) {
+    const parsed = JSON.parse(raw);
+    if (parsed._version !== SESSION_VERSION) {
+      sessionStorage.removeItem(SESSION_KEY);
+    }
+  }
+} catch {}
 
 function saveToSession(state: ChatState): void {
   try {
-    sessionStorage.setItem(SESSION_KEY, JSON.stringify(state));
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify({ ...state, _version: SESSION_VERSION }));
   } catch {}
 }
 
@@ -386,7 +422,7 @@ export const MealPrepChat = () => {
   const [chatState, dispatch] = useReducer(chatReducer, undefined, getInitialState);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const { addOrder } = useContext(MealPrepCartContext);
+  const { addOrder, addCrewPack } = useContext(MealPrepCartContext);
 
   useEffect(() => {
     saveToSession(chatState);
@@ -404,15 +440,18 @@ export const MealPrepChat = () => {
     if (chatState.currentStepId === 'standard_summary' && option.value === 'yes') {
       addOrder(chatState.selections);
     }
+    if (chatState.currentStepId === 'crew_pack_summary' && option.value === 'yes') {
+      addCrewPack(chatState.selections);
+    }
 
     // Navigate to cart page
-    if (chatState.currentStepId === 'standard_confirm' && option.value === 'view_cart') {
+    if ((chatState.currentStepId === 'standard_confirm' || chatState.currentStepId === 'crew_pack_confirm') && option.value === 'view_cart') {
       window.location.href = '/cart';
       return;
     }
 
     // "Add Another" resets the chat
-    if (chatState.currentStepId === 'standard_confirm' && option.value === 'add_another') {
+    if ((chatState.currentStepId === 'standard_confirm' || chatState.currentStepId === 'crew_pack_confirm') && option.value === 'add_another') {
       dispatch({ type: 'RESET' });
       return;
     }
@@ -472,14 +511,22 @@ export const MealPrepChat = () => {
           {isTyping ? null : chatState.isComplete ? (
             <ActionButton onClick={handleStartOver}>Start Over</ActionButton>
           ) : currentStep.options === 'day_counter' ? (
-            <DayCounterWidget onConfirm={handleDaySelect} />
+            <>
+              <DayCounterWidget onConfirm={handleDaySelect} />
+              <ActionButton onClick={handleStartOver}>Start Over</ActionButton>
+            </>
           ) : Array.isArray(currentStep.options) ? (
-            currentStep.options.map((opt) => (
-              <OptionChip key={opt.value} onClick={() => handleOptionSelect(opt)}>
-                {opt.label}
-                {opt.extraInfo && <ExtraCostBadge>({opt.extraInfo})</ExtraCostBadge>}
-              </OptionChip>
-            ))
+            <>
+              {currentStep.options.map((opt) => (
+                <OptionChip key={opt.value} onClick={() => handleOptionSelect(opt)}>
+                  {opt.label}
+                  {opt.extraInfo && <ExtraCostBadge>({opt.extraInfo})</ExtraCostBadge>}
+                </OptionChip>
+              ))}
+              {chatState.currentStepId !== 'welcome' && (
+                <ActionButton onClick={handleStartOver}>Start Over</ActionButton>
+              )}
+            </>
           ) : null}
         </OptionsContainer>
       </ChatContainer>
