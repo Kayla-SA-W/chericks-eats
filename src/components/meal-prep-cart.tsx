@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import "@fontsource/libre-caslon-display";
 import "@fontsource/dancing-script";
-import { MealPrepCartContext, MealPrepOrder } from '../context/meal-prep-cart';
+import { MealPrepCartContext, MealPrepOrder, CookbookItem } from '../context/meal-prep-cart';
 
 const CartWrapper = styled.div`
   max-width: 700px;
@@ -113,7 +113,14 @@ const ActionButton = styled.button`
   }
 `;
 
-const OrderItem = ({ order, onRemove }: { order: MealPrepOrder; onRemove: () => void }) => {
+const SectionLabel = styled.div`
+  font-family: "Dancing Script";
+  font-size: 20px;
+  color: #555;
+  margin: 20px 0 10px;
+`;
+
+const MealPrepOrderItem = ({ order, onRemove }: { order: MealPrepOrder; onRemove: () => void }) => {
   const s = order.selections;
   return (
     <OrderCard>
@@ -141,21 +148,39 @@ const OrderItem = ({ order, onRemove }: { order: MealPrepOrder; onRemove: () => 
   );
 };
 
+const CookbookCartItem = ({ cookbook, onRemove }: { cookbook: CookbookItem; onRemove: () => void }) => {
+  return (
+    <OrderCard>
+      <OrderHeader>
+        <OrderTitle>{cookbook.title}</OrderTitle>
+        <RemoveButton onClick={onRemove}>Remove</RemoveButton>
+      </OrderHeader>
+      <OrderDetail>Digital Cookbook</OrderDetail>
+      <OrderTotal>${cookbook.price}</OrderTotal>
+    </OrderCard>
+  );
+};
+
 export const MealPrepCartContent = () => {
-  const { orders, removeOrder, clearCart } = useContext(MealPrepCartContext);
+  const { orders, removeOrder, cookbooks, removeCookbook, clearCart } = useContext(MealPrepCartContext);
 
-  const grandTotal = orders.reduce((sum, o) => sum + o.total, 0);
+  const mealPrepTotal = orders.reduce((sum, o) => sum + o.total, 0);
+  const cookbookTotal = cookbooks.reduce((sum, c) => sum + c.price, 0);
+  const grandTotal = mealPrepTotal + cookbookTotal;
 
-  if (orders.length === 0) {
+  const isEmpty = orders.length === 0 && cookbooks.length === 0;
+
+  if (isEmpty) {
     return (
       <CartWrapper>
         <Title>Your Cart</Title>
-        <EmptyMessage>
-          Your cart is empty. Head to Meal Prep to build your order!
-        </EmptyMessage>
+        <EmptyMessage>Your cart is empty.</EmptyMessage>
         <ActionRow>
           <ActionButton onClick={() => { window.location.href = '/order'; }}>
-            Go to Meal Prep
+            Order Meal Prep
+          </ActionButton>
+          <ActionButton onClick={() => { window.location.href = '/cookbooks'; }}>
+            Browse Cookbooks
           </ActionButton>
         </ActionRow>
       </CartWrapper>
@@ -165,9 +190,25 @@ export const MealPrepCartContent = () => {
   return (
     <CartWrapper>
       <Title>Your Cart</Title>
-      {orders.map((order) => (
-        <OrderItem key={order.id} order={order} onRemove={() => removeOrder(order.id)} />
-      ))}
+
+      {orders.length > 0 && (
+        <>
+          <SectionLabel>Meal Prep</SectionLabel>
+          {orders.map((order) => (
+            <MealPrepOrderItem key={order.id} order={order} onRemove={() => removeOrder(order.id)} />
+          ))}
+        </>
+      )}
+
+      {cookbooks.length > 0 && (
+        <>
+          <SectionLabel>Cookbooks</SectionLabel>
+          {cookbooks.map((cookbook) => (
+            <CookbookCartItem key={cookbook.id} cookbook={cookbook} onRemove={() => removeCookbook(cookbook.id)} />
+          ))}
+        </>
+      )}
+
       <Divider />
       <GrandTotal>
         <span>Total</span>

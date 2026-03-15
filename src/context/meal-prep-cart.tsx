@@ -9,11 +9,22 @@ export interface MealPrepOrder {
   description: string;
 }
 
+export interface CookbookItem {
+  id: string;
+  title: string;
+  price: number;
+  downloadPath: string;
+}
+
 type MealPrepCartContextType = {
   orders: MealPrepOrder[];
   setOrders: Dispatch<SetStateAction<MealPrepOrder[]>>;
   addOrder: (selections: MealPrepSelections) => void;
   removeOrder: (id: string) => void;
+  cookbooks: CookbookItem[];
+  setCookbooks: Dispatch<SetStateAction<CookbookItem[]>>;
+  addCookbook: (cookbook: CookbookItem) => void;
+  removeCookbook: (id: string) => void;
   clearCart: () => void;
 };
 
@@ -22,6 +33,10 @@ export const MealPrepCartContext = createContext<MealPrepCartContextType>({
   setOrders: () => undefined,
   addOrder: () => undefined,
   removeOrder: () => undefined,
+  cookbooks: [],
+  setCookbooks: () => undefined,
+  addCookbook: () => undefined,
+  removeCookbook: () => undefined,
   clearCart: () => undefined,
 });
 
@@ -41,6 +56,7 @@ function buildDescription(s: MealPrepSelections): string {
 
 export const MealPrepCartProvider = ({ children }: PropsWithChildren<{}>) => {
   const [orders, setOrders] = useSessionStorage<MealPrepOrder[]>('mealPrepCart', []);
+  const [cookbooks, setCookbooks] = useSessionStorage<CookbookItem[]>('cookbookCart', []);
 
   const addOrder = (selections: MealPrepSelections) => {
     const newOrder: MealPrepOrder = {
@@ -56,12 +72,28 @@ export const MealPrepCartProvider = ({ children }: PropsWithChildren<{}>) => {
     setOrders((prev) => prev.filter((o) => o.id !== id));
   };
 
+  const addCookbook = (cookbook: CookbookItem) => {
+    setCookbooks((prev) => {
+      if (prev.some((c) => c.id === cookbook.id)) return prev;
+      return [...prev, cookbook];
+    });
+  };
+
+  const removeCookbook = (id: string) => {
+    setCookbooks((prev) => prev.filter((c) => c.id !== id));
+  };
+
   const clearCart = () => {
     setOrders([]);
+    setCookbooks([]);
   };
 
   return (
-    <MealPrepCartContext.Provider value={{ orders, setOrders, addOrder, removeOrder, clearCart }}>
+    <MealPrepCartContext.Provider value={{
+      orders, setOrders, addOrder, removeOrder,
+      cookbooks, setCookbooks, addCookbook, removeCookbook,
+      clearCart,
+    }}>
       {children}
     </MealPrepCartContext.Provider>
   );

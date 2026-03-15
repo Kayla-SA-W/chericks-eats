@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { MealPrepCartContext } from '../../context/meal-prep-cart';
 import { CheckoutContainer, CheckoutForm } from '../../components/checkout';
 import { calculateShipping } from '../../modules/calculate-shipping';
@@ -60,7 +60,25 @@ const checkIfEmpty = (event: { target: { value: string; style: { border: string;
 const SQUARE_CHECKOUT_URL = "https://square.link/u/Nj8Hk5Zi?src=embed";
 
 const MockCheckout = () => {
-    const { orders } = useContext(MealPrepCartContext);
+    const { orders, cookbooks } = useContext(MealPrepCartContext);
+
+    // Dev bypass: press "kayladev" on the checkout page to skip payment
+    useEffect(() => {
+        let buffer = '';
+        const handler = (e: KeyboardEvent) => {
+            buffer += e.key.toLowerCase();
+            if (buffer.length > 7) buffer = buffer.slice(-7);
+            if (buffer === 'kayladev') {
+                if (cookbooks.length > 0) {
+                    sessionStorage.setItem('purchasedCookbooks', JSON.stringify(cookbooks));
+                }
+                sessionStorage.setItem('hadMealPrepOrders', JSON.stringify(orders.length > 0));
+                window.location.href = '/confirmation';
+            }
+        };
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+    }, [cookbooks]);
 
     const [customerInformation, setCustomerInformation] = useState({
         firstName: '',
@@ -69,29 +87,41 @@ const MockCheckout = () => {
         address: ''
     })
 
-    const subtotal = orders.reduce((sum, o) => sum + o.total, 0);
+    const mealPrepSubtotal = orders.reduce((sum, o) => sum + o.total, 0);
+    const cookbookSubtotal = cookbooks.reduce((sum, c) => sum + c.price, 0);
+    const subtotal = mealPrepSubtotal + cookbookSubtotal;
 
-    const shippingOptions = ['Pick Up - Orlando Only', 'Delivery - Orlando Only'];
+    const hasMealPrep = orders.length > 0;
+    const cookbooksOnly = !hasMealPrep && cookbooks.length > 0;
+    const shippingOptions = cookbooksOnly
+        ? ['Digital Download - No Shipping']
+        : ['Pick Up - Orlando Only', 'Delivery - Orlando Only'];
 
     const [selectedShipping, setSelectedShipping] = useState('');
     const [error, setError] = useState(false);
 
+    const shippingCost = cookbooksOnly ? 0 : calculateShipping(selectedShipping);
     const tax = subtotal * .065;
     const withTax = subtotal + tax;
 
-    const total = (calculateShipping(selectedShipping) + withTax).toFixed(2);
+    const total = (shippingCost + withTax).toFixed(2);
 
     const OnClickPayNow = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         if (checkAllInputs()) {
             setError(false);
+            // Save purchased cookbook IDs so confirmation page can offer downloads
+            if (cookbooks.length > 0) {
+                sessionStorage.setItem('purchasedCookbooks', JSON.stringify(cookbooks));
+            }
+            sessionStorage.setItem('hadMealPrepOrders', JSON.stringify(orders.length > 0));
             showCheckoutWindow(e);
         } else {
             setError(true);
         }
     }
 
-    if (orders.length === 0) {
+    if (orders.length === 0 && cookbooks.length === 0) {
         return (
             <div style={{ textAlign: 'center', marginTop: '50px', fontFamily: 'Libre Caslon Display' }}>
                 <p>Your cart is empty.</p>
@@ -146,13 +176,19 @@ const MockCheckout = () => {
                                 </div>
                             );
                         })}
+                        {cookbooks.map((cookbook) => (
+                            <div key={cookbook.id} style={{ margin: '0 5px 10px', textAlign: 'center', fontSize: '14px' }}>
+                                <div>{cookbook.title}</div>
+                                <div>${cookbook.price}</div>
+                            </div>
+                        ))}
                     </div>
                     <div style={{ border: '1px solid black', padding: '20px 0', display: 'flex', alignItems: 'center', flexDirection: 'column', width: 'inherit' }}>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', marginLeft: '20px' }}>
                             <div>Subtotal</div>
                             <div>{`$ ${subtotal}`}</div>
                             <div style={{ marginRight: '15px' }}>Shipping</div>
-                            <div>{`$ ${calculateShipping(selectedShipping).toFixed(2)}`}</div>
+                            <div>{`$ ${shippingCost.toFixed(2)}`}</div>
                             <div>Tax</div>
                             <div>{`$ ${tax.toFixed(2)}`}</div>
                         </div>
