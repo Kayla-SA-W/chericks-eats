@@ -1,6 +1,6 @@
 import React from 'react';
-import { ContextProviders } from './src/context/combined';
+import { MealPrepCartProvider } from './src/context/meal-prep-cart';
 
 export const wrapRootElement = ({ element }) => (
-  <ContextProviders>{element}</ContextProviders>
+  <MealPrepCartProvider>{element}</MealPrepCartProvider>
 );
