@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { CheckoutContext } from '../../context/checkout-cart';
-import { CartContext } from '../../context';
-import { SmallSeperator } from '../../components/cart';
+import React, { useContext, useState } from 'react';
+import { MealPrepCartContext } from '../../context/meal-prep-cart';
 import { CheckoutContainer, CheckoutForm } from '../../components/checkout';
 import { calculateShipping } from '../../modules/calculate-shipping';
 import styled from 'styled-components';
@@ -30,6 +28,13 @@ const FormInput = styled.input`
 margin-bottom: 20px;
 `
 
+const SmallSeperator = styled.hr`
+height: .5px;
+width: 90%;
+background-color: black;
+border: 1px black solid;
+`
+
 const checkAllInputs = () => {
     const firstName = document.getElementById('first_name');
     const surname = document.getElementById('surname');
@@ -52,17 +57,10 @@ const checkIfEmpty = (event: { target: { value: string; style: { border: string;
     }
 }
 
-const MockCheckout = () => {
-    const { cart } = useContext(CartContext);
-    const { checkoutCart, setCartWithQuantities } = useContext(CheckoutContext);
+const SQUARE_CHECKOUT_URL = "https://square.link/u/Nj8Hk5Zi?src=embed";
 
-    const cartWithQuantitiesUI = checkoutCart.map((item) => {
-        return (
-            <div key={item} style={{ margin: '0 5px 5px' }}>
-                {item} x{cart[item].quantity}
-            </div>
-        )
-    });
+const MockCheckout = () => {
+    const { orders } = useContext(MealPrepCartContext);
 
     const [customerInformation, setCustomerInformation] = useState({
         firstName: '',
@@ -71,10 +69,9 @@ const MockCheckout = () => {
         address: ''
     })
 
-    const subtotal = checkoutCart.map((name) => cart[name].price * cart[name].quantity).reduce((prev, current) => prev + current, 0);
+    const subtotal = orders.reduce((sum, o) => sum + o.total, 0);
 
-    const allowShipping = checkoutCart.includes('Cake Batter Chocolate Chip Cookies - 15ct') || checkoutCart.includes('Brownies - 15ct');
-    const shippingOptions = ['Pick Up - Orlando Only', 'Delivery - Orlando Only', ...(allowShipping ? ['Priority', 'Priority Express'] : [])];
+    const shippingOptions = ['Pick Up - Orlando Only', 'Delivery - Orlando Only'];
 
     const [selectedShipping, setSelectedShipping] = useState('');
     const [error, setError] = useState(false);
@@ -83,14 +80,6 @@ const MockCheckout = () => {
     const withTax = subtotal + tax;
 
     const total = (calculateShipping(selectedShipping) + withTax).toFixed(2);
-
-    const cartWithQuantities = checkoutCart.map((item) => {
-        return <>`${item} x${cart[item].quantity}`</>
-    });
-
-    useEffect(() => {
-        setCartWithQuantities({ cartWithQuantities, total, selectedShipping, customerInformation });
-    }, [])
 
     const OnClickPayNow = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -102,19 +91,14 @@ const MockCheckout = () => {
         }
     }
 
-    const setUrl = () => {
-        if (weekendEats) {
-            if (checkoutCart.includes('Chericks Weekend Eats & Extra Side')) {
-                return 'https://square.link/u/5XtsaR9e?src=embed';
-            } else {
-                return 'https://square.link/u/PQKDIEV8?src=embed';
-            }
-        } else {
-            return "https://square.link/u/Nj8Hk5Zi?src=embed";
-        }
+    if (orders.length === 0) {
+        return (
+            <div style={{ textAlign: 'center', marginTop: '50px', fontFamily: 'Libre Caslon Display' }}>
+                <p>Your cart is empty.</p>
+                <a href="/order">Go to Order</a>
+            </div>
+        );
     }
-
-    const weekendEats = checkoutCart.includes('Chericks Weekend Eats & Extra Side') || checkoutCart.includes('Chericks Weekend Eats')
 
     return (
         <>
@@ -143,13 +127,25 @@ const MockCheckout = () => {
                     </select>
                     <div style={{ marginTop: '20px' }}>
                         <input type="checkbox" id="terms-and-conditions" name="terms-and-conditions" />
-                        <label htmlFor="terms-and-conditions">I hereby agree to the <a href={weekendEats ? '/terms-and-conditions-weekend-eats.pdf' : '/terms-and-conditions.pdf'} target="_blank">terms and conditions.</a></label>
+                        <label htmlFor="terms-and-conditions">I hereby agree to the <a href='/terms-and-conditions.pdf' target="_blank">terms and conditions.</a></label>
                     </div>
                 </CheckoutForm>
                 <OrderSummary>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid black', width: 'inherit' }}>
                         <div style={{ marginBottom: '20px' }}>Order Summary</div>
-                        <div style={{ marginBottom: '20px' }}>{cartWithQuantitiesUI}</div>
+                        {orders.map((order) => {
+                            const s = order.selections;
+                            return (
+                                <div key={order.id} style={{ margin: '0 5px 10px', textAlign: 'center', fontSize: '14px' }}>
+                                    <div>
+                                        {s.plateType === 'protein' ? s.protein : s.pasta}
+                                        {s.pastaProtein && s.pastaProtein !== 'none' ? ` + ${s.pastaProtein}` : ''}
+                                    </div>
+                                    <div>{s.base} · {s.veggie} · {s.sauce}</div>
+                                    <div>{s.days} days — ${order.total}</div>
+                                </div>
+                            );
+                        })}
                     </div>
                     <div style={{ border: '1px solid black', padding: '20px 0', display: 'flex', alignItems: 'center', flexDirection: 'column', width: 'inherit' }}>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr', marginLeft: '20px' }}>
@@ -167,7 +163,7 @@ const MockCheckout = () => {
                         </div>
                     </div>
                     <div>
-                        {weekendEats ? null : <p style={{ color: 'red' }}>Final Payment is due one week before order completion</p>}
+                        <p style={{ color: 'red' }}>Final Payment is due one week before order completion</p>
                         <div><div style={{
                             overflow: 'auto',
                             display: 'flex',
@@ -179,7 +175,7 @@ const MockCheckout = () => {
                             fontFamily: 'Playfair Display, SQ Market, Helvetica, Arial, sans-serif'
                         }}>
                             <div style={{ padding: '20px' }}>
-                                <a id='modal-checkout-button' data-url={setUrl()} href={setUrl()} onClick={(e) => OnClickPayNow(e)} style={{
+                                <a id='modal-checkout-button' data-url={SQUARE_CHECKOUT_URL} href={SQUARE_CHECKOUT_URL} onClick={(e) => OnClickPayNow(e)} style={{
                                     display: 'inline-block',
                                     fontSize: '18px',
                                     lineHeight: '48px',

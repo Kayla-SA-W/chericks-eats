@@ -4,7 +4,7 @@ import Instagram from '../images/instagram-logo-black.png'
 import Facebook from '../images/facebook-logo-black.png'
 import "@fontsource/dancing-script"
 
-const GridWrapper = styled.div<{ header: boolean }>`
+const GridWrapper = styled.div`
     height: 60px;
     background-color: white;
     display: grid;
@@ -15,7 +15,6 @@ const GridWrapper = styled.div<{ header: boolean }>`
         flex-direction: column;
         align-items: center;
         gap: 10px;
-        margin: ${(props) => (props.header ? '0 auto 50px' : '0 auto')};
         height: 100px;
     }
 `
@@ -61,17 +60,17 @@ const Socials = styled.div`
 
 export const Nav = ({ header }: { header: boolean }) => {
     return (
-        <GridWrapper header={header}>
+        <GridWrapper>
             <SiteName href='/' style={{ justifySelf: 'center' }}>{header ? "Cherick's Eats" : "© 2021 Cherick's Eats"}</SiteName>
             <NavLinks>
                 <StyledMenuLink href='/'>
                     Home
                 </StyledMenuLink>
-                <StyledMenuLink href='/menu'>
-                    Menu
-                </StyledMenuLink>
                 <StyledMenuLink href='/flight-fuel'>
                     Flight Fuel
+                </StyledMenuLink>
+                <StyledMenuLink href='/order'>
+                    Order
                 </StyledMenuLink>
                 <StyledMenuLink href="/about-me">
                     About Me
@@ -84,7 +83,9 @@ export const Nav = ({ header }: { header: boolean }) => {
                         : null
                 }
             </NavLinks>
-            <Socials>
+            {
+                header === false ?
+                <Socials>
                 <a href="https://www.instagram.com/chericks_eats/" target="_blank" rel="noopener noreferrer" style={{ width: 'fit-content' }}>
                     <img src={Instagram} style={{ height: '20px' }} />
                 </a>
@@ -92,6 +93,8 @@ export const Nav = ({ header }: { header: boolean }) => {
                     <img src={Facebook} style={{ height: '20px' }} />
                 </a>
             </Socials>
+            : null
+            }
         </GridWrapper>
     )
 }

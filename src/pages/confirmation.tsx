@@ -3,10 +3,7 @@ import { Header } from '../components/header';
 import styled, { createGlobalStyle } from 'styled-components';
 import ThankYouImage from '../images/thank-you.png';
 import { OrderNowButton } from '../components/pill-button';
-import { CartContext, CheckoutContext, initalQuantites } from '../context';
-import { initialCartState } from '../context/initial-cart';
-import { sendConfirmationEmail } from '../modules/email-confirmations';
-import { sendNewOrderEmail } from '../modules/email-confirmations';
+import { MealPrepCartContext } from '../context/meal-prep-cart';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -39,20 +36,12 @@ font-size: 22px
 const GlobalStyleProxy: any = GlobalStyle;
 
 const ConfirmationPage = () => {
-    const { setCart } = useContext(CartContext);
-    const { quantities, setCheckoutCart, setCartWithQuantities } = useContext(CheckoutContext);
-    const {cartWithQuantities, total, selectedShipping, customerInformation } = quantities;
+    const { clearCart } = useContext(MealPrepCartContext);
 
     useEffect(() => {
-        if(document.referrer === 'https://square.link/u/Nj8Hk5Zi?src=embed'){
-            sendConfirmationEmail({ customerInformation, cartWithQuantities });
-            sendNewOrderEmail({ customerInformation, cartWithQuantities, total, selectedShipping });
-        }
-        setCart(initialCartState);
-        setCheckoutCart([]);
-        setCartWithQuantities(initalQuantites)
+        clearCart();
     }, [])
-    
+
     return(
         <>
             <GlobalStyleProxy />
