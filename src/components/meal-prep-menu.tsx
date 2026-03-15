@@ -509,11 +509,11 @@ export const MealPrepChat = () => {
 
         <OptionsContainer>
           {isTyping ? null : chatState.isComplete ? (
-            <ActionButton onClick={handleStartOver}>Start Over</ActionButton>
+            <OptionChip onClick={handleStartOver}>Start Over</OptionChip>
           ) : currentStep.options === 'day_counter' ? (
             <>
               <DayCounterWidget onConfirm={handleDaySelect} />
-              <ActionButton onClick={handleStartOver}>Start Over</ActionButton>
+              <OptionChip onClick={handleStartOver}>Start Over</OptionChip>
             </>
           ) : Array.isArray(currentStep.options) ? (
             <>
@@ -523,8 +523,8 @@ export const MealPrepChat = () => {
                   {opt.extraInfo && <ExtraCostBadge>({opt.extraInfo})</ExtraCostBadge>}
                 </OptionChip>
               ))}
-              {chatState.currentStepId !== 'welcome' && (
-                <ActionButton onClick={handleStartOver}>Start Over</ActionButton>
+              {chatState.currentStepId !== 'welcome' && !currentStep.options.some(opt => opt.value === 'no') && (
+                <OptionChip onClick={handleStartOver}>Start Over</OptionChip>
               )}
             </>
           ) : null}
