@@ -123,6 +123,7 @@ const FooterBar = styled.div`
     align-items: center;
     justify-content: center;
     gap: 20px;
+    margin-bottom: 40px;
 `
 
 const FooterText = styled.span`
