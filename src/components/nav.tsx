@@ -181,6 +181,7 @@ export const Nav = ({ header }: { header: boolean }) => {
                     <Overlay $open={!isClosing} onClick={handleClose} />
                     <SlidePanel $open={!isClosing} $closing={isClosing}>
                         <StyledMenuLink href='/' onClick={handleClose}>Home</StyledMenuLink>
+                        <StyledMenuLink href='/meal-prep' onClick={handleClose}>Meal Prep</StyledMenuLink>
                         <StyledMenuLink href='/flight-fuel' onClick={handleClose}>Flight Fuel</StyledMenuLink>
                         <StyledMenuLink href='/order' onClick={handleClose}>Order</StyledMenuLink>
                         <StyledMenuLink href='/cookbooks' onClick={handleClose}>Cookbooks</StyledMenuLink>
