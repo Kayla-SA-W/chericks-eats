@@ -1,13 +1,8 @@
 import React, { PropsWithChildren } from 'react';
-import {
-  CartProvider,
-  CheckoutCartProvider
-} from '.';
+import { MealPrepCartProvider } from './meal-prep-cart';
 
 export const ContextProviders = ({ children }: PropsWithChildren<{}>) => (
-  <CartProvider>
-    <CheckoutCartProvider>
-      <>{children}</>
-    </CheckoutCartProvider>
-  </CartProvider>
+  <MealPrepCartProvider>
+    <>{children}</>
+  </MealPrepCartProvider>
 );
