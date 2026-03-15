@@ -141,14 +141,14 @@ export function getCrewPackPrice(packName: string): number {
 
 // === Crew Pack Menu Options ===
 
-export const crewPackBreakfasts = [
+const crewPackBreakfasts = [
   'First Class Egg Bites',
   'Red-Eye Overnight Oats',
   'Morning Departure Protein Box',
   'Golden Hour Breakfast Bake',
 ];
 
-export const crewPackLunches = [
+const crewPackLunches = [
   'Cruise Control Citrus Chicken Bowl',
   'Mediterranean Turnaround Box',
   'Steady Flight Protein Bowl',
@@ -156,21 +156,21 @@ export const crewPackLunches = [
   'Flight Level Greens + Protein',
 ];
 
-export const crewPackDinners = [
+const crewPackDinners = [
   'Smooth Landing Herb Chicken',
   'Night Flight Bolognese',
   'Low-Sodium Teriyaki Touchdown',
   'Plant-Based Altitude Bowl',
 ];
 
-export const crewPackSnacks = [
+const crewPackSnacks = [
   'Altitude Energy Box',
   'Clear Skies Yogurt Cup',
   'Runway Bites',
   'Flight Path Trail Mix',
 ];
 
-export const overnightOatFlavors = [
+const overnightOatFlavors = [
   'Vanilla Berry Cheesecake',
   'Peaches & Cream',
   'Strawberries & Cream',
@@ -186,7 +186,7 @@ interface CrewPackRequirements {
   noHeatMeals: number;
 }
 
-export function getCrewPackRequirements(packName: string): CrewPackRequirements {
+function getCrewPackRequirements(packName: string): CrewPackRequirements {
   switch (packName) {
     case '3-Day Turnaround Pack':
       return { breakfasts: 1, lunches: 1, dinners: 1, snacks: 1, noHeatMeals: 0 };
@@ -238,7 +238,7 @@ export function calculateStandardTotal(selections: MealPrepSelections): number {
   return pricePerDay * days;
 }
 
-export function getBundlePrice(bundleType: string): string {
+function getBundlePrice(bundleType: string): string {
   switch (bundleType) {
     case 'Lifestyle Week - Option 1': return '$115';
     case 'Lifestyle Week - Option 2': return '$215';
