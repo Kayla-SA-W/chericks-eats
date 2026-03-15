@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { flightFuelItems } from '../data/menu-items';
 import "@fontsource/libre-caslon-display";
 import { MenuSelection, Title, Warning } from './menu-v2';
+import { OrderNowButton } from './pill-button';
 
 const FlightFuelOptions = styled.div`
   display: flex;
@@ -208,6 +209,7 @@ const FlightFuelMenu = () => {
                     </div>
                 )}
             </MenuSelection>
+            <OrderNowButton location='order' text='Order Now' style={{ marginTop: '20px' }} />
         </MenuWrapper>
     );
 };

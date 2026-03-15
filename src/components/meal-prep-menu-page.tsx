@@ -4,6 +4,7 @@ import "@fontsource/libre-caslon-display";
 import "@fontsource/dancing-script";
 import { proteins, bases, veggies, sauces, pastas, pastaProteinAddOns } from '../data/meal-prep';
 import { MenuSelection, Title, Warning } from './menu-v2';
+import { OrderNowButton } from './pill-button';
 
 const MenuWrapper = styled.div`
   width: 90vw;
@@ -238,6 +239,7 @@ const MealPrepMenuPage = () => {
           </>
         )}
       </MenuSelection>
+      <OrderNowButton location='order' text='Order Now' style={{ marginTop: '20px' }} />
     </MenuWrapper>
   );
 };
