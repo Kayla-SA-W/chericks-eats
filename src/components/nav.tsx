@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import Instagram from '../images/instagram-logo-black.png'
 import Facebook from '../images/facebook-logo-black.png'
 import "@fontsource/dancing-script"
+import "@fontsource/libre-caslon-display"
 
 const NavBar = styled.div`
     height: 60px;
@@ -97,9 +98,9 @@ const SlidePanel = styled.div<{ $open: boolean; $closing: boolean }>`
 export const StyledMenuLink = styled.a`
     height: fit-content;
     text-decoration: none;
-    font-family: 'Dancing Script';
+    font-family: "Libre Caslon Display";
     color: black;
-    font-size: 24px;
+    font-size: 18px;
     padding: 12px 0;
     text-decoration: underline 0.15em rgba(0, 0, 0, 0);
     transition: text-decoration-color 300ms;
@@ -127,8 +128,8 @@ const FooterBar = styled.div`
 `
 
 const FooterText = styled.span`
-    font-family: "Dancing Script";
-    font-size: 18px;
+    font-family: "Libre Caslon Display";
+    font-size: 14px;
     color: black;
 `
 
