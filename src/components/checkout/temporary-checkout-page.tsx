@@ -67,7 +67,7 @@ const MockCheckout = () => {
         let buffer = '';
         const handler = (e: KeyboardEvent) => {
             buffer += e.key.toLowerCase();
-            if (buffer.length > 7) buffer = buffer.slice(-7);
+            if (buffer.length > 8) buffer = buffer.slice(-8);
             if (buffer === 'kayladev') {
                 if (cookbooks.length > 0) {
                     sessionStorage.setItem('purchasedCookbooks', JSON.stringify(cookbooks));
