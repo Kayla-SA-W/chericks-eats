@@ -11,9 +11,9 @@ const FlightFuelOptions = styled.div`
   justify-content: center;
 
   @media screen and (max-width: 1024px) {
-    padding: 0;
-    width: 100%;
-    margin-bottom: 20px;
+    padding: 0 5px;
+    width: auto;
+    margin: 0 0 20px;
   }
 `;
 
@@ -40,6 +40,10 @@ const TitleWarning = styled(Warning)`
 const CenteredWarning = styled(Warning)`
   margin: 0 25px;
   text-align: center;
+
+  @media screen and (max-width: 1024px) {
+    margin: 0 10px;
+  }
 `;
 
 const TierWarning = styled(Warning)`
@@ -47,6 +51,11 @@ const TierWarning = styled(Warning)`
   flex-direction: row;
   align-items: center;
   margin: 0 25px;
+
+  @media screen and (max-width: 1024px) {
+    margin: 0 10px;
+    flex-wrap: wrap;
+  }
 `;
 
 const TierName = styled.p`
@@ -59,6 +68,12 @@ const MenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+    padding: 20px 10px;
+  }
 `
 
 const TabsContainer = styled.div`
