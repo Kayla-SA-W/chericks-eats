@@ -183,6 +183,7 @@ export const Nav = ({ header }: { header: boolean }) => {
                         <StyledMenuLink href='/' onClick={handleClose}>Home</StyledMenuLink>
                         <StyledMenuLink href='/flight-fuel' onClick={handleClose}>Flight Fuel</StyledMenuLink>
                         <StyledMenuLink href='/order' onClick={handleClose}>Order</StyledMenuLink>
+                        <StyledMenuLink href='/cookbooks' onClick={handleClose}>Cookbooks</StyledMenuLink>
                         <StyledMenuLink href='/about-me' onClick={handleClose}>About Me</StyledMenuLink>
                         <StyledMenuLink href='/cart' onClick={handleClose}>Cart</StyledMenuLink>
                         <Socials>
