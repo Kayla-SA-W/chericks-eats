@@ -66,7 +66,7 @@ export const FloatingTiles = () => {
     return (
         <TileWrapper>
             <Tile>
-                <FloatingName href='/menu'>Menu</FloatingName>
+                <FloatingName href='/meal-prep'>Meal Prep</FloatingName>
                 <Image src={Menu} />
             </Tile>
             <Tile>
