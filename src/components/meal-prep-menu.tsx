@@ -7,6 +7,7 @@ import {
   ChatStepId,
   MealPrepSelections,
   chatSteps,
+  getDessertCounts,
 } from '../data/meal-prep';
 import { MealPrepCartContext } from '../context/meal-prep-cart';
 
@@ -308,6 +309,15 @@ function updateSelections(
       return { ...prev, crewGreensProtein: value };
     case 'crew_pack_snack':
       return { ...prev, crewSnack: value };
+    case 'dessert_select': {
+      const counts = getDessertCounts(value);
+      if (counts.length === 1) {
+        return { ...prev, dessert: value, dessertCount: counts[0] };
+      }
+      return { ...prev, dessert: value };
+    }
+    case 'dessert_count':
+      return { ...prev, dessertCount: value };
     default:
       return prev;
   }
@@ -315,7 +325,7 @@ function updateSelections(
 
 const initialSelections: MealPrepSelections = { path: null };
 const SESSION_KEY = 'mealPrepChatState';
-const SESSION_VERSION = 4;
+const SESSION_VERSION = 5;
 
 // Clear stale session data from previous versions
 try {
@@ -451,7 +461,7 @@ export const MealPrepChat = () => {
     }
 
     // "Add Another" resets the chat
-    if ((chatState.currentStepId === 'standard_confirm' || chatState.currentStepId === 'crew_pack_confirm') && option.value === 'add_another') {
+    if ((chatState.currentStepId === 'standard_confirm' || chatState.currentStepId === 'crew_pack_confirm' || chatState.currentStepId === 'dessert_confirm') && option.value === 'add_another') {
       dispatch({ type: 'RESET' });
       return;
     }
@@ -479,6 +489,15 @@ export const MealPrepChat = () => {
   };
 
   const currentStep = chatSteps[chatState.currentStepId];
+
+  // Dynamic options for dessert_count step
+  const currentOptions: ChatOption[] | 'day_counter' | null = (() => {
+    if (chatState.currentStepId === 'dessert_count' && chatState.selections.dessert) {
+      const counts = getDessertCounts(chatState.selections.dessert);
+      return counts.map(c => ({ label: c, value: c }));
+    }
+    return currentStep.options;
+  })();
 
   return (
     <PageWrapper>
@@ -515,15 +534,15 @@ export const MealPrepChat = () => {
               <DayCounterWidget onConfirm={handleDaySelect} />
               <OptionChip onClick={handleStartOver}>Start Over</OptionChip>
             </>
-          ) : Array.isArray(currentStep.options) ? (
+          ) : Array.isArray(currentOptions) ? (
             <>
-              {currentStep.options.map((opt) => (
+              {currentOptions.map((opt) => (
                 <OptionChip key={opt.value} onClick={() => handleOptionSelect(opt)}>
                   {opt.label}
                   {opt.extraInfo && <ExtraCostBadge>({opt.extraInfo})</ExtraCostBadge>}
                 </OptionChip>
               ))}
-              {chatState.currentStepId !== 'welcome' && !currentStep.options.some(opt => opt.value === 'no') && (
+              {chatState.currentStepId !== 'welcome' && !currentOptions.some(opt => opt.value === 'no') && (
                 <OptionChip onClick={handleStartOver}>Start Over</OptionChip>
               )}
             </>

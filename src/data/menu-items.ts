@@ -72,73 +72,55 @@ export const sideItems = [
     },
 ]
 
+// Dessert Bar Classics
+export const dessertBarClassics = [
+    { name: 'Brownies', count: '12ct', price: 30 },
+    { name: 'Cheesecake Cupcakes', count: '12ct', price: 45 },
+    { name: 'Cake Batter Chocolate Chip Cookies', count: '12ct', price: 35 },
+    { name: 'Gourmet Cupcakes', count: '12ct', price: 35 },
+];
+
+// Chocolate Wasted
+export const chocolateWastedItems = [
+    { name: 'Truffles', counts: [{ count: '6ct', price: 20 }, { count: '12ct', price: 38 }, { count: '24ct', price: 65 }] },
+    { name: 'Bon Bons', counts: [{ count: '6ct', price: 22 }, { count: '12ct', price: 35 }, { count: '24ct', price: 65 }] },
+];
+
+export const infusedLiquorOptions = [
+    'Captain Morgan', 'Bacardi', 'Vodka', 'Remy', 'Hennessy', 'Tequila',
+    'Crown Royal', 'Brandy VSOP', 'Amaretto', 'Grand Marnier',
+    'Banana Liqueur', "Meyer's", "Bailey's", 'Kahlua',
+];
+
+// Cake Pop Shooters & Jar Cakes
+export const cakePopShooters = [
+    { count: '6ct', price: 25 },
+    { count: '12ct', price: 45 },
+];
+
+export const jarCakes = [
+    { count: '6ct', price: 30 },
+];
+
+export const cakeFlavors = ['Chocolate', 'Vanilla', 'Funfetti'];
+export const chocolateMousseFlavors = ['White', 'Milk', 'Dark', 'Caramel'];
+
+// Chocolate Covered Strawberries
+export const chocolateCoveredStrawberries = [
+    { name: 'Chocolate Covered Strawberries', counts: [{ count: '6ct', price: 25 }, { count: '12ct', price: 45 }] },
+    { name: 'Infused Chocolate Covered Strawberries', counts: [{ count: '6ct', price: 30 }, { count: '12ct', price: 50 }] },
+];
+
+// Additional toppings: Sprinkles, Gold Flakes, etc. available for an additional $5
+// Infused options: Champagne or Moscato
+
+// Flat desserts list for legacy menu page
 export const desserts = [
-    {
-        name: 'Cheesecake Cupcakes - 12ct.'
-    },
-    {
-        name: 'Fruit Tarts 4in - 12ct.'
-    },
-    {
-        name: 'Fruit Tarts 10in'
-    },
-    {
-        name: 'Brownies - 15ct'
-    },
-    {
-        name: 'Cake Batter Chocolate Chip Cookies - 15ct'
-    },
-    {
-        name: 'Truffles 6ct'
-    },
-    {
-        name: 'Truffles 12ct'
-    },
-    {
-        name: 'Bon Bons 6ct'
-    },
-    {
-        name: 'Bon Bons 12ct'
-    },
-    {
-        name: 'Truffle/Bon Bons 24ct'
-    },
-    {
-        name: 'Chocolate Covered Pretzles 6ct'
-    },
-    {
-        name: 'Chocolate Covered Pretzles 12ct'
-    },
-    {
-        name: 'Cake Pop Shooters 6ct'
-    },
-    {
-        name: 'Cake Pop Shooters 12ct'
-    },
-    {
-        name: '6oz Jar Cakes 6 ct'
-    },
-    {
-        name: '6oz Jar Cakes 12 ct'
-    },
-    {
-        name: 'Chocolate Covered Strawberries 6ct'
-    },
-    {
-        name: 'Chocolate Covered Strawberries Infused 6ct'
-    },
-    {
-        name: 'Chocolate Covered Strawberries 12ct'
-    },
-    {
-        name: 'Chocolate Covered Strawberries Infused 12ct'
-    },
-    {
-        name: 'Drunken Chocolate Covered Strawberries 6ct'
-    },
-    {
-        name: 'Drunken Chocolate Covered Strawberries 12ct'
-    },
+    ...dessertBarClassics.map(d => ({ name: `${d.name} - ${d.count}` })),
+    ...chocolateWastedItems.flatMap(d => d.counts.map(c => ({ name: `${d.name} ${c.count}` }))),
+    { name: 'Cake Pop Shooters' },
+    { name: '6oz Jar Cakes' },
+    ...chocolateCoveredStrawberries.flatMap(d => d.counts.map(c => ({ name: `${d.name} ${c.count}` }))),
 ];
 
 export const flightFuelItems = [
@@ -245,3 +227,4 @@ export const flightFuelItems = [
         holdLength: '5+ days'
     }
 ];
+

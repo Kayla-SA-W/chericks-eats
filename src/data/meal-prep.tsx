@@ -41,10 +41,14 @@ export type ChatStepId =
   | 'crew_pack_no_heat'
   | 'crew_pack_summary'
   | 'crew_pack_confirm'
+  | 'dessert_select'
+  | 'dessert_count'
+  | 'dessert_summary'
+  | 'dessert_confirm'
   | 'catering_redirect';
 
 export interface MealPrepSelections {
-  path: 'standard' | 'bundle' | 'catering' | 'crew_pack' | null;
+  path: 'standard' | 'bundle' | 'catering' | 'crew_pack' | 'desserts' | null;
   // Standard
   days?: number;
   plateType?: 'protein' | 'pasta';
@@ -65,6 +69,9 @@ export interface MealPrepSelections {
   crewOatFlavor?: string;
   crewGreensProtein?: string;
   crewNoHeatMeal?: string;
+  // Desserts
+  dessert?: string;
+  dessertCount?: string;
 }
 
 export interface ChatStep {
@@ -306,6 +313,39 @@ function buildCrewPackSummary(s: MealPrepSelections): string {
   return lines.join('\n');
 }
 
+interface DessertType {
+  name: string;
+  counts: string[];
+}
+
+const dessertTypes: DessertType[] = [
+  { name: 'Brownies', counts: ['12ct'] },
+  { name: 'Cheesecake Cupcakes', counts: ['12ct'] },
+  { name: 'Cake Batter Chocolate Chip Cookies', counts: ['12ct'] },
+  { name: 'Gourmet Cupcakes', counts: ['12ct'] },
+  { name: 'Truffles', counts: ['6ct', '12ct', '24ct'] },
+  { name: 'Bon Bons', counts: ['6ct', '12ct', '24ct'] },
+  { name: 'Cake Pop Shooters', counts: ['6ct', '12ct'] },
+  { name: '6oz Jar Cakes', counts: ['6ct'] },
+  { name: 'Chocolate Covered Strawberries', counts: ['6ct', '12ct'] },
+  { name: 'Infused Chocolate Covered Strawberries', counts: ['6ct', '12ct'] },
+];
+
+export function getDessertCounts(dessertName: string): string[] {
+  return dessertTypes.find(d => d.name === dessertName)?.counts ?? [];
+}
+
+function buildDessertSummary(s: MealPrepSelections): string {
+  const lines = [
+    `Here's your dessert order summary:`,
+    ``,
+    `Item: ${s.dessert} - ${s.dessertCount}`,
+    ``,
+    `Please email cherickseats@gmail.com to confirm your dessert order, including any flavor or customization preferences.`,
+  ];
+  return lines.join('\n');
+}
+
 // === Chat Steps State Machine ===
 
 export const chatSteps: Record<ChatStepId, ChatStep> = {
@@ -316,12 +356,14 @@ export const chatSteps: Record<ChatStepId, ChatStep> = {
       { label: 'Standard Meal Prep', value: 'standard' },
       { label: 'Meal Prep Bundles', value: 'bundle' },
       { label: 'Crew Packs', value: 'crew_pack' },
+      { label: 'Desserts', value: 'desserts' },
       { label: 'Catering', value: 'catering' },
     ],
     getNextStep: (value) => {
       if (value === 'standard') return 'standard_days';
       if (value === 'bundle') return 'bundle_select';
       if (value === 'crew_pack') return 'crew_pack_select';
+      if (value === 'desserts') return 'dessert_select';
       return 'catering_redirect';
     },
   },
@@ -552,6 +594,45 @@ export const chatSteps: Record<ChatStepId, ChatStep> = {
     botMessage: "Your crew pack has been added to your cart!",
     options: [
       { label: 'View Cart', value: 'view_cart' },
+      { label: 'Add Another', value: 'add_another' },
+    ],
+    getNextStep: () => 'welcome',
+  },
+
+  // --- Desserts ---
+
+  dessert_select: {
+    id: 'dessert_select',
+    botMessage: 'Which dessert would you like to order?',
+    options: dessertTypes.map(d => ({ label: d.name, value: d.name })),
+    getNextStep: (value) => {
+      const counts = getDessertCounts(value);
+      if (counts.length === 1) return 'dessert_summary';
+      return 'dessert_count';
+    },
+  },
+
+  dessert_count: {
+    id: 'dessert_count',
+    botMessage: (selections) => `How many ${selections.dessert} would you like?`,
+    options: [],
+    getNextStep: () => 'dessert_summary',
+  },
+
+  dessert_summary: {
+    id: 'dessert_summary',
+    botMessage: (selections) => buildDessertSummary(selections),
+    options: [
+      { label: 'Sounds Good', value: 'yes' },
+      { label: 'Start Over', value: 'no' },
+    ],
+    getNextStep: (value) => value === 'yes' ? 'dessert_confirm' : 'welcome',
+  },
+
+  dessert_confirm: {
+    id: 'dessert_confirm',
+    botMessage: "Your dessert order has been noted! Please email cherickseats@gmail.com to finalize your order.",
+    options: [
       { label: 'Add Another', value: 'add_another' },
     ],
     getNextStep: () => 'welcome',
