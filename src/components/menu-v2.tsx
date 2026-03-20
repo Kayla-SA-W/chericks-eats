@@ -68,11 +68,18 @@ const ButtonWrapper = styled.div`
 export const MenuSelection = styled.div`
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   flex-grow: 1;
   flex-direction: column;
-  padding: 20px;
+  padding: 20px 50px;
   border: 4px dotted #c4e2e8;
   font-family: "Libre Caslon Display";
+  width: 100%;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 1024px) {
+    padding: 20px 25px;
+  }
 `;
 
 const Flavors = styled.div`
@@ -107,11 +114,14 @@ const MenuTab = styled.div<{ active: boolean }>`
   }
 `;
 
-const SectionHeader = styled.div`
-  font-size: 24px;
+export const SectionHeader = styled.div`
+  font-size: 26px;
+  font-weight: bold;
   display: flex;
   align-self: center;
-  margin-bottom: 15px;
+  margin: 20px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 3px dotted #c4e2e8;
 `;
 
 const ItemName = styled.div`

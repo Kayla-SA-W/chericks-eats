@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import "@fontsource/libre-caslon-display";
 import "@fontsource/dancing-script";
 import { proteins, bases, veggies, sauces, pastas, pastaProteinAddOns } from '../data/meal-prep';
-import { MenuSelection, Title, Warning } from './menu-v2';
+import { MenuSelection, SectionHeader, Title, Warning } from './menu-v2';
 import { OrderNowButton } from './pill-button';
 
 const MenuWrapper = styled.div`
   width: 90vw;
+  margin: 0 auto;
   padding: 30px 30px;
   display: flex;
   flex-direction: column;
@@ -20,12 +21,6 @@ const MenuWrapper = styled.div`
   }
 `;
 
-const SectionHeader = styled.div`
-  font-size: 24px;
-  display: flex;
-  align-self: center;
-  margin: 20px 0 10px;
-`;
 
 const ItemName = styled.div`
   font-size: 18px;
@@ -36,6 +31,7 @@ const ItemName = styled.div`
 const ItemRow = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 10px 25px;
 
   @media screen and (max-width: 1024px) {
@@ -93,6 +89,7 @@ const PricingNote = styled(Warning)`
 
 const BundleCard = styled.div`
   margin: 15px 25px;
+  text-align: center;
 
   @media screen and (max-width: 1024px) {
     margin: 15px 10px;

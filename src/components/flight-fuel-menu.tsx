@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { flightFuelItems } from '../data/menu-items';
 import "@fontsource/libre-caslon-display";
-import { MenuSelection, Title, Warning } from './menu-v2';
+import { MenuSelection, SectionHeader, Title, Warning } from './menu-v2';
 import { OrderNowButton } from './pill-button';
 
 const FlightFuelOptions = styled.div`
@@ -10,6 +10,8 @@ const FlightFuelOptions = styled.div`
   flex-direction: column;
   margin: 15px 25px;
   justify-content: center;
+  align-items: center;
+  text-align: center;
 
   @media screen and (max-width: 1024px) {
     padding: 0 5px;
@@ -18,12 +20,6 @@ const FlightFuelOptions = styled.div`
   }
 `;
 
-const SectionHeader = styled.div`
-  font-size: 24px;
-  display: flex;
-  align-self: center;
-  margin-bottom: 15px;
-`;
 
 const ItemName = styled.div`
   font-size: 18px;
@@ -65,6 +61,7 @@ const TierName = styled.p`
 
 const MenuWrapper = styled.div`
   width: 90vw;
+  margin: 0 auto;
   padding: 30px 30px;
   display: flex;
   flex-direction: column;
@@ -167,17 +164,17 @@ const FlightFuelMenu = () => {
                 {tab === 'Crew Packs' && (
                     <>
                         <SectionHeader>Multi-Day Crew Packs</SectionHeader>
-                        <div style={{ margin: '15px' }}>
+                        <div style={{ margin: '15px', textAlign: 'center' }}>
                             <ItemName> 3-Day Turnaround Pack</ItemName>
                             <div>Includes 3 breakfasts, 3 lunches, 3 dinners, and 2 snacks</div>
                             <div>Starting at $90</div>
                         </div>
-                        <div style={{ margin: '15px' }}>
+                        <div style={{ margin: '15px', textAlign: 'center' }}>
                             <ItemName> 5-Day Reserve Crew Pack</ItemName>
                             <div>Includes 5 breakfasts, 5 lunches, 5 dinners, and 5 snacks</div>
                             <div>Starting at $145</div>
                         </div>
-                        <div style={{ margin: '15px' }}>
+                        <div style={{ margin: '15px', textAlign: 'center' }}>
                             <ItemName> Layover Essentials Pack</ItemName>
                             <div>Includes 1 breakfast, 2 no-heat meals, and 2 snacks</div>
                             <div>Starting at $55</div>
