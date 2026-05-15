@@ -7,8 +7,10 @@ import { SiteHead } from '../components/site-head';
 
 const GlobalStyle = createGlobalStyle`
 body {
+  background-color: #1a0e07;
   margin: 0;
   font-family: "Libre Caslon Display";
+  color: #f5edd8;
 }
 `
 

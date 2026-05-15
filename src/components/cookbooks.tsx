@@ -52,7 +52,7 @@ const Subtitle = styled.div`
   font-family: "Libre Caslon Display";
   font-size: 18px;
   text-align: center;
-  color: #555;
+  color: #c4a882;
   margin-bottom: 30px;
   padding: 0 20px;
 `;
@@ -67,7 +67,7 @@ const Grid = styled.div`
 `;
 
 const Card = styled.div`
-  border: 2px dotted #c4e2e8;
+  border: 2px dotted #3d1f0a;
   border-radius: 12px;
   padding: 30px 24px;
   display: flex;
@@ -86,39 +86,40 @@ const BookTitle = styled.div`
 const Price = styled.div`
   font-size: 22px;
   font-family: "Dancing Script";
-  color: #374577;
+  color: #d4a843;
   margin-bottom: 12px;
 `;
 
 const Description = styled.div`
   font-size: 15px;
   line-height: 1.6;
-  color: #444;
+  color: #c4a882;
   margin-bottom: 20px;
   flex: 1;
 `;
 
 const ActionButton = styled.button`
-  background-color: rgba(55, 69, 119, 0.23);
+  background-color: #2a1506;
+  border: 1px solid #d4a843;
   border-radius: 25px;
   padding: 10px 28px;
   font-size: 20px;
-  border: none;
   font-family: "Dancing Script";
   cursor: pointer;
-  color: black;
-  transition: background-color 0.3s ease;
+  color: #f5edd8;
+  transition: background-color 0.25s ease, color 0.25s ease;
   width: 100%;
 
   &:hover {
-    background-color: #c4e2e8;
+    background-color: #d4a843;
+    color: #1a0e07;
   }
 `;
 
 const InCartLabel = styled.div`
   font-family: "Libre Caslon Display";
   font-size: 14px;
-  color: #374577;
+  color: #d4a843;
   margin-bottom: 10px;
 `;
 

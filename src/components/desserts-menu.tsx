@@ -38,7 +38,7 @@ const ItemName = styled.div`
 
 const ItemDetail = styled.div`
   font-size: 14px;
-  color: #555;
+  color: #c4a882;
 `;
 
 const ItemRow = styled.div`
@@ -52,7 +52,7 @@ const ItemRow = styled.div`
 `;
 
 const PricingNote = styled(Warning)`
-  color: blue;
+  color: #d4a843;
   margin: 10px 25px;
   text-align: center;
 
@@ -72,9 +72,9 @@ const TabsContainer = styled.div`
 const MenuTab = styled.div<{ active: boolean }>`
   cursor: pointer;
   text-decoration: ${props => (props.active ? 'underline' : 'none')};
-  background-color: ${props => (props.active ? '#c4e2e8' : 'transparent')};
-  border: 4px dotted #c4e2e8;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: ${props => (props.active ? 'rgba(212, 168, 67, 0.18)' : 'transparent')};
+  border: 2px solid #3d1f0a;
+  color: #f5edd8;
   padding: 10px 15px;
   height: fit-content;
   width: auto;
@@ -85,12 +85,12 @@ const MenuTab = styled.div<{ active: boolean }>`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #c4e2e8;
+    background-color: rgba(212, 168, 67, 0.18);
   }
 `;
 
 const LastMenuTab = styled(MenuTab)`
-  border-right: 4px dotted #c4e2e8;
+  border-right: 2px solid #3d1f0a;
 `;
 
 const FlavorColumn = styled.div`
@@ -100,7 +100,7 @@ const FlavorColumn = styled.div`
 `;
 
 const FlavorTitle = styled(Warning)`
-  text-decoration: underline blue;
+  text-decoration: underline #d4a843;
   margin-bottom: 5px;
 `;
 

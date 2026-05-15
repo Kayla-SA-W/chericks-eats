@@ -44,7 +44,7 @@ const Warning = styled.div`
 `;
 
 const RedWarning = styled(Warning)`
-  color: red;
+  color: #e05c5c;
 `;
 
 const WarningContainer = styled.div`
@@ -58,7 +58,7 @@ const ChatContainer = styled.div`
   max-width: 700px;
   margin: 20px auto 0;
   height: 65vh;
-  border: 4px dotted #c4e2e8;
+  border: 2px solid #3d1f0a;
   border-radius: 8px;
   overflow: hidden;
   font-family: "Libre Caslon Display";
@@ -90,7 +90,7 @@ const MessageBubble = styled.div<{ sender: 'bot' | 'user' }>`
   line-height: 1.5;
   white-space: pre-line;
   align-self: ${props => props.sender === 'bot' ? 'flex-start' : 'flex-end'};
-  background-color: ${props => props.sender === 'bot' ? '#c4e2e8' : 'rgba(55, 69, 119, 0.23)'};
+  background-color: ${props => props.sender === 'bot' ? '#2a1506' : '#3d1f0a'};
   border-bottom-left-radius: ${props => props.sender === 'bot' ? '4px' : '18px'};
   border-bottom-right-radius: ${props => props.sender === 'user' ? '4px' : '18px'};
 
@@ -105,26 +105,27 @@ const OptionsContainer = styled.div`
   flex-wrap: wrap;
   gap: 8px;
   padding: 15px 20px;
-  border-top: 2px dotted #c4e2e8;
-  background-color: white;
+  border-top: 1px solid #3d1f0a;
+  background-color: #1a0e07;
   justify-content: center;
   min-height: 50px;
   align-items: center;
 `;
 
 const OptionChip = styled.button`
-  background-color: white;
-  border: 2px solid #c4e2e8;
+  background-color: #2a1506;
+  border: 1px solid #d4a843;
   border-radius: 25px;
   padding: 8px 20px;
   font-family: "Libre Caslon Display";
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease;
-  color: black;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.1s ease;
+  color: #f5edd8;
 
   &:hover {
-    background-color: #c4e2e8;
+    background-color: #d4a843;
+    color: #1a0e07;
     transform: scale(1.03);
   }
 
@@ -140,25 +141,26 @@ const OptionChip = styled.button`
 
 const ExtraCostBadge = styled.span`
   font-size: 12px;
-  color: #856e1e;
+  color: #d4a843;
   margin-left: 6px;
   font-family: "Libre Caslon Display";
 `;
 
 const ActionButton = styled.button`
-  background-color: rgba(55, 69, 119, 0.23);
+  background-color: #2a1506;
+  border: 1px solid #d4a843;
   border-radius: 25px;
   padding: 10px 25px;
   font-size: 20px;
-  border: none;
   font-family: 'Dancing Script';
   cursor: pointer;
-  color: black;
+  color: #f5edd8;
   margin: 4px 8px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
 
   &:hover {
-    background-color: #c4e2e8;
+    background-color: #d4a843;
+    color: #1a0e07;
   }
 `;
 
@@ -179,8 +181,9 @@ const DayDisplay = styled.span`
 `;
 
 const ChangeButton = styled.button`
-  background-color: white;
-  border: 2px solid #c4e2e8;
+  background-color: #2a1506;
+  border: 1px solid #d4a843;
+  color: #f5edd8;
   border-radius: 50%;
   width: 36px;
   height: 36px;
@@ -190,10 +193,11 @@ const ChangeButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 
   &:hover {
-    background-color: #c4e2e8;
+    background-color: #d4a843;
+    color: #1a0e07;
   }
 `;
 
@@ -213,7 +217,7 @@ const Dot = styled.div<{ delay: number }>`
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: rgba(55, 69, 119, 0.4);
+  background-color: rgba(212, 168, 67, 0.5);
   animation: ${bounce} 1.2s infinite;
   animation-delay: ${props => props.delay}ms;
 `;

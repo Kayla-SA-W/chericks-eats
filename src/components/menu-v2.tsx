@@ -72,7 +72,7 @@ export const MenuSelection = styled.div`
   flex-grow: 1;
   flex-direction: column;
   padding: 20px 50px;
-  border: 4px dotted #c4e2e8;
+  border: 2px solid #3d1f0a;
   font-family: "Libre Caslon Display";
   width: 100%;
   box-sizing: border-box;
@@ -97,8 +97,8 @@ const Flavors = styled.div`
 const MenuTab = styled.div<{ active: boolean }>`
   cursor: pointer;
   text-decoration: ${props => (props.active ? 'underline' : 'none')};
-  background-color: ${props => (props.active ? '#c4e2e8' : 'transparent')};
-  border: 4px dotted #c4e2e8;
+  background-color: ${props => (props.active ? 'rgba(212, 168, 67, 0.18)' : 'transparent')};
+  border: 2px solid #3d1f0a;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   padding: 10px 15px;
   height: fit-content;
@@ -110,7 +110,7 @@ const MenuTab = styled.div<{ active: boolean }>`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #c4e2e8;
+    background-color: rgba(212, 168, 67, 0.18);
   }
 `;
 
@@ -121,7 +121,7 @@ export const SectionHeader = styled.div`
   align-self: center;
   margin: 20px 0 10px;
   padding-bottom: 6px;
-  border-bottom: 3px dotted #c4e2e8;
+  border-bottom: 2px solid #d4a843;
 `;
 
 const ItemName = styled.div`
@@ -129,7 +129,7 @@ const ItemName = styled.div`
 `;
 
 const MarkingStar = styled.span`
-  color: blue;
+  color: #d4a843;
 `;
 
 const WarningContainer = styled.div`
@@ -143,7 +143,7 @@ const FlavorColumn = styled.div`
 `;
 
 const FlavorTitle = styled(Warning)`
-  text-decoration: underline blue;
+  text-decoration: underline #d4a843;
 `;
 
 export interface MenuItemSection {
@@ -196,15 +196,15 @@ const TabsContainer = styled.div`
 `;
 
 const LastMenuTab = styled(MenuTab)`
-  border-right: 4px dotted #c4e2e8;
+  border-right: 2px solid #3d1f0a;
 `;
 
 const RedWarning = styled(Warning)`
-  color: red;
+  color: #e05c5c;
 `;
 
 const BlueWarning = styled(Warning)`
-  color: blue;
+  color: #d4a843;
 `;
 
 type TabName = 'Pasta' | 'Veggie' | 'Protein' | 'Sides' | 'Desserts';

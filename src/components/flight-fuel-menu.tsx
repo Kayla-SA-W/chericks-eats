@@ -28,7 +28,7 @@ const ItemName = styled.div`
 `;
 
 const TitleWarning = styled(Warning)`
-  color: blue;
+  color: #d4a843;
   margin: 25px;
   text-align: center;
   font-size: 25px;
@@ -85,9 +85,9 @@ const TabsContainer = styled.div`
 const MenuTab = styled.div<{ active: boolean }>`
   cursor: pointer;
   text-decoration: ${props => (props.active ? 'underline' : 'none')};
-  background-color: ${props => (props.active ? '#c4e2e8' : 'transparent')};
-  border: 4px dotted #c4e2e8;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: ${props => (props.active ? 'rgba(212, 168, 67, 0.18)' : 'transparent')};
+  border: 2px solid #3d1f0a;
+  color: #f5edd8;
   padding: 10px 15px;
   height: fit-content;
   width: auto;
@@ -98,12 +98,12 @@ const MenuTab = styled.div<{ active: boolean }>`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #c4e2e8;
+    background-color: rgba(212, 168, 67, 0.18);
   }
 `;
 
 const LastMenuTab = styled(MenuTab)`
-  border-right: 4px dotted #c4e2e8;
+  border-right: 2px solid #3d1f0a;
 `;
 
 const subscriptionTiers = [
@@ -146,7 +146,7 @@ const FlightFuelMenu = () => {
                         {menuSections.map((section) => (
                             <React.Fragment key={section}>
                                 <SectionHeader>{section}</SectionHeader>
-                                <Warning style={{ color: 'blue' }}> Individual pricing ranges from {menuPricingCopy[menuSections.indexOf(section)]}</Warning>
+                                <Warning style={{ color: '#d4a843' }}> Individual pricing ranges from {menuPricingCopy[menuSections.indexOf(section)]}</Warning>
                                 {flightFuelItems
                                     .filter((option) => option.section === section)
                                     .map((option) => (

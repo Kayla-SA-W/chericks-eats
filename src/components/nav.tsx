@@ -1,27 +1,35 @@
 import React, { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
-import Instagram from '../images/instagram-logo-black.png'
-import Facebook from '../images/facebook-logo-black.png'
+import styled, { createGlobalStyle, keyframes } from 'styled-components';
+
+const LayoutStyle = createGlobalStyle`
+  #___gatsby,
+  #gatsby-focus-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+`
+import Instagram from '../images/instagram-logo.png'
+import Facebook from '../images/facebook-logo.png'
 import "@fontsource/dancing-script"
 import "@fontsource/libre-caslon-display"
 
 const NavBar = styled.div`
-    height: 60px;
-    background-color: white;
+    height: 64px;
+    background-color: #1a0e07;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 30px;
+    border-bottom: 1px solid #3d1f0a;
 `
 
 const SiteName = styled.a`
     text-decoration: none;
-    color: black;
+    color: #d4a843;
     font-family: "Dancing Script";
-    font-size: 30px;
-    @media screen and (max-width: 1024px){
-        font-size: 22px;
-    }
+    font-size: 32px;
+    @media screen and (max-width: 1024px) { font-size: 24px; }
 `
 
 const HamburgerButton = styled.button`
@@ -39,7 +47,7 @@ const HamburgerLine = styled.span<{ $open: boolean }>`
     display: block;
     width: 24px;
     height: 2px;
-    background-color: black;
+    background-color: #d4a843;
     transition: transform 0.3s ease, opacity 0.3s ease;
 
     &:nth-child(1) {
@@ -69,7 +77,7 @@ const Overlay = styled.div<{ $open: boolean }>`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 999;
     opacity: ${props => props.$open ? 1 : 0};
     visibility: ${props => props.$open ? 'visible' : 'hidden'};
@@ -82,31 +90,26 @@ const SlidePanel = styled.div<{ $open: boolean; $closing: boolean }>`
     right: 0;
     width: 280px;
     height: 100%;
-    background-color: white;
+    background-color: #2a1506;
+    border-left: 1px solid #3d1f0a;
     z-index: 1000;
     display: flex;
     flex-direction: column;
     padding: 80px 30px 30px;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
     animation: ${props => props.$closing ? slideOut : slideIn} 0.3s ease forwards;
 
-    @media screen and (max-width: 1024px){
-        width: 240px;
-    }
+    @media screen and (max-width: 1024px) { width: 240px; }
 `
 
 export const StyledMenuLink = styled.a`
     height: fit-content;
     text-decoration: none;
     font-family: "Libre Caslon Display";
-    color: black;
+    color: #f5edd8;
     font-size: 18px;
     padding: 12px 0;
-    text-decoration: underline 0.15em rgba(0, 0, 0, 0);
-    transition: text-decoration-color 300ms;
-    &:hover {
-        text-decoration-color: #c4e2e8;
-    }
+    transition: color 0.2s;
+    &:hover { color: #d4a843; }
 `
 
 const Socials = styled.div`
@@ -114,12 +117,14 @@ const Socials = styled.div`
     gap: 15px;
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 1px dotted #c4e2e8;
+    border-top: 1px solid #3d1f0a;
 `
 
 const FooterBar = styled.div`
+    margin-top: auto;
+    background-color: #130803;
+    border-top: 1px solid #3d1f0a;
     height: 60px;
-    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -128,8 +133,9 @@ const FooterBar = styled.div`
 
 const FooterText = styled.span`
     font-family: "Libre Caslon Display";
-    font-size: 14px;
-    color: black;
+    font-size: 13px;
+    color: #a07840;
+    letter-spacing: 0.04em;
 `
 
 export const Nav = ({ header }: { header: boolean }) => {
@@ -154,15 +160,18 @@ export const Nav = ({ header }: { header: boolean }) => {
 
     if (!header) {
         return (
-            <FooterBar>
-                <FooterText>© 2021 Cherick's Eats</FooterText>
-                <a href="https://www.instagram.com/chericks_eats/" target="_blank" rel="noopener noreferrer">
-                    <img src={Instagram} style={{ height: '20px' }} alt="Instagram" />
-                </a>
-                <a href="https://facebook.com/chericks_eats-102433328551606/" target="_blank" rel="noopener noreferrer">
-                    <img src={Facebook} style={{ height: '20px' }} alt="Facebook" />
-                </a>
-            </FooterBar>
+            <>
+                <LayoutStyle />
+                <FooterBar>
+                    <FooterText>© 2021 Cherick's Eats</FooterText>
+                    <a href="https://www.instagram.com/chericks_eats/" target="_blank" rel="noopener noreferrer">
+                        <img src={Instagram} style={{ height: '20px' }} alt="Instagram" />
+                    </a>
+                    <a href="https://facebook.com/chericks_eats-102433328551606/" target="_blank" rel="noopener noreferrer">
+                        <img src={Facebook} style={{ height: '20px' }} alt="Facebook" />
+                    </a>
+                </FooterBar>
+            </>
         );
     }
 

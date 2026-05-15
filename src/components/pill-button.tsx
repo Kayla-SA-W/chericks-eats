@@ -4,18 +4,23 @@ import "@fontsource/dancing-script";
 import { Cart } from '../context';
 
 const StyledPill = styled.a`
-    background-color: rgba(55, 69, 119, 0.23);
+    background-color: #2a1506;
+    border: 1px solid #d4a843;
     border-radius: 25px;
     padding: 10px 25px;
     font-size: 25px;
-    border-color: rgba(55, 69, 119, 0.23);
     font-family: 'Dancing Script';
     width: fit-content;
     justify-content: center;
     text-decoration: none;
-    color: black;
+    color: #f5edd8;
     margin-top: 25px;
     text-align: center;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    &:hover {
+        background-color: #d4a843;
+        color: #1a0e07;
+    }
 `
 
 export const OrderNowButton = ({ location, text, style }: { location?: string; text: string; style?: CSSObject }) => (
@@ -23,46 +28,55 @@ export const OrderNowButton = ({ location, text, style }: { location?: string; t
 );
 
 export const StyledPillButton = styled.button`
-    background-color: rgba(55, 69, 119, 0.23);
+    background-color: #2a1506;
+    border: 1px solid #d4a843;
     border-radius: 25px;
     padding: 10px 25px;
     font-size: 25px;
-    border: none;
     font-family: 'Dancing Script';
     width: 150px;
     justify-content: center;
     text-decoration: none;
-    color: black;
+    color: #f5edd8;
     margin-top: 25px;
     cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    &:hover {
+        background-color: #d4a843;
+        color: #1a0e07;
+    }
 `
 
 const StyledInput = styled.input`
-place-self: center;
-width: 35px;
-background-color: white;
-font-family: 'Dancing Script';
-border: none;
-text-align: center;
-outline: none;
-padding: 0px;
+    place-self: center;
+    width: 35px;
+    background-color: #2a1506;
+    color: #f5edd8;
+    font-family: 'Dancing Script';
+    border: none;
+    text-align: center;
+    outline: none;
+    padding: 0px;
 `
 
 const ChangeButtons = styled.button`
-background-color: inherit;
-border: none;
-font-size: 22px;
-font-family: 'Dancing Script';
+    background-color: inherit;
+    border: none;
+    font-size: 22px;
+    font-family: 'Dancing Script';
+    color: #f5edd8;
+    cursor: pointer;
 `
 
 const CounterButtonWrapper = styled(props => <div {...props} />)`
-display: grid;
-grid-template-columns: 33% 33% 33%;
-place-items: center;
-border: 1px solid #c4e2e8;
-margin-left: 20px;
-width: fit-content;
-height: 31px;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    place-items: center;
+    border: 1px solid #d4a843;
+    margin-left: 20px;
+    width: fit-content;
+    height: 31px;
+    background-color: #2a1506;
 `
 
 interface CounterButton {
@@ -88,8 +102,8 @@ export const CounterButton = ({ currentProduct, updateCart, singleItem, style }:
     return (
         <CounterButtonWrapper style={style}>
             <ChangeButtons
-            style={{borderRight: '1px solid rgba(55, 69, 119, 0.23)', placeSelf: 'center'}}
-                onClick={() => { 
+                style={{borderRight: '1px solid #3d1f0a', placeSelf: 'center'}}
+                onClick={() => {
                     updateValues({currentValue: currentProduct.quantity, subtraction: true})
                 }}
             >
@@ -98,19 +112,18 @@ export const CounterButton = ({ currentProduct, updateCart, singleItem, style }:
             <StyledInput type='text'
                 readOnly
                 value={currentProduct.quantity}
-                onChange={(event) => { 
+                onChange={(event) => {
                     updateValues({currentValue: parseInt(event.target.value)})
                  }}
             />
             <ChangeButtons
-                style={{borderLeft: '1px solid rgba(55, 69, 119, 0.23)', placeSelf: 'center'}}
-                onClick={() => { 
+                style={{borderLeft: '1px solid #3d1f0a', placeSelf: 'center'}}
+                onClick={() => {
                     updateValues({currentValue: currentProduct.quantity, addition: true})
                 }}
             >
                 +
             </ChangeButtons>
         </CounterButtonWrapper>
-
     )
 }

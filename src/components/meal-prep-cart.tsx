@@ -23,11 +23,11 @@ const EmptyMessage = styled.div`
   text-align: center;
   font-size: 18px;
   margin: 40px 0;
-  color: #666;
+  color: #c4a882;
 `;
 
 const OrderCard = styled.div`
-  border: 2px dotted #c4e2e8;
+  border: 2px dotted #3d1f0a;
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 16px;
@@ -48,7 +48,7 @@ const OrderTitle = styled.div`
 const RemoveButton = styled.button`
   background: none;
   border: none;
-  color: #c44;
+  color: #e05c5c;
   font-family: "Libre Caslon Display";
   font-size: 14px;
   cursor: pointer;
@@ -60,7 +60,7 @@ const RemoveButton = styled.button`
 const OrderDetail = styled.div`
   font-size: 15px;
   line-height: 1.8;
-  color: #333;
+  color: #f5edd8;
 `;
 
 const OrderTotal = styled.div`
@@ -72,7 +72,7 @@ const OrderTotal = styled.div`
 
 const Divider = styled.hr`
   border: none;
-  border-top: 1px solid #c4e2e8;
+  border-top: 1px solid #3d1f0a;
   margin: 20px 0;
 `;
 
@@ -98,25 +98,26 @@ const ActionRow = styled.div`
 `;
 
 const ActionButton = styled.button`
-  background-color: rgba(55, 69, 119, 0.23);
+  background-color: #2a1506;
+  border: 1px solid #d4a843;
   border-radius: 25px;
   padding: 12px 30px;
   font-size: 20px;
-  border: none;
   font-family: 'Dancing Script';
   cursor: pointer;
-  color: black;
-  transition: background-color 0.3s ease;
+  color: #f5edd8;
+  transition: background-color 0.25s ease, color 0.25s ease;
 
   &:hover {
-    background-color: #c4e2e8;
+    background-color: #d4a843;
+    color: #1a0e07;
   }
 `;
 
 const SectionLabel = styled.div`
   font-family: "Dancing Script";
   font-size: 20px;
-  color: #555;
+  color: #c4a882;
   margin: 20px 0 10px;
 `;
 

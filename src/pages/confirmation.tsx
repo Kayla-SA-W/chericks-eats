@@ -8,8 +8,10 @@ import { SiteHead } from '../components/site-head';
 
 const GlobalStyle = createGlobalStyle`
 body {
+  background-color: #1a0e07;
   margin: 0;
   font-family: "Libre Caslon Display";
+  color: #f5edd8;
 }
 `
 
@@ -44,17 +46,19 @@ margin-top: 10px;
 
 const DownloadLink = styled.a`
 display: inline-block;
-background-color: #c4e2e8;
+background-color: #2a1506;
+border: 1px solid #d4a843;
 border-radius: 25px;
 padding: 10px 28px;
 font-size: 18px;
 font-family: "Dancing Script";
-color: black;
+color: #f5edd8;
 text-decoration: none;
-transition: background-color 0.3s ease;
+transition: background-color 0.3s ease, color 0.3s ease;
 
 &:hover {
-    background-color: rgba(55, 69, 119, 0.23);
+    background-color: #d4a843;
+    color: #1a0e07;
 }
 `
 
@@ -114,7 +118,7 @@ const ConfirmationPage = () => {
                         ))}
                     </DownloadsSection>
                 )}
-                <OrderNowButton style={{backgroundColor: '#E77878'}} location='' text='Return Home'/>
+                <OrderNowButton style={{backgroundColor: '#d4a843', color: '#1a0e07'}} location='' text='Return Home'/>
             </MessageWrapper>
         </>
     )

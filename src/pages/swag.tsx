@@ -8,8 +8,10 @@ import { SiteHead } from '../components/site-head';
 
 const GlobalStyle = createGlobalStyle`
 body {
+  background-color: #1a0e07;
   margin: 0;
-  font-family: "Dancing Script";
+  font-family: "Libre Caslon Display";
+  color: #f5edd8;
 }
 `
 
@@ -33,7 +35,7 @@ const Swag = () => {
             </div>
             <MessageWrapper>
                 <div>Swag Shop Coming Soon</div>
-                <OrderNowButton style={{backgroundColor: '#c4e2e8'}} location='' text='Return Home'/>
+                <OrderNowButton style={{backgroundColor: '#d4a843', color: '#1a0e07'}} location='' text='Return Home'/>
             </MessageWrapper>
 
         </>
