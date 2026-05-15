@@ -2,6 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import "@fontsource/dancing-script";
 import Cherick from '../images/cherick-about-me.jpeg';
+import CelebPhoto from '../images/cherick/celeb.jpeg';
+import CookingPhoto from '../images/cherick/cooking.jpeg';
+import RestaurantAssocPhoto from '../images/cherick/resturant-association.jpeg';
+import WithCarlosPhoto from '../images/cherick/with-carlos.jpeg';
 
 const BodyWrapper = styled.div`
     background-color: #1a0e07;
@@ -57,6 +61,32 @@ const AboutMeImage = styled.img`
     }
 `
 
+const PhotoGrid = styled.div`
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    width: 50%;
+    margin-bottom: 80px;
+
+    @media screen and (max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        gap: 4px;
+        margin-bottom: 40px;
+    }
+`
+
+const GridPhoto = styled.img`
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+
+    @media screen and (max-width: 1024px) {
+        height: 160px;
+    }
+`
+
 export const AboutMeContent = () => {
     return (
         <BodyWrapper>
@@ -74,6 +104,12 @@ export const AboutMeContent = () => {
                 </AboutMeSummary>
                 <AboutMeImage src={Cherick} alt='Image of CEO Cherick Logan' style={{height: '400px'}} />
             </ContentWrapper>
+            <PhotoGrid>
+                <GridPhoto src={CelebPhoto} alt="Cherick at a celebration" />
+                <GridPhoto src={CookingPhoto} alt="Cherick cooking" />
+                <GridPhoto src={RestaurantAssocPhoto} alt="Cherick at restaurant association event" />
+                <GridPhoto src={WithCarlosPhoto} alt="Cherick with Carlos" />
+            </PhotoGrid>
         </BodyWrapper>
     )
 }

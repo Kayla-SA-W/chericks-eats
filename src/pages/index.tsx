@@ -6,11 +6,11 @@ import styled from 'styled-components';
 import { Nav } from "../components/nav";
 import { SiteHead } from '../components/site-head';
 import CardBg from '../images/food/card.jpg';
-import SalmonImg from '../images/food/lemon-salmon.jpg';
-import MealPrepImg from '../images/food/meal-prep.jpeg';
-import LomeinImg from '../images/food/lomein.jpg';
-import DessertImg from '../images/food/cheesecake.jpg';
-import TableImg from '../images/food/cherick-table-menu.jpg';
+import SalmonImg from '../images/food/single-meal.png';
+import MealPrepImg from '../images/food/meal-prep.png';
+import LomeinImg from '../images/food/meal-prep-2.png';
+import DessertImg from '../images/food/cupcakes.jpeg';
+import TableImg from '../images/food/full-meal-prep.png';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -446,13 +446,13 @@ const IndexPage = () => {
             <MenuTileImage src={MealPrepImg} alt="Meal Prep" />
             <MenuTileLabel>Meal Prep<GoldDot /></MenuTileLabel>
           </MenuTile>
-          <MenuTile href="/flight-fuel">
-            <MenuTileImage src={LomeinImg} alt="Flight Fuel" />
-            <MenuTileLabel>Flight Fuel<GoldDot /></MenuTileLabel>
-          </MenuTile>
           <MenuTile href="/desserts">
             <MenuTileImage src={DessertImg} alt="Desserts" />
             <MenuTileLabel>Desserts<GoldDot /></MenuTileLabel>
+          </MenuTile>
+          <MenuTile href="/flight-fuel">
+            <MenuTileImage src={LomeinImg} alt="Flight Fuel" />
+            <MenuTileLabel>Flight Fuel<GoldDot /></MenuTileLabel>
           </MenuTile>
           <MenuTile href="/order">
             <MenuTileImage src={TableImg} alt="Specialty Orders" />
