@@ -7,13 +7,11 @@ export const useSessionStorage = <TValue>(
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState<TValue>(() => {
+    if (typeof window === 'undefined') return initialValue;
     try {
-      // Get from local storage by key
       const item = window.sessionStorage.getItem(key);
-      // Parse stored json or if none return initialValue
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      // If error also return initialValue
       console.error(error);
       return initialValue;
     }
@@ -28,7 +26,7 @@ export const useSessionStorage = <TValue>(
       // Save state
       setStoredValue(valueToStore);
       // Save to local storage
-      window.sessionStorage.setItem(key, JSON.stringify(valueToStore));
+      if (typeof window !== 'undefined') window.sessionStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
       // A more advanced implementation would handle the error case
       console.error(error);
