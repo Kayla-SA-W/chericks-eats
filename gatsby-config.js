@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `ChericksEats`,
-    siteUrl: `https://www.yourdomain.tld`
+    siteUrl: `https://www.cherickseats.com`
   },
   plugins: [
     {
@@ -12,8 +12,17 @@ module.exports = {
         },
     },
     `gatsby-plugin-image`,
-      `gatsby-transformer-sharp`, 
-      `gatsby-plugin-sharp`,
-      `gatsby-plugin-styled-components`
-]
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-styled-components`,
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-robots-txt`,
+      options: {
+        host: `https://www.cherickseats.com`,
+        sitemap: `https://www.cherickseats.com/sitemap-index.xml`,
+        policy: [{ userAgent: '*', allow: '/' }],
+      },
+    },
+  ]
 };

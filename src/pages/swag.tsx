@@ -4,6 +4,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { MessageWrapper } from './404';
 import Swag3 from '../images/food/swag3.jpg';
 import { Nav } from '../components/nav';
+import { SiteHead } from '../components/site-head';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -40,3 +41,4 @@ const Swag = () => {
 }
 
 export default Swag;
+export const Head = () => <SiteHead title="Swag | Cherick's Eats" description="Shop Cherick's Eats merchandise and show your love for great food and healthy living." path="/swag" />;

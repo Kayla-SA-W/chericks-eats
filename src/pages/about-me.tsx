@@ -3,6 +3,7 @@ import { AboutMeContent } from '../components/about-me';
 import { createGlobalStyle } from 'styled-components';
 import "@fontsource/libre-caslon-display";
 import { Nav } from '../components/nav';
+import { SiteHead } from '../components/site-head';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -25,3 +26,4 @@ const AboutMe = () => {
 };
 
 export default AboutMe;
+export const Head = () => <SiteHead title="About Me | Cherick's Eats" description="Learn the story behind Cherick's Eats, a home-based meal prep and catering business serving Orlando, FL and surrounding areas." path="/about-me" />;

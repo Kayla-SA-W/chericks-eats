@@ -4,6 +4,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import ThankYouImage from '../images/thank-you.png';
 import { OrderNowButton } from '../components/pill-button';
 import { MealPrepCartContext, CookbookItem } from '../context/meal-prep-cart';
+import { SiteHead } from '../components/site-head';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -120,3 +121,4 @@ const ConfirmationPage = () => {
 }
 
 export default ConfirmationPage;
+export const Head = () => <SiteHead title="Order Confirmed | Cherick's Eats" noindex path="/confirmation" />;

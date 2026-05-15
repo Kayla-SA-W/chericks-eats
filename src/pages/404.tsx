@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import FourOhFourImage from '../images/error-404.png';
 import { OrderNowButton } from '../components/pill-button';
 import { Nav } from '../components/nav';
+import { SiteHead } from '../components/site-head';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -49,3 +50,4 @@ const FourOhFour = () => {
 }
 
 export default FourOhFour;
+export const Head = () => <SiteHead title="Page Not Found | Cherick's Eats" noindex path="/404" />;

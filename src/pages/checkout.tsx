@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import "@fontsource/libre-caslon-display";
 import MockCheckout from "../components/checkout/temporary-checkout-page";
 import { Nav } from "../components/nav";
+import { SiteHead } from '../components/site-head';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -24,3 +25,4 @@ const Checkout = () => {
 }
 
 export default Checkout
+export const Head = () => <SiteHead title="Checkout | Cherick's Eats" noindex path="/checkout" />;

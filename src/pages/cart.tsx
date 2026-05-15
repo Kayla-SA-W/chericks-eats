@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import "@fontsource/dancing-script";
 import { MealPrepCartContent } from "../components/meal-prep-cart";
 import { Nav } from "../components/nav";
+import { SiteHead } from '../components/site-head';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -25,3 +26,4 @@ const Cart = () => {
 }
 
 export default Cart
+export const Head = () => <SiteHead title="Cart | Cherick's Eats" noindex path="/cart" />;

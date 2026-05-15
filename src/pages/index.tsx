@@ -6,6 +6,7 @@ import { Nav } from "../components/nav";
 import Card from '../images/food/card.jpg';
 import { FloatingTiles } from "../components/floating-tiles";
 import { HomepageBody } from "../components/rolling-reviews";
+import { SiteHead } from '../components/site-head';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -89,3 +90,4 @@ const IndexPage = () => {
 }
 
 export default IndexPage
+export const Head = () => <SiteHead path="/" />;

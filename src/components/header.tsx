@@ -81,7 +81,7 @@ export const Header = () => {
 
     return (
         <HeaderWrapper>
-            <div
+<div
                 style={{ cursor: 'pointer', width: 'fit-content'}}
                 onClick={() => setMenuOpen(!menuOpen)}
             >

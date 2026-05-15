@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import "@fontsource/dancing-script";
 import { Nav } from "../components/nav";
 import { MealPrepChat } from "../components/meal-prep-menu";
+import { SiteHead } from '../components/site-head';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -25,3 +26,4 @@ const MealPrep = () => {
 }
 
 export default MealPrep
+export const Head = () => <SiteHead title="Order | Cherick's Eats" noindex path="/order" />;

@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import "@fontsource/dancing-script";
 import { Nav } from "../components/nav";
 import FlightFuelMenu from "../components/flight-fuel-menu";
+import { SiteHead } from '../components/site-head';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -25,3 +26,4 @@ const FlightFuel = () => {
 }
 
 export default FlightFuel
+export const Head = () => <SiteHead title="Flight Fuel | Cherick's Eats" description="Cherick's Eats Flight Fuel — nutritious, travel-ready meals designed to keep you energized on the go." path="/flight-fuel" />;

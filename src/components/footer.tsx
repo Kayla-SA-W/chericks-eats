@@ -50,6 +50,9 @@ export const Footer = () => {
             <div>
                 Cherick's Eats Est.2021
             </div>
+            <div>
+                Serving Orlando, FL & surrounding areas.
+            </div>
         </FooterWrapper>
     )
 }
