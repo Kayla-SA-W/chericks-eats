@@ -260,6 +260,55 @@ const CenteredButton = styled.a`
   }
 `
 
+// ─── How It Works teaser ──────────────────────────────────────────────────────
+
+const HiwSection = styled.section`
+  background-color: #130803;
+  padding: 90px 8%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  border-top: 1px solid #3d1f0a;
+  border-bottom: 1px solid #3d1f0a;
+`
+
+const HiwQuote = styled.p`
+  font-family: "Dancing Script";
+  font-size: 68px;
+  color: #d4a843;
+  margin: 0;
+  line-height: 1.2;
+  text-shadow: 0 2px 24px rgba(212, 168, 67, 0.2);
+  @media screen and (max-width: 1024px) { font-size: 40px; }
+`
+
+const HiwSubtext = styled.p`
+  font-family: "Libre Caslon Display";
+  font-size: 16px;
+  color: #c4a882;
+  margin: 0;
+  letter-spacing: 0.04em;
+`
+
+const HiwButton = styled.a`
+  text-decoration: none;
+  color: #f5edd8;
+  border: 1px solid #d4a843;
+  padding: 14px 44px;
+  font-family: "Libre Caslon Display";
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  margin-top: 12px;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+  &:hover {
+    background-color: #d4a843;
+    border-color: #d4a843;
+    color: #1a0e07;
+  }
+`
+
 // ─── CTA ─────────────────────────────────────────────────────────────────────
 
 const CtaSection = styled.section`
@@ -379,6 +428,12 @@ const IndexPage = () => {
           </ParchmentChecklist>
         </ParchmentCard>
       </RusticSection>
+
+      <HiwSection>
+        <HiwQuote>Fueling Taste. Elevating Standards.</HiwQuote>
+        <HiwSubtext>Fresh meals. Bold flavor. Built for your life.</HiwSubtext>
+        <HiwButton href="/how-it-works">See How It Works →</HiwButton>
+      </HiwSection>
 
       <FeaturedSection>
         <SectionHeader>
