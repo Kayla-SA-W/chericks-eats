@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import styled, { createGlobalStyle, keyframes } from 'styled-components';
 
 const LayoutStyle = createGlobalStyle`
+  html, body {
+    background-color: #1a0e07;
+    margin: 0;
+    font-family: "Libre Caslon Display";
+    color: #f5edd8;
+  }
   #___gatsby,
   #gatsby-focus-wrapper {
     display: flex;
