@@ -28,6 +28,7 @@ const ContentWrapper = styled.div`
     width: 50%;
     align-items: center;
     justify-items: center;
+    overflow: hidden;
     margin: 35px 0 80px;
     @media screen and (max-width: 1024px) {
         grid-template-columns: 1fr;
@@ -109,7 +110,7 @@ export const AboutMeContent = () => {
                     and delivering warm, genuine hospitality through food. Whether I'm preparing a catered
                     event or sharing a recipe, my goal is simple: to serve meals that are flavorful, comforting, and made with care.
                 </AboutMeSummary>
-                <AboutMeImage src={Cherick} alt='Image of CEO Cherick Logan' />
+                <AboutMeImage src={Cherick} alt='Image of CEO Cherick Logan' style={{ height: '400px', width: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }} />
             </ContentWrapper>
             <PhotoGrid>
                 <GridPhoto src={CelebPhoto} alt="Cherick at a celebration" />
