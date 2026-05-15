@@ -39,6 +39,7 @@ const ItemName = styled.div`
 const ItemDetail = styled.div`
   font-size: 14px;
   color: #c4a882;
+  text-align: center;
 `;
 
 const ItemRow = styled.div`
