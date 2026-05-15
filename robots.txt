@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.cherickseats.com/sitemap-index.xml
+Host: https://www.cherickseats.com
