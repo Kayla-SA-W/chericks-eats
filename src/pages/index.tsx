@@ -407,7 +407,7 @@ const IndexPage = () => {
           <HeroLocation>Meal Prep Services in Orlando</HeroLocation>
           <HeroSubtitle>Elevated Comfort. Crafted With Intention.</HeroSubtitle>
           <HeroButtons>
-            <HeroButton href="/menu">View Menu</HeroButton>
+            <HeroButton href="/meal-prep">View Menu</HeroButton>
             <HeroButton href="/order">Order Now</HeroButton>
           </HeroButtons>
         </HeroContent>
@@ -459,7 +459,7 @@ const IndexPage = () => {
             <MenuTileLabel>Specialty Orders<GoldDot /></MenuTileLabel>
           </MenuTile>
         </MenuGrid>
-        <CenteredButton href="/menu">Explore Full Menu</CenteredButton>
+        <CenteredButton href="/meal-prep">Explore Full Menu</CenteredButton>
       </FeaturedSection>
 
       <CtaSection>
